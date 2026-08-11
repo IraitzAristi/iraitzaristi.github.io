@@ -1,0 +1,31 @@
+{
+  "title": "Writeups",
+  "kicker": "field notes",
+  "tagline": "notas de campo",
+  "intro": "Colección de writeups de CTF y retos de seguridad. Elige una sección en el índice de la izquierda.",
+
+  "sections": [
+    {
+      "name": "Web",
+      "writeups": [
+        {
+          "title": "XSS reflejado en el buscador",
+          "file": "writeups/web/example-xss.md",
+          "date": "2026-01-10",
+          "tags": ["xss", "medium"]
+        }
+      ]
+    },
+    {
+      "name": "Pwn",
+      "writeups": [
+        {
+          "title": "Buffer overflow básico (ret2win)",
+          "file": "writeups/pwn/example-bof.md",
+          "date": "2026-01-14",
+          "tags": ["stack", "bof", "high"]
+        }
+      ]
+    }
+  ]
+}
