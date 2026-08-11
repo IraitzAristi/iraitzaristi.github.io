@@ -7,7 +7,7 @@
     "links": [
       { "label": "GitHub", "url": "https://github.com/tu-usuario" },
       { "label": "HackTheBox", "url": "https://app.hackthebox.com/profile/000000" },
-      { "label": "LinkedIn", "url": "https://linkedin.com/in/tu-perfil" }
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/IraitzAristi" }
     ],
     "skills": [
       "Web exploitation", "Active Directory", "Linux privesc",
