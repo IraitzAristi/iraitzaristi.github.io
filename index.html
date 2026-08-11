@@ -136,13 +136,35 @@
     .view-head .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
     .view-head h2 { font-family: var(--mono); font-size: 30px; letter-spacing: -0.02em; margin: 8px 0 0; }
 
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    /* Filtros agrupados por criterio */
+    .filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+    .filter-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .filter-label {
+      font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--muted);
+      width: 92px; flex-shrink: 0; text-align: right;
+    }
+    .chip-set { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip {
       font-family: var(--mono); font-size: 12px; padding: 6px 12px; cursor: pointer;
       background: var(--surface); border: 1px solid var(--border); color: var(--muted);
     }
     .chip:hover { color: var(--text); }
     .chip.active { border-color: var(--accent); color: var(--accent); background: var(--surface-2); }
+    /* Punto de color por dificultad (solo el punto, el texto no cambia) */
+    .chip-diff { display: inline-flex; align-items: center; gap: 7px; }
+    .chip-diff::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex-shrink: 0; }
+    .chip-diff.easy   { --dot: var(--easy); }
+    .chip-diff.medium { --dot: var(--medium); }
+    .chip-diff.hard   { --dot: var(--hard); }
+    .chip-diff.insane { --dot: var(--insane); }
+    /* Botón de limpiar (aparece solo con filtros activos) */
+    .chip-reset { align-self: flex-start; border-style: dashed; }
+    .chip-reset:hover { color: var(--hard); border-color: var(--hard); }
+
+    @media (max-width: 860px) {
+      .filter-label { width: auto; text-align: left; }
+    }
 
     /* Tabla (desktop) */
     .machines-table { width: 100%; border-collapse: collapse; }
@@ -363,8 +385,11 @@
       const platforms = [...new Set(machines.map(m => m.platform).filter(Boolean))];
       const diffs = ['Easy', 'Medium', 'Hard', 'Insane'].filter(d => machines.some(m => (m.difficulty || '') === d));
 
-      const chip = (label, group, val) =>
-        `<button class="chip ${filters[group] === val ? 'active' : ''}" data-group="${group}" data-val="${esc(val)}">${esc(label)}</button>`;
+      const chip = (label, group, val) => {
+        // los chips de dificultad llevan un punto del color correspondiente
+        const diffCls = group === 'difficulty' ? ' chip-diff ' + val.toLowerCase() : '';
+        return `<button class="chip${diffCls} ${filters[group] === val ? 'active' : ''}" data-group="${group}" data-val="${esc(val)}">${esc(label)}</button>`;
+      };
 
       const platChips = platforms.map(pl => chip(pl, 'platform', pl)).join('');
       const diffChips = diffs.map(d => chip(d, 'difficulty', d)).join('');
@@ -396,8 +421,17 @@
           <h2>Máquinas</h2>
         </div>
         <div class="filters">
-          <button class="chip ${!filters.platform && !filters.difficulty ? 'active' : ''}" data-group="reset" data-val="">Todas</button>
-          ${platChips}${diffChips}
+          <div class="filter-row">
+            <span class="filter-label">Plataforma</span>
+            <div class="chip-set">${platChips}</div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">Dificultad</span>
+            <div class="chip-set">${diffChips}</div>
+          </div>
+          ${(filters.platform || filters.difficulty)
+            ? '<button class="chip chip-reset" data-group="reset" data-val="">✕ Limpiar filtros</button>'
+            : ''}
         </div>
         <table class="machines-table">
           <thead><tr><th>Máquina</th><th>Plataforma</th><th>Dificultad</th><th>SO</th><th>Fecha</th></tr></thead>
