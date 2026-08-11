@@ -5,9 +5,9 @@
     "pitch": "Rompo cosas para entender cómo protegerlas. Aquí documento máquinas, retos y proyectos: cada writeup es una prueba de lo que sé hacer, de la enumeración inicial hasta el root.",
     "location": "España",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/tu-usuario" },
+      { "label": "GitHub", "url": "https://github.com/IraitzAristi" },
       { "label": "HackTheBox", "url": "https://app.hackthebox.com/profile/000000" },
-      { "label": "LinkedIn", "url": "https://linkedin.com/in/tu-perfil" }
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/iraitz-a-897731297" }
     ],
     "skills": [
       "Web exploitation", "Active Directory", "Linux privesc",
