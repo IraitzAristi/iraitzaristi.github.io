@@ -1,0 +1,53 @@
+{
+  "profile": {
+    "handle": "tu-alias",
+    "role": "Penetration Tester · CTF player",
+    "pitch": "Rompo cosas para entender cómo protegerlas. Aquí documento máquinas, retos y proyectos: cada writeup es una prueba de lo que sé hacer, de la enumeración inicial hasta el root.",
+    "location": "España",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/tu-usuario" },
+      { "label": "HackTheBox", "url": "https://app.hackthebox.com/profile/000000" },
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/tu-perfil" }
+    ],
+    "skills": [
+      "Web exploitation", "Active Directory", "Linux privesc",
+      "Windows privesc", "Binary exploitation", "Enumeración",
+      "Python", "Bash"
+    ]
+  },
+
+  "machines": [
+    {
+      "title": "Precious",
+      "platform": "HackTheBox",
+      "difficulty": "Easy",
+      "os": "Linux",
+      "date": "2026-01-10",
+      "file": "writeups/htb/example-linux.md",
+      "tags": ["web", "ruby", "yaml-deserialization"]
+    },
+    {
+      "title": "Escape",
+      "platform": "HackTheBox",
+      "difficulty": "Medium",
+      "os": "Windows",
+      "date": "2026-01-14",
+      "file": "writeups/htb/example-windows.md",
+      "tags": ["mssql", "active-directory", "adcs"]
+    }
+  ],
+
+  "sections": [
+    {
+      "name": "Proyectos",
+      "docs": [
+        {
+          "title": "autoenum — script de enumeración",
+          "file": "projects/example-tool.md",
+          "date": "2026-01-20",
+          "tags": ["python", "tooling"]
+        }
+      ]
+    }
+  ]
+}
