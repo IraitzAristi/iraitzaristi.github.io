@@ -1,17 +1,17 @@
 {
   "profile": {
-    "handle": "IraitzAristi",
+    "handle": "tu-alias",
     "role": "Penetration Tester · CTF player",
     "pitch": "Rompo cosas para entender cómo protegerlas. Aquí documento máquinas, retos y proyectos: cada writeup es una prueba de lo que sé hacer, de la enumeración inicial hasta el root.",
     "location": "España",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/IraitzAristi" },
+      { "label": "GitHub", "url": "https://github.com/tu-usuario" },
       { "label": "HackTheBox", "url": "https://app.hackthebox.com/profile/000000" },
-      { "label": "LinkedIn", "url": "https://linkedin.com/in/IraitzAristi" }
+      { "label": "LinkedIn", "url": "https://linkedin.com/in/tu-perfil" }
     ],
     "skills": [
-      "Web exploitation", "Active Directory", "Linux",
-      "Windows", "Enumeración",
+      "Web exploitation", "Active Directory", "Linux privesc",
+      "Windows privesc", "Binary exploitation", "Enumeración",
       "Python", "Bash"
     ]
   },
@@ -42,21 +42,10 @@
       "name": "Proyectos",
       "docs": [
         {
-          "title": "autoenum — script de enumeración",
-          "file": "projects/example-tool.md",
+          "title": "Bezero Kontuen Kudeatzailea — gestor de cuentas en C#",
+          "file": "projects/bezero-kontuen-kudeatzailea.md",
           "date": "2026-01-20",
-          "tags": ["python", "tooling"]
-        }
-      ]
-    },
-    {
-      "name": C#,
-      "docs": [
-        {
-          "title": "TechNova tool",
-          "file": "projects/example-tool.md",
-          "date": "2026-01-20",
-          "tags": ["C#", "tool"]
+          "tags": ["c#", ".net", "poo"]
         }
       ]
     }
