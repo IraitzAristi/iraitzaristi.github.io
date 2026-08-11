@@ -49,5 +49,16 @@
         }
       ]
     }
+    {
+      "name": C#,
+      "docs": [
+        {
+          "title": "TechNova tool",
+          "file": "projects/example-tool.md",
+          "date": "2026-01-20",
+          "tags": ["C#", "tool"]
+        }
+      ]
+    }
   ]
 }
