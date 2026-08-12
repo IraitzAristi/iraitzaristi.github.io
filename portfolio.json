@@ -9,7 +9,7 @@
       { "label": "GitHub", "url": "https://github.com/IraitzAristi" },
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/iraitz-a-897731297" },
       { "label": "Email", "url": "mailto:iraitzaristi@gmail.com" },
-      { "label": "Hack The Box", "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08"}
+      { "label": "HackTheBox", "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08"}
     ],
     "certs": [
       { "name": "eJPTv2", "issuer": "INE Security", "date": "2025-08" }
@@ -25,7 +25,7 @@
   "machines": [
     {
       "title": "Precious",
-      "platform": "Hack The Box",
+      "platform": "HackTheBox",
       "difficulty": "Easy",
       "os": "Linux",
       "date": "2026-01-10",
