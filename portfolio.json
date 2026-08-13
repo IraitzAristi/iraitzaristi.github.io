@@ -1,25 +1,34 @@
 {
+  "defaultLang": "es",
+
   "profile": {
     "name": "Iraitz Aristi Lucambio",
     "handle": "IraitzAristi",
-    "role": "Sistemas y Redes · Ciberseguridad & Hacking Ético (eJPTv2)",
-    "pitch": "Técnico en Sistemas y Redes con la certificación eJPTv2 y más de 500 horas de prácticas. Diseño, virtualizo y securizo infraestructuras de red de principio a fin, moviéndome entre la administración Linux, las redes y la ciberseguridad ofensiva y defensiva. Practico pentesting en HackTheBox y CTFs, e investigo la privacidad y el anonimato en red (Tor, I2P, VPN).",
+    "role": {
+      "es": "Sistemas y Redes · Ciberseguridad & Hacking Ético (eJPTv2)",
+      "eu": "Sistemak eta Sareak · Zibersegurtasuna & Hacking Etikoa (eJPTv2)",
+      "en": "Systems & Networks · Cybersecurity & Ethical Hacking (eJPTv2)"
+    },
+    "pitch": {
+      "es": "Técnico en Sistemas y Redes con la certificación eJPTv2 y más de 500 horas de prácticas. Diseño, virtualizo y securizo infraestructuras de red de principio a fin, moviéndome entre la administración Linux, las redes y la ciberseguridad ofensiva y defensiva. Practico pentesting en HackTheBox y CTFs, e investigo la privacidad y el anonimato en red (Tor, I2P, VPN).",
+      "eu": "Sistema eta Sareetako teknikaria, eJPTv2 ziurtagiriarekin eta 500 ordu baino gehiagoko praktikekin. Sare-azpiegiturak hasieratik amaierara diseinatu, birtualizatu eta segurtatzen ditut, Linux administrazioaren, sareen eta zibersegurtasun ofentsibo zein defentsiboaren artean moldatuz. HackTheBox eta CTFetan egiten dut pentesting, eta sareko pribatutasuna eta anonimotasuna ikertzen ditut (Tor, I2P, VPN).",
+      "en": "Systems & Networks technician with the eJPTv2 certification and over 500 hours of hands-on practice. I design, virtualize and secure full network infrastructures end to end, moving comfortably between Linux administration, networking and both offensive and defensive cybersecurity. I practice pentesting on HackTheBox and CTFs, and research privacy and anonymity on the network (Tor, I2P, VPN)."
+    },
     "location": "Pamplona, Navarra",
     "links": [
       { "label": "GitHub", "url": "https://github.com/IraitzAristi" },
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/iraitz-a-897731297" },
       { "label": "Email", "url": "mailto:iraitzaristi@gmail.com" },
-      { "label": "HackTheBox", "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08"}
+      { "label": "HackTheBox", "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08" }
     ],
     "certs": [
       { "name": "eJPTv2", "issuer": "INE Security", "date": "2025-08" }
     ],
-    "skills": [
-      "Pentesting", "Explotación web", "Active Directory", "Hardening",
-      "Burp Suite", "Linux", "Windows Server", "Virtualización",
-      "Redes TCP/IP", "MikroTik / OpenVPN", "Python", "Bash",
-      "PowerShell", "C#", "Privacidad & anonimato"
-    ]
+    "skills": {
+      "es": ["Pentesting", "Explotación web", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Virtualización", "Redes TCP/IP", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Privacidad & anonimato"],
+      "eu": ["Pentesting", "Web ustiapena", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Birtualizazioa", "TCP/IP sareak", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Pribatutasuna & anonimotasuna"],
+      "en": ["Pentesting", "Web exploitation", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Virtualization", "TCP/IP networking", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Privacy & anonymity"]
+    }
   },
 
   "machines": [
@@ -45,17 +54,33 @@
 
   "sections": [
     {
-      "name": "Proyectos",
+      "name": { "es": "Proyectos", "eu": "Proiektuak", "en": "Projects" },
       "docs": [
         {
-          "title": "Red empresarial virtualizada + suite de ciberseguridad",
+          "title": {
+            "es": "Red empresarial virtualizada + suite de ciberseguridad",
+            "eu": "Enpresa-sare birtualizatua + zibersegurtasun suitea",
+            "en": "Virtualized enterprise network + security tool suite"
+          },
           "file": "projects/red-empresarial-virtualizada.md",
+          "file_i18n": {
+            "eu": "projects/red-empresarial-virtualizada.eu.md",
+            "en": "projects/red-empresarial-virtualizada.en.md"
+          },
           "date": "2026-06",
           "tags": ["virtualización", "openvpn", "python"]
         },
         {
-          "title": "Bezero Kontuen Kudeatzailea — gestor de cuentas en C#",
+          "title": {
+            "es": "Bezero Kontuen Kudeatzailea — gestor de cuentas en C#",
+            "eu": "Bezero Kontuen Kudeatzailea — C#-eko kontu-kudeatzailea",
+            "en": "Bezero Kontuen Kudeatzailea — C# account manager"
+          },
           "file": "projects/bezero-kontuen-kudeatzailea.md",
+          "file_i18n": {
+            "eu": "projects/bezero-kontuen-kudeatzailea.eu.md",
+            "en": "projects/bezero-kontuen-kudeatzailea.en.md"
+          },
           "date": "2026-01-20",
           "tags": ["c#", ".net", "poo"]
         }
