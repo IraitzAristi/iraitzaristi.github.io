@@ -70,6 +70,15 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
     .brand .tagline { margin-top: 6px; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+    /* Selector de idioma */
+    .brand-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .lang-switch { display: flex; border: 1px solid var(--border); flex-shrink: 0; }
+    .lang-btn { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 8px; background: transparent; border: none; color: var(--muted); cursor: pointer; }
+    .lang-btn:hover { color: var(--text); }
+    .lang-btn.active { background: var(--surface-2); color: var(--accent); }
+    .lang-btn + .lang-btn { border-left: 1px solid var(--border); }
+    /* Aviso cuando un writeup aún no está traducido */
+    .doc-banner { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px dashed var(--accent-dim); padding: 8px 12px; margin-bottom: 24px; }
 
     nav { padding: 8px 0 40px; }
     .nav-link {
@@ -260,7 +269,14 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
+        <div class="brand-top">
+          <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
+          <div class="lang-switch" id="langSwitch">
+            <button class="lang-btn" data-lang="eu">EU</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
         <div class="tagline" id="tagline">cargando…</div>
       </div>
       <nav id="nav"></nav>
@@ -295,11 +311,129 @@
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('backdrop');
 
+    const langSwitch = document.getElementById('langSwitch');
+
     let data = null;
     const byFile = new Map();          // ruta -> { entry, kind, section? }
 
     // filtros activos del catálogo
     const filters = { platform: null, difficulty: null };
+
+    /* ================================================================
+       IDIOMA (i18n) — EU / ES / EN
+       · t(clave)   -> texto de interfaz en el idioma activo
+       · tr(valor)  -> resuelve un campo de datos que puede ser un string
+                       (igual en todos los idiomas) o un objeto {eu,es,en}
+       · trArr(v)   -> igual pero para arrays ({eu:[...],es:[...],en:[...]})
+       · resolveDoc -> elige el .md del idioma activo (via file_i18n)
+       Para añadir un idioma nuevo: agrega su bloque a I18N, su botón en
+       el HTML del selector, y su versión a los campos {eu,es,en} del JSON.
+       ================================================================ */
+    const LANGS = ['eu', 'es', 'en'];
+    const DEFAULT_LANG = 'es';   // idioma base de los .md sin traducir
+    let lang = 'es';
+
+    const I18N = {
+      eu: {
+        profile: 'profila', machines: 'makinak', machinesTitle: 'Makinak',
+        projects: 'Proiektuak', certifications: 'Ziurtagiriak', catalog: 'katalogoa',
+        platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
+        machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
+        byDifficulty: 'Makinak zailtasunaren arabera:',
+        empty: 'Ez dago makinarik iragazki honetarako.',
+        initializing: 'Hasieratzen…', menu: '☰ menua',
+        reading: f => `${f} irakurtzen…`,
+        loadErr: f => `Ezin izan da «${f}» kargatu`,
+        jsonErr: 'Ezin izan da portfolio.json kargatu',
+        servedNote: 'fetch()-ek karpeta zerbitzatzean bakarrik funtzionatzen du (GitHub Pages edo tokiko zerbitzaria).',
+        notTranslated: dl => `Eduki hau ez dago oraindik itzulita; ${dl} erakusten da.`
+      },
+      es: {
+        profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
+        projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
+        platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
+        machineCol: 'Máquina', clean: '✕ Limpiar filtros',
+        byDifficulty: 'Máquinas por dificultad:',
+        empty: 'Sin máquinas para este filtro.',
+        initializing: 'Inicializando…', menu: '☰ menu',
+        reading: f => `Leyendo ${f}…`,
+        loadErr: f => `No pude cargar «${f}»`,
+        jsonErr: 'No pude cargar portfolio.json',
+        servedNote: 'fetch() solo funciona sirviendo la carpeta (GitHub Pages o servidor local).',
+        notTranslated: dl => `Este contenido aún no está traducido; se muestra en ${dl}.`
+      },
+      en: {
+        profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
+        projects: 'Projects', certifications: 'Certifications', catalog: 'catalog',
+        platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
+        machineCol: 'Machine', clean: '✕ Clear filters',
+        byDifficulty: 'Machines by difficulty:',
+        empty: 'No machines for this filter.',
+        initializing: 'Initializing…', menu: '☰ menu',
+        reading: f => `Loading ${f}…`,
+        loadErr: f => `Couldn't load "${f}"`,
+        jsonErr: "Couldn't load portfolio.json",
+        servedNote: 'fetch() only works when serving the folder (GitHub Pages or a local server).',
+        notTranslated: dl => `This content isn't translated yet; showing ${dl}.`
+      }
+    };
+
+    // nombre de cada idioma dentro de cada idioma de interfaz (para el aviso)
+    const LANG_NAME = {
+      eu: { eu: 'euskaraz', es: 'gaztelaniaz', en: 'ingelesez' },
+      es: { eu: 'euskera', es: 'castellano', en: 'inglés' },
+      en: { eu: 'Basque', es: 'Spanish', en: 'English' }
+    };
+
+    function t(key, ...args) {
+      const dict = I18N[lang] || I18N[DEFAULT_LANG];
+      let v = (key in dict) ? dict[key] : I18N[DEFAULT_LANG][key];
+      if (v == null) v = key;
+      return typeof v === 'function' ? v(...args) : v;
+    }
+    function tr(val) {
+      if (val == null) return '';
+      if (typeof val === 'string') return val;
+      if (Array.isArray(val)) return val;
+      return val[lang] || val[DEFAULT_LANG] || val[LANGS.find(l => val[l])] || '';
+    }
+    function trArr(val) {
+      if (Array.isArray(val)) return val;
+      if (val && typeof val === 'object') return val[lang] || val[DEFAULT_LANG] || [];
+      return [];
+    }
+    // resuelve el .md a cargar según el idioma; si no hay traducción, cae al base
+    function resolveDoc(entry) {
+      const map = entry.file_i18n || {};
+      if (map[lang]) return { path: map[lang], fallback: null };
+      return { path: entry.file, fallback: (lang !== DEFAULT_LANG) ? DEFAULT_LANG : null };
+    }
+
+    function initLang() {
+      let l = null;
+      try { l = localStorage.getItem('lang'); } catch (e) {}
+      if (!LANGS.includes(l)) {
+        const nav0 = (navigator.language || '').slice(0, 2).toLowerCase();
+        l = LANGS.includes(nav0) ? nav0 : (data.defaultLang || DEFAULT_LANG);
+      }
+      lang = LANGS.includes(l) ? l : DEFAULT_LANG;
+    }
+    function setLang(l) {
+      if (!LANGS.includes(l) || l === lang) return;
+      lang = l;
+      try { localStorage.setItem('lang', l); } catch (e) {}
+      document.documentElement.lang = l;
+      updateChrome();
+      buildNav();
+      route();
+    }
+    function updateChrome() {
+      brandHandle.textContent = data.profile.handle || 'portfolio';
+      tagline.textContent = tr(data.profile.role) || '';
+      document.getElementById('menuBtn').textContent = t('menu');
+      langSwitch.querySelectorAll('.lang-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.lang === lang));
+    }
 
     document.getElementById('menuBtn').onclick = () => toggleMenu(true);
     backdrop.onclick = () => toggleMenu(false);
@@ -313,18 +447,23 @@
         if (!res.ok) throw new Error('portfolio.json no encontrado (HTTP ' + res.status + ')');
         data = await res.json();
       } catch (err) {
-        content.innerHTML = '<p class="status error">No pude cargar portfolio.json — ' + esc(err.message)
-          + '</p><p class="status">fetch() solo funciona sirviendo la carpeta (GitHub Pages o servidor local), no con doble clic.</p>';
+        content.innerHTML = '<p class="status error">' + esc(t('jsonErr')) + ' — ' + esc(err.message)
+          + '</p><p class="status">' + esc(t('servedNote')) + '</p>';
         tagline.textContent = 'error'; return;
       }
 
-      brandHandle.textContent = data.profile.handle || 'portfolio';
-      tagline.textContent = data.profile.role || '';
+      initLang();
+      document.documentElement.lang = lang;
 
       // indexar máquinas y docs para búsquedas O(1)
       (data.machines || []).forEach(m => byFile.set(m.file, { entry: m, kind: 'machine' }));
       (data.sections || []).forEach(s => (s.docs || []).forEach(d => byFile.set(d.file, { entry: d, kind: 'doc', section: s })));
 
+      // cablear el selector de idioma
+      langSwitch.querySelectorAll('.lang-btn').forEach(b =>
+        b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+      updateChrome();
       buildNav();
       route();
     }
@@ -332,19 +471,19 @@
     function buildNav() {
       // enlaces principales
       nav.innerHTML =
-        '<a class="nav-link" href="#/" data-route="/"><span class="glyph">$</span> perfil</a>' +
-        '<a class="nav-link" href="#/machines" data-route="/machines"><span class="glyph">#</span> máquinas <span style="margin-left:auto;font-size:11px;color:var(--muted)">' + (data.machines || []).length + '</span></a>';
+        '<a class="nav-link" href="#/" data-route="/"><span class="glyph">$</span> ' + esc(t('profile')) + '</a>' +
+        '<a class="nav-link" href="#/machines" data-route="/machines"><span class="glyph">#</span> ' + esc(t('machines')) + ' <span style="margin-left:auto;font-size:11px;color:var(--muted)">' + (data.machines || []).length + '</span></a>';
 
       // secciones dinámicas (proyectos, notas...)
       (data.sections || []).forEach(section => {
         const h = document.createElement('div');
         h.className = 'section-title';
-        h.textContent = section.name;
+        h.textContent = tr(section.name);
         nav.appendChild(h);
         (section.docs || []).forEach(d => {
           const a = document.createElement('a');
           a.className = 'entry'; a.href = '#' + d.file; a.dataset.file = d.file;
-          a.innerHTML = esc(d.title) + '<span class="entry-meta">' + esc(d.date || '') + '</span>';
+          a.innerHTML = esc(tr(d.title)) + '<span class="entry-meta">' + esc(d.date || '') + '</span>';
           a.addEventListener('click', () => toggleMenu(false));
           nav.appendChild(a);
         });
@@ -375,22 +514,22 @@
 
       // recuentos derivados de los datos (crecen solos al añadir cosas)
       const count = d => machines.filter(m => (m.difficulty || '').toLowerCase() === d).length;
-      const projSection = sections.find(s => /proyecto/i.test(s.name));
+      const projSection = sections.find(s => /proyec|proiek|project/i.test(tr(s.name)));
       const projectsCount = projSection
         ? (projSection.docs || []).length
         : sections.reduce((n, s) => n + (s.docs || []).length, 0);
 
       const links = (p.links || []).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
-      const skills = (p.skills || []).map(s => `<span class="skill">${esc(s)}</span>`).join('');
+      const skills = trArr(p.skills).map(s => `<span class="skill">${esc(s)}</span>`).join('');
       const certChips = certs.map(c =>
         `<span class="cert">${esc(c.name)}${c.issuer ? ` <span class="issuer">· ${esc(c.issuer)}</span>` : ''}</span>`).join('');
 
       // barra de estadísticas principal: se define aquí y se pinta en bucle,
       // así añadir una métrica nueva en el futuro es agregar una línea.
       const stats = [
-        { n: machines.length, l: 'Máquinas' },
-        { n: projectsCount,   l: 'Proyectos' },
-        { n: certs.length,    l: 'Certificaciones' }
+        { n: machines.length, l: t('machines') },
+        { n: projectsCount,   l: t('projects') },
+        { n: certs.length,    l: t('certifications') }
       ];
       const statCells = stats.map(s => `<div class="cell"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join('');
 
@@ -401,15 +540,15 @@
 
       content.innerHTML = `
         <section class="hero">
-          <p class="role">${esc(p.role || '')}</p>
+          <p class="role">${esc(tr(p.role))}</p>
           <h1>${esc(p.name || p.handle || '')}</h1>
           <p class="handle-line"><span class="at">@</span>${esc(p.handle || '')}${p.location ? `<span class="dot">·</span>${esc(p.location)}` : ''}</p>
-          <p class="pitch">${esc(p.pitch || '')}</p>
+          <p class="pitch">${esc(tr(p.pitch))}</p>
           <div class="links">${links}</div>
-          ${certChips ? `<div class="certs"><span class="clabel">Certificaciones</span>${certChips}</div>` : ''}
+          ${certChips ? `<div class="certs"><span class="clabel">${esc(t('certifications'))}</span>${certChips}</div>` : ''}
           <div class="skills">${skills}</div>
           <div class="statbar">${statCells}</div>
-          ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">Máquinas por dificultad:</span>${diffBreak}</div>` : ''}
+          ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">${esc(t('byDifficulty'))}</span>${diffBreak}</div>` : ''}
         </section>`;
       document.title = (p.name || p.handle || 'portfolio');
       window.scrollTo(0, 0);
@@ -437,43 +576,43 @@
 
       const body = rows.length ? rows.map(m => {
         const dcls = (m.difficulty || '').toLowerCase();
-        const tags = (m.tags || []).map(t => `<span class="minitag">${esc(t)}</span>`).join('');
+        const tags = (m.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('');
         return `
           <tr class="row" data-file="${esc(m.file)}">
-            <td class="td-name" data-label="Máquina">
+            <td class="td-name" data-label="${esc(t('machineCol'))}">
               <span class="m-name">${esc(m.title)}</span>
               <div class="m-tags">${tags}</div>
             </td>
-            <td data-label="Plataforma"><span class="badge plat">${esc(m.platform || '—')}</span></td>
-            <td data-label="Dificultad"><span class="diff ${dcls}">${esc(m.difficulty || '—')}</span></td>
-            <td data-label="SO"><span class="badge os">${esc(m.os || '—')}</span></td>
-            <td data-label="Fecha" style="font-family:var(--mono);color:var(--muted);font-size:12px">${esc(m.date || '')}</td>
+            <td data-label="${esc(t('platform'))}"><span class="badge plat">${esc(m.platform || '—')}</span></td>
+            <td data-label="${esc(t('difficulty'))}"><span class="diff ${dcls}">${esc(m.difficulty || '—')}</span></td>
+            <td data-label="${esc(t('os'))}"><span class="badge os">${esc(m.os || '—')}</span></td>
+            <td data-label="${esc(t('date'))}" style="font-family:var(--mono);color:var(--muted);font-size:12px">${esc(m.date || '')}</td>
           </tr>`;
       }).join('') : '';
 
       content.innerHTML = `
         <div class="view-head">
-          <p class="kicker">catálogo</p>
-          <h2>Máquinas</h2>
+          <p class="kicker">${esc(t('catalog'))}</p>
+          <h2>${esc(t('machinesTitle'))}</h2>
         </div>
         <div class="filters">
           <div class="filter-row">
-            <span class="filter-label">Plataforma</span>
+            <span class="filter-label">${esc(t('platform'))}</span>
             <div class="chip-set">${platChips}</div>
           </div>
           <div class="filter-row">
-            <span class="filter-label">Dificultad</span>
+            <span class="filter-label">${esc(t('difficulty'))}</span>
             <div class="chip-set">${diffChips}</div>
           </div>
           ${(filters.platform || filters.difficulty)
-            ? '<button class="chip chip-reset" data-group="reset" data-val="">✕ Limpiar filtros</button>'
+            ? '<button class="chip chip-reset" data-group="reset" data-val="">' + esc(t('clean')) + '</button>'
             : ''}
         </div>
         <table class="machines-table">
-          <thead><tr><th>Máquina</th><th>Plataforma</th><th>Dificultad</th><th>SO</th><th>Fecha</th></tr></thead>
+          <thead><tr><th>${esc(t('machineCol'))}</th><th>${esc(t('platform'))}</th><th>${esc(t('difficulty'))}</th><th>${esc(t('os'))}</th><th>${esc(t('date'))}</th></tr></thead>
           <tbody>${body}</tbody>
         </table>
-        ${rows.length ? '' : '<p class="empty">Sin máquinas para este filtro.</p>'}`;
+        ${rows.length ? '' : '<p class="empty">' + esc(t('empty')) + '</p>'}`;
 
       // eventos de filtros
       content.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
@@ -486,48 +625,55 @@
       content.querySelectorAll('tr.row').forEach(r =>
         r.addEventListener('click', () => { location.hash = '#' + r.dataset.file; }));
 
-      document.title = 'Máquinas · @' + data.profile.handle;
+      document.title = t('machinesTitle') + ' · @' + data.profile.handle;
       window.scrollTo(0, 0);
     }
 
     /* ---------- DOC / WRITEUP ---------- */
     async function renderDoc(file) {
       const { entry, kind, section } = byFile.get(file);
-      content.innerHTML = '<p class="status">Leyendo ' + esc(file) + ' …</p>';
+      const { path, fallback } = resolveDoc(entry);
+      content.innerHTML = '<p class="status">' + esc(t('reading', path)) + '</p>';
       try {
-        const res = await fetch(file, { cache: 'no-cache' });
+        const res = await fetch(path, { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const md = await res.text();
         const html = DOMPurify.sanitize(marked.parse(md));
 
+        // aviso si se muestra un idioma distinto al activo
+        const banner = fallback
+          ? `<div class="doc-banner">${esc(t('notTranslated', LANG_NAME[lang][fallback]))}</div>`
+          : '';
+
         let crumb, badges = '';
         if (kind === 'machine') {
-          crumb = 'máquinas <span class="sep">/</span> ' + esc(entry.platform || '');
+          crumb = esc(t('machines')) + ' <span class="sep">/</span> ' + esc(entry.platform || '');
           const dcls = (entry.difficulty || '').toLowerCase();
           badges = `<div class="doc-badges">
             <span class="badge plat">${esc(entry.platform || '')}</span>
             <span class="diff ${dcls}">${esc(entry.difficulty || '')}</span>
             <span class="badge os">${esc(entry.os || '')}</span>
-            ${(entry.tags || []).map(t => `<span class="minitag">${esc(t)}</span>`).join('')}
+            ${(entry.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('')}
           </div>`;
         } else {
-          crumb = esc(section.name);
-          badges = (entry.tags || []).length ? `<div class="doc-badges">${(entry.tags || []).map(t => `<span class="minitag">${esc(t)}</span>`).join('')}</div>` : '';
+          crumb = esc(tr(section.name));
+          badges = (entry.tags || []).length ? `<div class="doc-badges">${(entry.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('')}</div>` : '';
         }
 
         content.innerHTML = `
           <div class="doc-header">
             <div class="crumb">${crumb}</div>
-            <h1>${esc(entry.title)}</h1>
+            <h1>${esc(tr(entry.title))}</h1>
             ${badges}
           </div>
+          ${banner}
           <article class="markdown">${html}</article>`;
 
         content.querySelectorAll('pre code').forEach(b => hljs.highlightElement(b));
-        document.title = entry.title + ' · @' + data.profile.handle;
+        document.title = tr(entry.title) + ' · @' + data.profile.handle;
         window.scrollTo(0, 0);
       } catch (err) {
-        content.innerHTML = '<p class="status error">No pude cargar «' + esc(file) + '» — ' + esc(err.message) + '</p>';
+        content.innerHTML = '<p class="status error">' + esc(t('loadErr', path)) + ' — ' + esc(err.message) + '</p>';
       }
     }
 
