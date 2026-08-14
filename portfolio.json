@@ -1,6 +1,5 @@
 {
-  "defaultLang": "es",
-
+  "defaultLang": "en",
   "profile": {
     "name": "Iraitz Aristi Lucambio",
     "handle": "IraitzAristi",
@@ -16,21 +15,84 @@
     },
     "location": "Pamplona, Navarra",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/IraitzAristi" },
-      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/iraitz-a-897731297" },
-      { "label": "Email", "url": "mailto:iraitzaristi@gmail.com" },
-      { "label": "HackTheBox", "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08" }
+      {
+        "label": "GitHub",
+        "url": "https://github.com/IraitzAristi"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/iraitz-a-897731297"
+      },
+      {
+        "label": "Email",
+        "url": "mailto:iraitzaristi@gmail.com"
+      },
+      {
+        "label": "HackTheBox",
+        "url": "https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08"
+      }
     ],
     "certs": [
-      { "name": "eJPTv2", "issuer": "INE Security", "date": "2025-08" }
+      {
+        "name": "eJPTv2",
+        "issuer": "INE Security",
+        "date": "2025-08"
+      }
     ],
     "skills": {
-      "es": ["Pentesting", "Explotación web", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Virtualización", "Redes TCP/IP", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Privacidad & anonimato"],
-      "eu": ["Pentesting", "Web ustiapena", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Birtualizazioa", "TCP/IP sareak", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Pribatutasuna & anonimotasuna"],
-      "en": ["Pentesting", "Web exploitation", "Active Directory", "Hardening", "Burp Suite", "Linux", "Windows Server", "Virtualization", "TCP/IP networking", "MikroTik / OpenVPN", "Python", "Bash", "PowerShell", "C#", "Privacy & anonymity"]
+      "es": [
+        "Pentesting",
+        "Explotación web",
+        "Active Directory",
+        "Hardening",
+        "Burp Suite",
+        "Linux",
+        "Windows Server",
+        "Virtualización",
+        "Redes TCP/IP",
+        "MikroTik / OpenVPN",
+        "Python",
+        "Bash",
+        "PowerShell",
+        "C#",
+        "Privacidad & anonimato"
+      ],
+      "eu": [
+        "Pentesting",
+        "Web ustiapena",
+        "Active Directory",
+        "Hardening",
+        "Burp Suite",
+        "Linux",
+        "Windows Server",
+        "Birtualizazioa",
+        "TCP/IP sareak",
+        "MikroTik / OpenVPN",
+        "Python",
+        "Bash",
+        "PowerShell",
+        "C#",
+        "Pribatutasuna & anonimotasuna"
+      ],
+      "en": [
+        "Pentesting",
+        "Web exploitation",
+        "Active Directory",
+        "Hardening",
+        "Burp Suite",
+        "Linux",
+        "Windows Server",
+        "Virtualization",
+        "TCP/IP networking",
+        "MikroTik / OpenVPN",
+        "Python",
+        "Bash",
+        "PowerShell",
+        "C#",
+        "Privacy & anonymity"
+      ]
     }
   },
-
   "machines": [
     {
       "title": "Precious",
@@ -39,7 +101,11 @@
       "os": "Linux",
       "date": "2026-01-10",
       "file": "writeups/htb/example-linux.md",
-      "tags": ["web", "ruby", "yaml-deserialization"]
+      "tags": [
+        "web",
+        "ruby",
+        "yaml-deserialization"
+      ]
     },
     {
       "title": "Escape",
@@ -48,13 +114,20 @@
       "os": "Windows",
       "date": "2026-01-14",
       "file": "writeups/htb/example-windows.md",
-      "tags": ["mssql", "active-directory", "adcs"]
+      "tags": [
+        "mssql",
+        "active-directory",
+        "adcs"
+      ]
     }
   ],
-
   "sections": [
     {
-      "name": { "es": "Proyectos", "eu": "Proiektuak", "en": "Projects" },
+      "name": {
+        "es": "Proyectos",
+        "eu": "Proiektuak",
+        "en": "Projects"
+      },
       "docs": [
         {
           "title": {
@@ -64,11 +137,15 @@
           },
           "file": "projects/red-empresarial-virtualizada.md",
           "file_i18n": {
-            "eu": "projects/red-empresarial-virtualizada.eu.md",
-            "en": "projects/red-empresarial-virtualizada.en.md"
+            "es": "projects/red-empresarial-virtualizada.es.md",
+            "eu": "projects/red-empresarial-virtualizada.eu.md"
           },
           "date": "2026-06",
-          "tags": ["virtualización", "openvpn", "python"]
+          "tags": [
+            "virtualización",
+            "openvpn",
+            "python"
+          ]
         },
         {
           "title": {
@@ -78,11 +155,15 @@
           },
           "file": "projects/bezero-kontuen-kudeatzailea.md",
           "file_i18n": {
-            "eu": "projects/bezero-kontuen-kudeatzailea.eu.md",
-            "en": "projects/bezero-kontuen-kudeatzailea.en.md"
+            "es": "projects/bezero-kontuen-kudeatzailea.es.md",
+            "eu": "projects/bezero-kontuen-kudeatzailea.eu.md"
           },
           "date": "2026-01-20",
-          "tags": ["c#", ".net", "poo"]
+          "tags": [
+            "c#",
+            ".net",
+            "poo"
+          ]
         }
       ]
     }
