@@ -1,51 +1,54 @@
 # Bezero Kontuen Kudeatzailea
 
-**Customer account and password manager** · C# / .NET · console application
+**Bezeroen kontu eta pasahitzen kudeatzailea** · C# / .NET · kontsolako aplikazioa
 
-A program written in C# to manage a company's customer accounts and passwords
-(for a company, "AllSecurity"): create accounts, search them, and keep their
-credentials organized by platform and type. The project has two versions, and
-the interesting part is the jump between them.
+C#-en garatutako programa bat, enpresa baten ("AllSecurity") bezeroen kontuak eta
+pasahitzak kudeatzeko: kontuak sortu, bilatu, eta haien kredentzialak plataformaz
+eta motaz antolatuta mantendu. Proiektuak bi bertsio ditu, eta interesgarriena
+bien arteko jauzia da.
 
-## From v1 to v2: the evolution
+## v1-etik v2-ra: bilakaera
 
-**v1** solved the problem the most direct way: a single `Program.cs`, data stored
-in arrays and a procedural approach. It worked, but everything lived in one file.
+**v1**-ek modurik zuzenean ebazten zuen arazoa: `Program.cs` bakarra, datuak
+arrayetan gordeta eta ikuspegi prozedurala. Funtzionatzen zuen, baina dena
+fitxategi bakarrean zegoen.
 
-**v2** is a full rewrite applying **object-oriented programming**, splitting
-responsibilities into modules. That redesign is what turns an exercise into a
-project:
+**v2** berridazketa oso bat da, **objektuei zuzendutako programazioa** aplikatuz
+eta erantzukizunak moduluetan banatuz. Birdiseinu horrek bihurtzen du ariketa
+bat proiektu:
 
-- **`Kontua`** — the Account class, with private fields, getters/setters and a
-  constructor using null-coalescing (`?? ""`) to guard against null values.
-- **`Estatistikak`** — real-time statistics with `Dictionary<string,int>`,
-  counting accounts by type and by platform.
-- **`Fitxategiak_kudeatu`** — import and export from files, parsing lines with
-  `File.ReadAllLines` and `.Split(",")` to persist the data.
-- **`Segurtasuna`** — a **security audit** module that walks every account and
-  flags those using weak passwords (fewer than 8 characters), reporting how many
-  and which ones are insecure.
+- **`Kontua`** — Kontua klasea, eremu pribatuekin, getter/setter-ekin eta
+  null-coalescing (`?? ""`) erabiltzen duen eraikitzaile batekin, balio nuluen
+  aurka babesteko.
+- **`Estatistikak`** — denbora errealeko estatistikak `Dictionary<string,int>`
+  erabiliz, kontuak motaka eta plataformaka zenbatuz.
+- **`Fitxategiak_kudeatu`** — fitxategietatik inportatzea eta esportatzea,
+  lerroak `File.ReadAllLines` eta `.Split(",")` bidez analizatuz datuak
+  iraunarazteko.
+- **`Segurtasuna`** — **segurtasun-auditoria** modulu bat, kontu guztiak
+  arakatzen dituena eta pasahitz ahulak (8 karaktere baino gutxiago) dituztenak
+  markatzen dituena, zenbat eta zein diren seguruak ez diren jakinaraziz.
 
-## What it demonstrates
+## Zer erakusten duen
 
-- Real **object-oriented** design: encapsulation, modularity and separation of
-  responsibilities.
-- Command of C# data structures: arrays, `List<>` and `Dictionary<>`.
-- **File persistence** (import/export) and data parsing.
-- A **security mindset**: the password audit module comes from thinking not only
-  about "storing data", but about detecting weak credentials.
-- The ability to **iterate and refactor**: taking a project from a procedural
-  version to a maintainable OOP architecture.
+- **Objektuei zuzendutako** diseinu erreala: kapsulaketa, modulartasuna eta
+  erantzukizunen banaketa.
+- C#-eko datu-egituren menderatzea: arrayak, `List<>` eta `Dictionary<>`.
+- **Fitxategietako iraunkortasuna** (inportatu/esportatu) eta datuen analisia.
+- **Segurtasun-jarrera**: pasahitzen auditoria-modulua "datuak gordetzea" ez
+  ezik, kredentzial ahulak detektatzea pentsatzetik sortzen da.
+- **Iteratzeko eta birfaktorizatzeko** gaitasuna: proiektu bat bertsio
+  prozedural batetik OOP arkitektura mantengarri batera eramatea.
 
-## Technologies
+## Teknologiak
 
-C# · .NET · OOP (classes, getters/setters, modularity) · `List` · `Dictionary` ·
-file handling · console interface.
+C# · .NET · OOP (klaseak, getter/setter-ak, modulartasuna) · `List` ·
+`Dictionary` · fitxategien kudeaketa · kontsolako interfazea.
 
-## Code
+## Kodea
 
-- Version 2 (current, OOP): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea-v2>
-- Version 1 (original, procedural): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea>
+- 2. bertsioa (uneko, OOP): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea-v2>
+- 1. bertsioa (jatorrizkoa, prozedurala): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea>
 
-> Status: in development. v2 keeps growing with new advanced search and
-> statistics features.
+> Egoera: garapenean. v2 hazten jarraitzen du bilaketa aurreratu eta estatistika
+> funtzio berriekin.
