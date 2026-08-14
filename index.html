@@ -70,13 +70,18 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
     .brand .tagline { margin-top: 6px; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
-    /* Selector de idioma */
-    .brand-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .lang-switch { display: flex; border: 1px solid var(--border); flex-shrink: 0; }
-    .lang-btn { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 8px; background: transparent; border: none; color: var(--muted); cursor: pointer; }
-    .lang-btn:hover { color: var(--text); }
-    .lang-btn.active { background: var(--surface-2); color: var(--accent); }
+    /* Selector de idioma: control segmentado grande con banderas */
+    .lang-switch { display: flex; margin-top: 14px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .lang-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
+      padding: 9px 6px; background: transparent; border: none; color: var(--muted); cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+    }
     .lang-btn + .lang-btn { border-left: 1px solid var(--border); }
+    .lang-btn:hover { color: var(--text); background: var(--surface-2); }
+    .lang-btn .flag { width: 22px; height: 15px; border-radius: 2px; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.35) inset; display: block; }
+    .lang-btn.active { background: var(--surface-2); color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
     /* Aviso cuando un writeup aún no está traducido */
     .doc-banner { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px dashed var(--accent-dim); padding: 8px 12px; margin-bottom: 24px; }
 
@@ -269,15 +274,32 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-top">
-          <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
-          <div class="lang-switch" id="langSwitch">
-            <button class="lang-btn" data-lang="eu">EU</button>
-            <button class="lang-btn" data-lang="es">ES</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-          </div>
+        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
+        <div class="tagline" id="tagline">loading…</div>
+        <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+          <button class="lang-btn" data-lang="eu" aria-label="Euskara">
+            <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+              <rect width="30" height="20" fill="#d52b1e"/>
+              <g stroke="#009b48" stroke-width="4"><line x1="0" y1="0" x2="30" y2="20"/><line x1="30" y1="0" x2="0" y2="20"/></g>
+              <g stroke="#fff" stroke-width="4"><line x1="15" y1="0" x2="15" y2="20"/><line x1="0" y1="10" x2="30" y2="10"/></g>
+            </svg><span>EU</span>
+          </button>
+          <button class="lang-btn" data-lang="es" aria-label="Castellano">
+            <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+              <rect width="30" height="20" fill="#c60b1e"/>
+              <rect y="5" width="30" height="10" fill="#ffc400"/>
+            </svg><span>ES</span>
+          </button>
+          <button class="lang-btn" data-lang="en" aria-label="English">
+            <svg class="flag" viewBox="0 0 30 20" aria-hidden="true">
+              <rect width="30" height="20" fill="#012169"/>
+              <g stroke="#fff" stroke-width="4"><line x1="0" y1="0" x2="30" y2="20"/><line x1="30" y1="0" x2="0" y2="20"/></g>
+              <g stroke="#c8102e" stroke-width="2"><line x1="0" y1="0" x2="30" y2="20"/><line x1="30" y1="0" x2="0" y2="20"/></g>
+              <g stroke="#fff" stroke-width="6"><line x1="15" y1="0" x2="15" y2="20"/><line x1="0" y1="10" x2="30" y2="10"/></g>
+              <g stroke="#c8102e" stroke-width="3.5"><line x1="15" y1="0" x2="15" y2="20"/><line x1="0" y1="10" x2="30" y2="10"/></g>
+            </svg><span>EN</span>
+          </button>
         </div>
-        <div class="tagline" id="tagline">cargando…</div>
       </div>
       <nav id="nav"></nav>
     </aside>
@@ -330,8 +352,8 @@
        el HTML del selector, y su versión a los campos {eu,es,en} del JSON.
        ================================================================ */
     const LANGS = ['eu', 'es', 'en'];
-    const DEFAULT_LANG = 'es';   // idioma base de los .md sin traducir
-    let lang = 'es';
+    let DEFAULT_LANG = 'en';   // idioma base/canónico (se ajusta desde el JSON)
+    let lang = 'en';
 
     const I18N = {
       eu: {
@@ -410,11 +432,12 @@
     }
 
     function initLang() {
+      if (data.defaultLang && LANGS.includes(data.defaultLang)) DEFAULT_LANG = data.defaultLang;
       let l = null;
       try { l = localStorage.getItem('lang'); } catch (e) {}
       if (!LANGS.includes(l)) {
         const nav0 = (navigator.language || '').slice(0, 2).toLowerCase();
-        l = LANGS.includes(nav0) ? nav0 : (data.defaultLang || DEFAULT_LANG);
+        l = LANGS.includes(nav0) ? nav0 : DEFAULT_LANG;
       }
       lang = LANGS.includes(l) ? l : DEFAULT_LANG;
     }
