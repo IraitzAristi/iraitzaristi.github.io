@@ -1,54 +1,77 @@
-# Enpresa-sare birtualizatua + zibersegurtasun suitea
+# RedPi — enpresa-sare birtualizatua + segurtasun suitea
 
-**Graduko amaierako proiektua · 2026** · azpiegitura osoa + tresna propioak
+**Graduko amaierako proiektua · 2026** · azpiegitura osoa + tresna propioak + barne-pentest-a
 
-**Enpresa-sare oso birtualizatu** baten diseinua eta hedapena, sarearen
-arkitekturatik segurtasun-tresneriaraino. Helburua: azpiegitura errealista,
-segmentatua eta gogortua hutsetik muntatzea, eta haren gainean tresna propioen
-multzo bat sortzea, defentsiboak zein ofentsiboak.
+RedPi enpresa-sare simulatu baten hutsetiko eraikuntza da, bretxe garrantzitsu
+bat jasan berri zuen enpresa fiktizio batentzat ("TechNova"). Azpiegituraren
+gainean Python-eko tresna propioen suite bat garatu nuen —defentsiboak eta
+ofentsiboak—, profil teknikorik gabeko langileek erabiltzeko pentsatuak, eta
+haiekin ingurunea hasieratik amaierara auditatu nuen.
+
+## Egoera
+
+TechNova, software-enpresa bat, bretxe bat jasaten du eta 20 GB datu sentikor
+filtratzen dira. RedPi eskatzen dute: auditoria-tresna multzo bat eta sare
+segmentatu eta segurtatu bat, beren segurtasuna neurtzeko eta hobetzeko.
 
 ## Azpiegitura
 
-- Sare osoaren **birtualizazioa** VirtualBox-en, **LAN/DMZ** segmentazioarekin
-  eta zonen arteko suebakiarekin.
-- **Apache web-zerbitzaria** SSH/FTP bidezko sarbidearekin.
-- **MySQL zerbitzaria**, datu-base batekin eta langile zein zuzendaritzarako
-  lanpostu bereiziekin.
-- Raspberry Pi batetik LAN sarerako **urruneko sarbide segurua**, **hutsetik
-  konfiguratutako OpenVPN** baten bidez — ziurtagiri-autoritate (CA) eta
-  bezero-zerbitzari konfiantzazko ziurtagiri propioak — **MikroTik** router
-  baten gainean.
+- **Sare segmentatua** VirtualBox-en: **LAN**, **DMZ** eta **WAN**, hiru
+  interfazeko **MikroTik** router batek bideratuta.
+- **Suebaki-politika**: DMZ→LAN blokeatua, LAN→DMZ baimendua, NAT masquerade
+  WAN-erantz — web-zerbitzari publikoak barne-datuetara zuzenean sar ez dadin.
+- **MySQL zerbitzaria** (LAN) enpresaren datu-basearekin.
+- **Web/FTP zerbitzaria** **Apache + WordPress + vsftpd**-rekin (DMZ).
+- Langile eta zuzendaritzako **Ubuntu lanpostuak** (LAN).
+- LAN-era hutsetik eraikitako **OpenVPN** tunel baten bidez iristen den **RedPi
+  auditoria-makina** — nire **ziurtagiri-autoritate (CA)** eta bezero-zerbitzari
+  ziurtagiri propioekin — MikroTik router-aren gainean.
 
 ## Python tresna-suitea
 
-Raspberry Pi-tik exekutatuta, bi frontetan banatuta:
+**Defentsiboak** — MySQL datu-basearen kudeatzailea, pasahitzen
+sendotasun-analizatzailea eta **SHA-256** hash-a egiten duen pasahitz-sortzailea.
 
-**Defentsiboak**
-- MySQL datu-basearen kudeatzailea.
-- Pasahitzen sendotasun-neurgailua.
-- Pasahitz-sortzailea **SHA-256** hash-arekin.
+**Ofentsiboak** — sare-eskanerra (nmap), web-fuzzer-a, HTTP/FTP sniffer-a, **ARP
+spoofer**-a (MITM) eta **XMLRPC indar-gordina**.
 
-**Ofentsiboak**
-- **ARP spoofer**-a man-in-the-middle erasoetarako.
-- HTTP/FTP trafikoaren **sniffer**-a.
-- Web **fuzzer**-a.
-- **Indar gordina** WordPress-en XML-RPC-aren aurka.
-- Ataka, zerbitzu eta host/sare bertsioen **eskanerra**.
+## Auditoria martxan
+
+Suitearekin eraso-kate oso bat exekutatu nuen DMZ-ko web-zerbitzariaren aurka —
+errekonozimendua → web-fuzzing-a → `wp-json` bidezko erabiltzaile-enumerazioa →
+XMLRPC indar gordina → `wp-admin` sarbidea → plugin bidezko reverse shell-a —
+web-zerbitzariko shell batean amaituz. Writeup osoa:
+[RedPi — TechNovaren web-zerbitzariaren konpromisoa](#writeups/redpi/redpi-technova.md).
 
 ## Zer erakusten duen
 
-- **Sare-azpiegitura oso bat diseinatzeko eta segurtatzeko** gaitasuna,
-  hasieratik amaierara, ez pieza solteak soilik.
-- **PKI**-ren menderatze praktikoa: CA bat sortu eta VPN baterako ziurtagiriak
-  jaulki.
-- Sare-segmentazioa eta **firewalling**-a irizpidez (LAN/DMZ).
-- Python-en **tresna propioak** garatzea segurtasunaren bi aldeetan: defentsa
-  eta erasoa.
+- **Sare oso bat** hasieratik amaierara diseinatu eta segurtatzea (segmentazioa,
+  firewalling-a, routing-a, VPN).
+- **PKI**-ren menderatze praktikoa: CA bat sortu eta OpenVPN tunelerako
+  ziurtagiriak jaulki.
+- Segurtasunaren bi aldeetan **tresna propioak** garatzea.
+- **Barne-pentest errealista** bat exekutatu eta dokumentatzea.
+- **Ingeniaritza-heldutasuna**: identifikatutako hurrengo urratsak (MITM tresneria
+  osoa, barne DNS zerbitzari bat, HTTPS web-zerbitzarian eta zerbitzari ispilu bat).
+
+## Demo
+
+- **Bideo-demoa** (eraso-kate osoa, ~5 min): [YouTube-n ikusi](https://youtu.be/TU_VIDEO)
+- **Tresnen kodea**: [github.com/IraitzAristi/redpi-tools](https://github.com/IraitzAristi/redpi-tools)
+
+Laborategia bera ez da banagarria —6+ GB RAM behar ditu eta sare zehatz bati
+lotuta dago—, baina bideoak kate osoa erakusten du hasieratik amaierara, eta
+tresnak modu autonomoan exekutatzen dira baimendutako edozein helbururen aurka.
+Zuzeneko demoa eskuragarri eskaeraren arabera.
+
+## Dokumentazioa
+
+- Proiektuaren aurkezpena (euskaraz):
+  <a href="projects/redpi-presentacion.pdf" target="_blank" rel="noopener">redpi-presentacion.pdf</a>
+- Memoria tekniko osoa (55 orrialde, euskaraz):
+  <a href="projects/redpi-memoria.pdf" target="_blank" rel="noopener">redpi-memoria.pdf</a>
 
 ## Teknologiak
 
-Birtualizazioa · OpenVPN · MikroTik RouterOS · Apache · MySQL · Python ·
-Raspberry Pi · Linux · Firewall · Routing · PKI (CA eta ziurtagiriak).
-
-> SMR zikloaren amaierako proiektua. Tresnen kodea eta hedapenaren
-> dokumentazioa nire GitHub-en argitaratuko dira.
+VirtualBox · MikroTik RouterOS · OpenVPN · PKI (CA eta ziurtagiriak) · Apache ·
+WordPress · MySQL · vsftpd · Python (scapy, nmap) · Linux · Firewall · Routing.
