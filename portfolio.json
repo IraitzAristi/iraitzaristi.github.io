@@ -95,6 +95,22 @@
   },
   "machines": [
     {
+      "title": "RedPi — TechNova",
+      "platform": "Home lab",
+      "os": "Linux",
+      "date": "2026-05",
+      "file": "writeups/redpi/redpi-technova.md",
+      "file_i18n": {
+        "es": "writeups/redpi/redpi-technova.es.md",
+        "eu": "writeups/redpi/redpi-technova.eu.md"
+      },
+      "tags": [
+        "wordpress",
+        "xmlrpc",
+        "reverse-shell"
+      ]
+    },
+    {
       "title": "Precious",
       "platform": "HackTheBox",
       "difficulty": "Easy",
@@ -131,9 +147,9 @@
       "docs": [
         {
           "title": {
-            "es": "Red empresarial virtualizada + suite de ciberseguridad",
-            "eu": "Enpresa-sare birtualizatua + zibersegurtasun suitea",
-            "en": "Virtualized enterprise network + security tool suite"
+            "en": "RedPi — virtualized enterprise network + security suite",
+            "es": "RedPi — red empresarial virtualizada + suite de ciberseguridad",
+            "eu": "RedPi — enpresa-sare birtualizatua + segurtasun suitea"
           },
           "file": "projects/red-empresarial-virtualizada.md",
           "file_i18n": {
