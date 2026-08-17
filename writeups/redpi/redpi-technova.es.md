@@ -86,7 +86,7 @@ Shell como `www-data` en el servidor web de la DMZ. Objetivo cumplido.
 Un detalle importante sobre la reverse shell: **el resultado depende de desde
 dónde se lance el ataque.**
 
-- En este caso ejecuté la cadena desde **RedPi, situada en la LAN interna**. El
+- En este caso ejecuté la cadena desde la maquina **RedPi, situada en la LAN interna** (conectada por VPN mediante el tunel de OpenVPN). El
   firewall segmenta las zonas y bloquea el tráfico DMZ→LAN, así que la conexión
   de vuelta no llegaba. Para completar el ejercicio añadí una regla puntual
   permitiendo el puerto 4444 desde la DMZ hacia RedPi. Esto simula el escenario
