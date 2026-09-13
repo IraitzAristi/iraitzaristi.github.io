@@ -57,7 +57,7 @@
         "Tor",
         "I2P",
         "APTs",
-        "Análisis del adversario",
+        "Análisis del adversario / Threat Intelligence",
         "TTPs"
       ],
       "eu": [
@@ -74,9 +74,11 @@
         "MikroTik / OpenVPN",
         "Python",
         "Bash",
-        "PowerShell",
-        "C#",
-        "Adversarioaren analisia"
+        "Tor",
+        "I2P",
+        "APT",
+        "Adbersarioaren analisia / Threat Intelligence",
+        "TTP"
       ],
       "en": [
         "Pentesting",
@@ -92,9 +94,11 @@
         "MikroTik / OpenVPN",
         "Python",
         "Bash",
-        "PowerShell",
-        "C#",
-        "Adversary analysis"
+        "Tor",
+        "I2P",
+        "APT",
+        "Adversary analysis / Threat Intelligence",
+        "TTP"
       ]
     }
   },
