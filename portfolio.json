@@ -54,9 +54,11 @@
         "MikroTik / OpenVPN",
         "Python",
         "Bash",
-        "PowerShell",
-        "C#",
-        "Análisis del adversario"
+        "Tor",
+        "I2P",
+        "APTs",
+        "Análisis del adversario",
+        "TTPs"
       ],
       "eu": [
         "Pentesting",
