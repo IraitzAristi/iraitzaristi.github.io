@@ -4,14 +4,14 @@
     "name": "Iraitz Aristi Lucambio",
     "handle": "IraitzAristi",
     "role": {
-      "es": "Sistemas y Redes · Ciberseguridad & Hacking Ético (eJPTv2)",
-      "eu": "Sistemak eta Sareak · Zibersegurtasuna & Hacking Etikoa (eJPTv2)",
-      "en": "Systems & Networks · Cybersecurity & Ethical Hacking (eJPTv2)"
+      "es": "Seguridad Ofensiva & Red Team · eJPTv2 · Pentesting · Active Directory",
+      "eu": "Segurtasun Ofentsiboa & Red Team · eJPTv2 · Pentesting · Active Directory",
+      "en": "Offensive Security & Red Team · eJPTv2 · Pentesting · Active Directory"
     },
     "pitch": {
-      "es": "Técnico en Sistemas y Redes con la certificación eJPTv2 y más de 500 horas de prácticas. Diseño, virtualizo y securizo infraestructuras de red de principio a fin, moviéndome entre la administración Linux, las redes y la ciberseguridad ofensiva y defensiva. Practico pentesting en HackTheBox y CTFs, e investigo la privacidad y el anonimato en red (Tor, I2P, VPN).",
-      "eu": "Sistema eta Sareetako teknikaria, eJPTv2 ziurtagiriarekin eta 500 ordu baino gehiagoko praktikekin. Sare-azpiegiturak hasieratik amaierara diseinatu, birtualizatu eta segurtatzen ditut, Linux administrazioaren, sareen eta zibersegurtasun ofentsibo zein defentsiboaren artean moldatuz. HackTheBox eta CTFetan egiten dut pentesting, eta sareko pribatutasuna eta anonimotasuna ikertzen ditut (Tor, I2P, VPN).",
-      "en": "Systems & Networks technician with the eJPTv2 certification and over 500 hours of hands-on practice. I design, virtualize and secure full network infrastructures end to end, moving comfortably between Linux administration, networking and both offensive and defensive cybersecurity. I practice pentesting on HackTheBox and CTFs, and research privacy and anonymity on the network (Tor, I2P, VPN)."
+      "es": "Técnico orientado a la seguridad ofensiva con la certificación eJPTv2 y más de 500 horas de prácticas. Diseño, virtualizo y securizo infraestructuras de red completas, y me muevo en seguridad ofensiva y defensiva: pentesting, explotación web y Active Directory, con práctica continua en Hack The Box, CTFs y programas de bug bounty. Complemento lo técnico con el análisis del adversario —cómo operan los actores de amenazas y qué tecnologías de anonimato (Tor, I2P, VPN) emplean—, una perspectiva que refuerza mi trabajo ofensivo. Actualmente curso ASIR.",
+      "eu": "Segurtasun ofentsibora bideratutako teknikaria, eJPTv2 ziurtagiriarekin eta 500 ordu baino gehiagoko praktikekin. Sare-azpiegitura osoak diseinatu, birtualizatu eta segurtatzen ditut, eta segurtasun ofentsibo zein defentsiboan moldatzen naiz: pentesting-a, web ustiapena eta Active Directory, Hack The Box, CTF eta bug bounty programetan praktika jarraituarekin. Alderdi teknikoa adversarioaren analisiarekin osatzen dut —nola diharduten mehatxu-aktoreek eta zer anonimotasun-teknologia (Tor, I2P, VPN) erabiltzen dituzten—, nire lan ofentsiboa indartzen duen ikuspegia. Gaur egun ASIR ikasten ari naiz.",
+      "en": "Offensive-security-focused technician with the eJPTv2 certification and 500+ hours of hands-on practice. I design, virtualize and secure full network infrastructures, and work across offensive and defensive security: pentesting, web exploitation and Active Directory, with continuous practice on Hack The Box, CTFs and bug bounty programs. I complement the technical side with adversary analysis — how threat actors operate and the anonymity technologies (Tor, I2P, VPN) they use — a perspective that strengthens my offensive work. Currently studying ASIR."
     },
     "location": "Pamplona, Navarra",
     "links": [
@@ -44,6 +44,7 @@
         "Pentesting",
         "Explotación web",
         "Active Directory",
+        "Bug Bounty / VDP",
         "Hardening",
         "Burp Suite",
         "Linux",
@@ -55,12 +56,13 @@
         "Bash",
         "PowerShell",
         "C#",
-        "Privacidad & anonimato"
+        "Análisis del adversario"
       ],
       "eu": [
         "Pentesting",
         "Web ustiapena",
         "Active Directory",
+        "Bug Bounty / VDP",
         "Hardening",
         "Burp Suite",
         "Linux",
@@ -72,12 +74,13 @@
         "Bash",
         "PowerShell",
         "C#",
-        "Pribatutasuna & anonimotasuna"
+        "Adversarioaren analisia"
       ],
       "en": [
         "Pentesting",
         "Web exploitation",
         "Active Directory",
+        "Bug Bounty / VDP",
         "Hardening",
         "Burp Suite",
         "Linux",
@@ -89,7 +92,7 @@
         "Bash",
         "PowerShell",
         "C#",
-        "Privacy & anonymity"
+        "Adversary analysis"
       ]
     }
   },
