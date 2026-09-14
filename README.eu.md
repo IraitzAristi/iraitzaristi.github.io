@@ -2,19 +2,19 @@
 
 # iraitzaristi.github.io
 
-Nire portfolioa. benetan zer dakidan hemen erakusten dut: rooteatu ditudan makinak, eraiki ditudan proiektuak eta
+Nire portfolioa. benetan zer dakidan hemen erakusten dut: Rooteatu ditudan makinak, eraiki ditudan proiektuak eta
 tresnak.
 
 **Portfolioa:** https://iraitzaristi.github.io
 
 ## Ezaugarriak
 
-- **Profila / azala** — rola, aurkezpena, trebetasunak, ziurtagiriak eta
+- **Profila / azala**: rola, aurkezpena, trebetasunak, ziurtagiriak eta
   estatistikak (makinak, proiektuak, ziurtagiriak).
-- **Makinen katalogoa** — makina bakoitza bere plataforma, zailtasun eta SE-arekin,
+- **Makinen katalogoa**: makina bakoitza bere plataforma, zailtasun eta SE-arekin,
   filtroak dituen taula batean (plataformaz eta zailtasunez filtratu ahal da).
-- **Writeup-ak eta proiektuak** — Markdown-a orrian dago.
-- **3 Hizkuntzetan** — ingelesa / gaztelania / euskara, klik batekin aldatzeko hizkuntza eta
+- **Writeup-ak eta proiektuak**: Markdown-a orrian dago.
+- **3 Hizkuntzetan**: ingelesa/gaztelania/euskara, klik batekin aldatzeko hizkuntza eta
   bisiten artean gogoratua. Ingelesa da lehenetsia, nabigatzailearen hizkuntza
   lehen kargan detektatzen da.
 
@@ -37,7 +37,7 @@ GitHub Pages-en hedatua.
 
 Guneak erakusten duen guztia `portfolio.json`-etik dator.
 
-**Makina bat gehitu** — idatzi `.md`-a `writeups/<plataforma>/`-n, eta gehitu sarrera
+**Makina bat gehitu**: idatzi `.md`-a `writeups/<plataforma>/`-n, eta gehitu sarrera
 bat `machines`-i:
 
 ```json
