@@ -2,36 +2,26 @@
 
 # iraitzaristi.github.io
 
-My offensive-security portfolio — a "second CV" that shows what I can actually
-do: machines I've rooted, projects I've built, and the tooling behind them.
-Built by hand with vanilla HTML, CSS and JavaScript. No framework.
+My portfolio. Here I show what I actually know how to do: machines I've rooted, projects I've built and tools.
 
-**Live:** https://iraitzaristi.github.io
+**Portfolio:** https://iraitzaristi.github.io
 
 ## Features
 
-- **Profile / landing** — role, pitch, skills, certifications and live stats
-  (machines, projects, certifications) computed straight from the data.
-- **Machines catalog** — every box with its platform, difficulty and OS, in a
-  filterable table (filter by platform and difficulty) that scans like a CV.
-- **Writeups & projects** — Markdown rendered in-page with syntax highlighting.
-- **Trilingual** — English / Spanish / Basque, switchable with one click and
-  remembered across visits. English is the default; the browser language is
-  auto-detected on first load.
+- **Profile / landing**: role, pitch, skills, certifications and stats (machines, projects, certifications).
+- **Machines catalog**: each machine with its platform, difficulty and OS, in a filterable table (filter by platform and difficulty).
+- **Writeups & projects**: Markdown rendered in-page.
+- **In 3 languages**: English/Spanish/Basque, switchable with one click and remembered across visits. English is the default, the browser language is detected on first load.
 
-## Tech
+## Technology
 
-Plain HTML/CSS/JS, no build step. Rendering libraries loaded from CDN:
-[marked](https://github.com/markedjs/marked) (Markdown),
-[highlight.js](https://github.com/highlightjs/highlight.js) (code) and
-[DOMPurify](https://github.com/cure53/DOMPurify) (sanitisation).
 Deployed on GitHub Pages.
 
 ## Structure
 
 ```
 .
-├── index.html          # the whole app (HTML + CSS + JS)
+├── index.html          # the whole app
 ├── portfolio.json      # all the data: profile, machines, sections
 ├── writeups/           # machine writeups (Markdown)
 │   └── htb/
@@ -40,12 +30,9 @@ Deployed on GitHub Pages.
 
 ## Data model
 
-Everything the site shows comes from `portfolio.json`. Short fields that need
-translation are objects keyed by language; long documents point to per-language
-Markdown files.
+Everything the site shows comes from `portfolio.json`.
 
-**Add a machine** — write the `.md` under `writeups/<platform>/`, then add an
-entry to `machines`:
+**Add a machine**: write the `.md` under `writeups/<platform>/`, then add an entry to `machines`:
 
 ```json
 {
@@ -59,26 +46,9 @@ entry to `machines`:
 }
 ```
 
-`difficulty` accepts `Easy`, `Medium`, `Hard`, `Insane` — each gets its own
-colour, and the platform/difficulty filters build themselves from the data.
-
-**Add a translated document** — the base `file` is written in the default
-language (English). Point `file_i18n` at the translated versions:
-
-```json
-"file": "projects/name.md",
-"file_i18n": {
-  "es": "projects/name.es.md",
-  "eu": "projects/name.eu.md"
-}
-```
-
-If a document isn't translated yet, the site falls back to the base language and
-shows a small notice — it never breaks.
+`difficulty` accepts `Easy`, `Medium`, `Hard`, `Insane`, each gets its own colour, and the platform/difficulty filters build themselves from the data.
 
 ## Run locally
-
-`fetch()` doesn't work from `file://`, so serve the folder:
 
 ```bash
 python3 -m http.server 8000
