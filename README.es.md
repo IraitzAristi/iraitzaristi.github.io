@@ -11,7 +11,7 @@ Mi portfolio. Aquí muestro lo que de verdad sé hacer: máquinas que he rootead
 - **Perfil / portada**: rol, presentación, skills, certificaciones y estadísticas (máquinas, proyectos, certificaciones).
 - **Catálogo de máquinas**: cada máquina con su plataforma, dificultad y SO, en una tabla filtrable (por plataforma y dificultad).
 - **Writeups y proyectos**: Markdown renderizado en la página.
-- **En 3 idiomas**: inglés/castellano/euskera, conmutable con un clic y recordado entre visitas. El inglés es el idioma por defecto; el del navegador se detecta en la primera carga.
+- **En 3 idiomas**: inglés/castellano/euskera, conmutable con un clic y recordado entre visitas. El inglés es el idioma por defecto, el del navegador se detecta en la primera carga.
 
 ## Tecnología
 
