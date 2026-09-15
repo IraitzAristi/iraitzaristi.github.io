@@ -39,7 +39,7 @@ spoofer** (MitM) y **fuerza bruta al XMLRPC**.
 
 Con la suite ejecuté una cadena de ataque completa contra el servidor web de la
 DMZ: reconocimiento -> fuzzing web -> enumeración de usuarios vía
-`wp-json/wp/v2/users` -> fuerza bruta al XMLRPC -> acceso a `wp-admin` → una reverse
+`wp-json/wp/v2/users` -> fuerza bruta al XMLRPC -> acceso a `wp-admin` -> una reverse
 shell en PHP a través de un plugin para caer como `www-data` en el servidor web.
 Writeup completo:
 [RedPi — compromiso del servidor web de TechNova](#writeups/redpi/redpi-technova.md).
