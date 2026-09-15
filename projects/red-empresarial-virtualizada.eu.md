@@ -49,28 +49,19 @@ web zerbitzarian www-data erabiltzailea bezala sarbidea lortzeko. Writeup osoa:
   ziurtagiriak sortu eta sinatu.
 - Segurtasunaren bi aldeetan **tresna propioak** garatzea.
 - **Barne pentest errealista** bat exekutatu eta dokumentatzea.
-- **Planteatutako hobekuntzak**: identifikatutako hurrengo urratsak (MITM tresneria
+- **Ingeniaritza heldutasuna**: identifikatutako hurrengo urratsak (MITM tresneria
   osoa, barne DNS zerbitzari bat, HTTPS web-zerbitzarian eta zerbitzari ispilu bat).
 
 ## Demo
 
-- **Bideo-demoa** (eraso-kate osoa, ~5 min): [YouTube-n ikusi](https://youtu.be/TU_VIDEO) HORAINDIK EZ DUT IGO, YOUTUBE-K BIDEOA ZENSURATZEN DIT
-- **Tresnen kodea**: [github.com/IraitzAristi/redpi-tools](https://github.com/IraitzAristi/redpi-tools) 
+- **Tresnen kodea**: [github.com/IraitzAristi/redpi-tools](https://github.com/IraitzAristi/redpi-tools)
 
-Laborategia bera ez da banagarria, GB RAM behar ditu eta sare zehatz bati
-lotuta dago, baina bideoak kate osoa erakusten du hasieratik amaierara, eta
-tresnak modu autonomoan exekutatzen dira baimendutako edozein helbururen aurka.
-Zuzeneko demoa eskuragarri eskaeraren arabera.
-
-## Dokumentazioa
-
-- Proiektuaren aurkezpena (euskaraz): HORAINDIK EZ DAGO ARGITARATUTA
-  <a href="projects/redpi-presentacion.pdf" target="_blank" rel="noopener">redpi-presentacion.pdf</a>
-- Memoria tekniko osoa (55 orrialde, euskaraz): HORAINDIK EZ DAGO ARGITARATUTA
-  <a href="projects/redpi-memoria.pdf" target="_blank" rel="noopener">redpi-memoria.pdf</a>
+Laborategia bera ez da banagarria, RAM GB asko behar ditu eta sare zehatz bati
+lotuta dago, baina tresnak modu autonomoan exekutatzen dira baimendutako edozein
+helbururen aurka. Zuzeneko demoa eskuragarri eskaeraren arabera.
 
 ## Teknologiak
 
-VirtualBox · MikroTik RouterOS · OpenVPN · PKI (CA eta ziurtagiriak) · Apache ·
-WordPress · MySQL · vsftpd · Python (scapy, nmap) · Linux · Firewall · Routing .
-WinBox
+VirtualBox · MikroTik RouterOS · WinBox · OpenVPN · PKI (CA eta ziurtagiriak) ·
+Apache · WordPress · MySQL · vsftpd · Python (scapy, nmap) · Linux · Firewall ·
+Routing.
