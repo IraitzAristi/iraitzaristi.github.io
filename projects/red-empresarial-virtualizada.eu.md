@@ -27,10 +27,10 @@ segmentatu eta segurtatu bat, sarearen eta ekipoen segurtasuna neurtzeko eta hob
 
 ## Python tresna-suitea
 
-**Defentsiboak** — MySQL datu-basearen kudeatzailea, pasahitzen
+**Defentsiboak**: MySQL datu-basearen kudeatzailea, pasahitzen
 segurtasun-analizatzailea eta pasahitzak **SHA-256** algoritmoarekin/funtzioarekin hasheatzen dituen pasahitz generadorea.
 
-**Ofentsiboak** — sare-eskanerra (python-nmap), web fuzzer-a, HTTP/FTP sniffer-a, **ARP
+**Ofentsiboak**: Sare eskanerra (python-nmap), web fuzzer-a, HTTP/FTP sniffer-a, **ARP
 spoofer**-a (MitM) eta **XMLRPC indar basatia**.
 
 ## Auditoria martxan
