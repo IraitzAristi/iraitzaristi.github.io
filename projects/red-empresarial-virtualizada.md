@@ -17,7 +17,7 @@ network to measure and improve the security of the network and its hosts.
 
 - **Segmented network** in VirtualBox: **LAN**, **DMZ** and **WAN**, routed by a
   three-interface **MikroTik** router.
-- **Firewall**: DMZ→LAN blocked, LAN→DMZ allowed, NAT masquerade to WAN, so the
+- **Firewall**: DMZ->LAN blocked, LAN->DMZ allowed, NAT masquerade to WAN, so the
   public web server can't reach the internal network/data directly.
 - **MySQL server** (LAN) with the corporate database.
 - **Web/FTP server**: **Apache + WordPress + vsftpd** (DMZ).
