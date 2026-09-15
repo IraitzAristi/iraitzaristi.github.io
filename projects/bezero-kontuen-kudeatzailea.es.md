@@ -1,70 +1,49 @@
-# RedPi — red virtualizada + suite de seguridad/pentesting
+# Bezero Kontuen Kudeatzailea
 
-**Proyecto de fin de grado · 2026** · infraestructura completa + tooling propio + pentest
+**Gestor de cuentas y contraseñas de clientes** · C#/.NET · aplicación de consola
 
-RedPi es una solución construida para una empresa ficticia ("TechNova") que había
-sufrido un ciberataque. Sobre la infraestructura desarrollé una suite de
-herramientas propias en Python (defensivas y ofensivas), pensadas para que las use
-personal sin perfil técnico, y con ellas audité el entorno de principio a fin.
+Un programa desarrollado en C# para gestionar las cuentas y contraseñas de los
+clientes de una empresa ("AllSecurity"): crear cuentas, buscarlas y mantener sus
+credenciales organizadas por plataforma y tipo. El proyecto tiene dos versiones, y
+lo más interesante es el salto entre ambas.
 
-## Escenario
+## De v1 a v2: el proceso
 
-TechNova, una empresa de software, sufre una brecha: como consecuencia se filtran
-20 GB de datos sensibles. Encargan RedPi, un conjunto de herramientas de auditoría
-más una red segmentada y securizada para medir y mejorar la seguridad de la red y
-sus equipos.
+**v1** resolvía el problema de la forma más directa: un único `Program.cs`, datos
+guardados en arrays y código procedural. Funcionaba, pero todo estaba en un solo
+archivo.
 
-## Infraestructura
+**v2** es una reescritura completa, aplicando **programación orientada a objetos**
+y dividiendo el código en módulos.
 
-- **Red segmentada** en VirtualBox: **LAN**, **DMZ** y **WAN**, enrutadas por un
-  router **MikroTik** de tres interfaces.
-- **Firewall**: DMZ→LAN bloqueado, LAN→DMZ permitido, NAT masquerade hacia WAN,
-  para que el servidor web público no acceda directamente a la red/datos internos.
-- **Servidor MySQL** (LAN) con la base de datos corporativa.
-- **Servidor web/FTP**: **Apache + WordPress + vsftpd** (DMZ).
-- **Puestos Ubuntu** de empleados y dirección (LAN).
-- **Máquina de auditoría RedPi** (la máquina de pentesting), que llega a la LAN por
-  un túnel **OpenVPN** montado desde cero con mi propia **autoridad certificadora
-  (CA)** y certificados cliente-servidor (PKI), sobre el router MikroTik.
-
-## Suite de herramientas en Python
-
-**Defensivas**: Gestor de base de datos MySQL, analizador de robustez de
-contraseñas y un generador de contraseñas con hashing **SHA-256**.
-
-**Ofensivas**: Escáner de red (python-nmap), fuzzer web, sniffer HTTP/FTP, **ARP
-spoofer** (MitM) y **fuerza bruta al archivo XMLRPC**.
-
-## La auditoría en acción
-
-Con la suite ejecuté una cadena de ataque completa contra el servidor web de la
-DMZ: reconocimiento -> fuzzing web -> enumeración de usuarios vía
-`wp-json/wp/v2/users` -> fuerza bruta al XMLRPC -> acceso a `wp-admin` -> una reverse
-shell en PHP a través de un plugin para caer como `www-data` en el servidor web.
-Writeup completo:
-[RedPi — compromiso del servidor web de TechNova](#writeups/redpi/redpi-technova.md).
+- **`Kontua`** (Cuenta): la clase Cuenta, con campos privados, getters/setters y un
+  constructor que usa `?? ""` para protegerse frente a valores nulos.
+- **`Estatistikak`** (Estadísticas): estadísticas en tiempo real usando
+  `Dictionary<string,int>`, que cuenta las cuentas por tipo y por plataforma.
+- **`Fitxategiak_kudeatu`** (Gestión de archivos): importa desde y exporta a archivos.
+- **`Segurtasuna`** (Seguridad): un módulo de **auditoría de seguridad** que analiza
+  todas las cuentas y marca las que tienen contraseñas débiles (menos de 8
+  caracteres). Puntúa cada contraseña y da recomendaciones de seguridad.
 
 ## Qué demuestra
 
-- Diseñar y securizar una **red completa** de principio a fin (segmentación,
-  firewalling, routing, VPN).
-- Comprensión práctica de **PKI**: montar una CA y emitir/firmar certificados para
-  el túnel OpenVPN.
-- Desarrollar **tooling propio** a ambos lados de la seguridad.
-- Ejecutar y documentar un **pentest interno realista**.
-- **Madurez de ingeniería**: siguientes pasos identificados (tooling de MITM
-  completo, un servidor DNS interno, HTTPS en el servidor web y un servidor espejo).
-
-## Demo
-
-- **Código de las herramientas**: [github.com/IraitzAristi/redpi-tools](https://github.com/IraitzAristi/redpi-tools)
-
-El laboratorio en sí no es distribuible, necesita bastantes GB de RAM y está atado a
-una red concreta, pero las herramientas funcionan de forma autónoma contra
-cualquier objetivo autorizado, y hay una demo en vivo disponible bajo petición.
+- Diseño **OOP**: encapsulación y modularidad.
+- Estructuras de datos de C#: arrays, `List<>` y `Dictionary<>`.
+- **Persistencia en archivos**: (importar/exportar) y análisis de datos.
+- **Mentalidad de seguridad**: el módulo de auditoría de contraseñas surgió de
+  pensar cómo detectar credenciales débiles.
+- **Iteración y refactorización**: llevar un proyecto de una versión procedural a
+  una arquitectura OOP mantenible.
 
 ## Tecnologías
 
-VirtualBox · MikroTik RouterOS · WinBox · OpenVPN · PKI (CA y certificados) ·
-Apache · WordPress · MySQL · vsftpd · Python (scapy, nmap) · Linux · Firewall ·
-Routing.
+C# · .NET · OOP (clases, getters/setters, modularidad) · `List` · `Dictionary` ·
+gestión de archivos · interfaz de consola.
+
+## Código
+
+- v2 (OOP): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea-v2>
+- v1 (procedural): <https://github.com/IraitzAristi/Bezero-Kontuen-Kudeatzailea>
+
+> Estado: en desarrollo. v2 sigue creciendo con nuevas funciones de búsqueda
+> avanzada y estadísticas.
