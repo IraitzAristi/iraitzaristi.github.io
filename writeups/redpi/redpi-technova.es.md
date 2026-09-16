@@ -22,6 +22,8 @@ Host: 10.0.0.10
 Un Apache en el puerto 80 con FTP al lado: el 80 sirve un sitio WordPress, que
 se convierte en la superficie de ataque más prometedora.
 
+![Escaneo de la DMZ desde RedPi: servidor web en 10.0.0.10](writeups/redpi/img/01-recon-scan.png)
+
 ## Enumeración web
 
 Mi herramienta de análisis web hace fuzzing de rutas comunes. Hallazgos
@@ -38,11 +40,15 @@ interesantes:
 Dos destacan: `wp-json/wp/v2/users` y `xmlrpc.php`, ambos expuestos por defecto
 en una instalación estándar de WordPress.
 
+![Fuzzing web: wp-json y xmlrpc.php expuestos por defecto](writeups/redpi/img/02-web-fuzzing.png)
+
 ## Enumeración de usuarios
 
 `/wp-json/wp/v2/users` filtra la lista de autores — devuelve el nombre de la
 cuenta `admin`. WordPress expone este endpoint por defecto, regalándole al
 atacante un usuario válido con el que empezar.
+
+![wp-json/wp/v2/users filtrando el usuario admin](writeups/redpi/img/03-wpjson-user-enum.png)
 
 ## Fuerza bruta al XML-RPC
 
@@ -56,6 +62,8 @@ bruta al XML-RPC lanza un diccionario contra el usuario `admin`:
 ```
 
 Credenciales obtenidas.
+
+![Fuerza bruta al XML-RPC recuperando las credenciales de admin](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
 ## Acceso y foothold
 
@@ -80,6 +88,12 @@ $ pwd
 ```
 
 Shell como `www-data` en el servidor web de la DMZ. Objetivo cumplido.
+
+![Login en wp-admin con las credenciales recuperadas](writeups/redpi/img/05-wpadmin-login.png)
+
+![Reverse shell en PHP pegada en el plugin Hello Dolly](writeups/redpi/img/06-plugin-reverse-shell.png)
+
+![Reverse shell recibida en RedPi: shell como www-data](writeups/redpi/img/07-shell-www-data.png)
 
 ## Nota sobre el punto de origen del ataque (modelo de amenaza)
 
