@@ -59,7 +59,7 @@ aurka:
 
 ```
 [*] 7 pasahitz probatzen http://10.0.0.10/xmlrpc.php aurka
-[+] Baliozko kredentzialak: admin:7uj*******
+[+] Baliozko kredentzialak: admin:7ujm8ik,9ol.
 ```
 
 Kredentzialak lortuta.
@@ -122,7 +122,7 @@ trafikoa da, eta hortik ihes egingo luke konpromiso erreal batek.
 Katea hainbat konfigurazio lehenetsi, gaizki ezarri edo ahulengatik funtzionatu
 zuen. Gomendioak, eraginik handienetik txikienera:
 
-- **Pasahitz sendoak + MFA**, `admin:7uj*******` hiztegi txiki batekin erori zen;
+- **Pasahitz sendoak + MFA**, `admin:7ujm8ik,9ol.` hiztegi txiki batekin erori zen;
   konpromiso osoaren sustraia da.
 - **Plugin/gai editorea desgaitu**, `DISALLOW_FILE_EDIT` ezarri `wp-config.php`-n,
   konprometitutako admin batek kodea injektatu ezin dezan.
