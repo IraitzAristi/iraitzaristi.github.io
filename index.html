@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>~/IraitzAristi</title>
+  <title>~/portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,7 +52,7 @@
     a:hover { text-decoration: underline; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
-    .layout { display: flex; min-height: 100vh; }
+    .layout { display: flex; min-height: 100vh; max-width: 1600px; margin: 0 auto; }
 
     /* ---------- SIDEBAR ---------- */
     .sidebar {
@@ -108,7 +108,9 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 960px; margin: 0 auto; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; width: 100%; }
+    /* Limita solo los bloques de lectura larga para que no se estiren de más */
+    .hero .pitch, .markdown { max-width: 78ch; }
 
     /* ===== PORTADA / PERFIL ===== */
     .hero .role {
@@ -274,7 +276,7 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">IraitzAristi</span><span class="cursor"></span></div>
+        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
         <div class="tagline" id="tagline">loading…</div>
         <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
           <button class="lang-btn" data-lang="eu" aria-label="Euskara">
