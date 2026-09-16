@@ -52,7 +52,7 @@
     a:hover { text-decoration: underline; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
-    .layout { display: flex; min-height: 100vh; max-width: 1600px; margin: 0 auto; }
+    .layout { display: flex; min-height: 100vh; }
 
     /* ---------- SIDEBAR ---------- */
     .sidebar {
@@ -108,9 +108,7 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; width: 100%; }
-    /* Limita solo los bloques de lectura larga para que no se estiren de más */
-    .hero .pitch, .markdown { max-width: 78ch; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 960px; margin: 0 auto; width: 100%; }
 
     /* ===== PORTADA / PERFIL ===== */
     .hero .role {
