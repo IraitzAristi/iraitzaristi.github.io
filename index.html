@@ -108,7 +108,20 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 960px; margin: 0 auto; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1040px; width: 100%; }
+
+    /* ---------- FEATURED / NOVEDADES ---------- */
+    .featured { margin-top: 60px; }
+    .feat-head { font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .feat-head::before { content: ""; width: 6px; height: 6px; background: var(--accent-dim); transform: rotate(45deg); }
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .feat-card { display: flex; flex-direction: column; gap: 9px; background: var(--bg); padding: 20px; min-height: 118px; }
+    .feat-card:hover { background: var(--surface); text-decoration: none; }
+    .feat-kind { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-dim); }
+    .feat-card:hover .feat-kind { color: var(--accent); }
+    .feat-title { font-family: var(--mono); font-size: 15px; color: var(--text); line-height: 1.3; }
+    .feat-card:hover .feat-title { color: var(--accent); }
+    .feat-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: auto; }
 
     /* ===== PORTADA / PERFIL ===== */
     .hero .role {
@@ -561,6 +574,26 @@
       const diffBreak = diffOrder.filter(([k]) => count(k) > 0)
         .map(([k,label]) => `<span class="d ${k}"><b>${count(k)}</b> ${label}</span>`).join('');
 
+      // Featured / novedades: muestra items con featured:true; si no hay ninguno,
+      // cae automáticamente a los 3 más recientes por fecha. Crece solo con los datos.
+      const allItems = [
+        ...machines.map(m => ({ kind:'machine', title: tr(m.title || m.name || ''), file: m.file, date: m.date || '', featured: !!m.featured, meta: [m.platform, m.difficulty].filter(Boolean).join(' · ') })),
+        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name) })))
+      ];
+      let feat = allItems.filter(i => i.featured);
+      if (!feat.length) feat = allItems.filter(i => i.date).sort((a,b) => (a.date < b.date ? 1 : -1)).slice(0, 3);
+      const kindWord = { machine: { es:'writeup', eu:'writeup', en:'writeup' }, doc: { es:'proyecto', eu:'proiektua', en:'project' } };
+      const featLabel = { es:'// destacado', eu:'// nabarmendua', en:'// featured' }[lang] || '// featured';
+      const featCards = feat.map(i => `
+        <a class="feat-card" href="#${esc(i.file)}">
+          <span class="feat-kind">${esc(kindWord[i.kind][lang] || kindWord[i.kind].en)}</span>
+          <span class="feat-title">${esc(i.title)}</span>
+          ${i.meta ? `<span class="feat-meta">${esc(i.meta)}</span>` : ''}
+        </a>`).join('');
+      const featSection = feat.length
+        ? `<section class="featured"><div class="feat-head">${esc(featLabel)}</div><div class="feat-grid">${featCards}</div></section>`
+        : '';
+
       content.innerHTML = `
         <section class="hero">
           <p class="role">${esc(tr(p.role))}</p>
@@ -572,7 +605,8 @@
           <div class="skills">${skills}</div>
           <div class="statbar">${statCells}</div>
           ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">${esc(t('byDifficulty'))}</span>${diffBreak}</div>` : ''}
-        </section>`;
+        </section>
+        ${featSection}`;
       document.title = (p.name || p.handle || 'portfolio');
       window.scrollTo(0, 0);
     }
