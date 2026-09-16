@@ -1,12 +1,12 @@
-# RedPi — compromiso del servidor web de TechNova
+# RedPi - Compromiso del servidor web de TechNova
 
-**Entorno:** laboratorio propio · **Objetivo:** servidor web de la DMZ (10.0.0.10) · **Meta:** obtener una shell en el servidor web partiendo de la máquina de auditoría RedPi
+**Entorno:** laboratorio propio · **Objetivo:** servidor web de la DMZ (10.0.0.10) · **Meta:** conseguir una shell en el servidor web usando la máquina de auditoría RedPi
 
-Forma parte del proyecto **RedPi** — una red empresarial simulada de TechNova
-(LAN / DMZ / WAN) auditada con un conjunto de herramientas propias en Python.
-Este writeup recorre la cadena ofensiva de principio a fin, desde la máquina
-RedPi (conectada por VPN) hasta una shell en el servidor web de la DMZ, usando
-mis propias herramientas.
+Forma parte del proyecto **RedPi**, una red empresarial simulada de TechNova
+(LAN / DMZ / WAN), auditada con herramientas propias en Python. Este writeup
+muestra la cadena ofensiva de principio a fin, desde la máquina RedPi (conectada
+por VPN) hasta una shell en el servidor web de la DMZ, usando mis propias
+herramientas.
 
 ## Reconocimiento
 
@@ -19,15 +19,16 @@ Host: 10.0.0.10
 80/tcp  open  http  Apache 2.4.41
 ```
 
-Un Apache en el puerto 80 con FTP al lado: el 80 sirve un sitio WordPress, que
-se convierte en la superficie de ataque más prometedora.
+Un servidor Apache en el puerto 80, con un servicio FTP al lado: el puerto 80
+sirve un sitio WordPress, que se convierte en la superficie de ataque más
+interesante.
 
 ![Escaneo de la DMZ desde RedPi: servidor web en 10.0.0.10](writeups/redpi/img/01-recon-scan.png)
 
 ## Enumeración web
 
-Mi herramienta de análisis web hace fuzzing de rutas comunes. Hallazgos
-interesantes:
+Mi herramienta de análisis web hace fuzzing de rutas comunes. Las rutas
+interesantes que encontré:
 
 ```
 [200] /wp-admin
@@ -37,28 +38,28 @@ interesantes:
 [200] /readme.html
 ```
 
-Dos destacan: `wp-json/wp/v2/users` y `xmlrpc.php`, ambos expuestos por defecto
-en una instalación estándar de WordPress.
+Dos destacan: `wp-json/wp/v2/users` y `xmlrpc.php`, ambas expuestas por defecto en
+una instalación estándar de WordPress.
 
 ![Fuzzing web: wp-json y xmlrpc.php expuestos por defecto](writeups/redpi/img/02-web-fuzzing.png)
 
 ## Enumeración de usuarios
 
-`/wp-json/wp/v2/users` filtra la lista de autores — devuelve el nombre de la
-cuenta `admin`. WordPress expone este endpoint por defecto, regalándole al
-atacante un usuario válido con el que empezar.
+`/wp-json/wp/v2/users` filtra la lista de autores, devolviendo el nombre de
+usuario de la cuenta `admin`. WordPress expone este endpoint por defecto, y le
+regala al atacante un nombre de usuario válido para empezar.
 
 ![wp-json/wp/v2/users filtrando el usuario admin](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## Fuerza bruta al XML-RPC
+## Fuerza bruta al archivo XML-RPC
 
 `xmlrpc.php` acepta el método `wp.getUsersBlogs`, que permite probar credenciales
 fuera del formulario de login y sin límite de intentos. Mi herramienta de fuerza
-bruta al XML-RPC lanza un diccionario contra el usuario `admin`:
+bruta al XML-RPC prueba un diccionario contra el usuario `admin`:
 
 ```
 [*] Probando 7 contraseñas contra http://10.0.0.10/xmlrpc.php
-[+] Credenciales válidas: admin:7uj*******
+[+] Credenciales válidas: admin:7ujm8ik,9ol.
 ```
 
 Credenciales obtenidas.
@@ -68,10 +69,10 @@ Credenciales obtenidas.
 ## Acceso y foothold
 
 Con la contraseña de `admin` inicié sesión en `/wp-admin`. El editor de plugins
-era accesible desde el panel, así que reemplacé el código del plugin inactivo
-**Hello Dolly** por una reverse shell en PHP apuntando a RedPi en el puerto 4444.
+estaba accesible desde el panel, así que reemplacé el código del plugin inactivo
+**Hello Dolly** con una reverse shell en PHP apuntando a RedPi en el puerto 4444.
 
-Puse un listener a la escucha:
+Puse un listener a la escucha en la máquina RedPi con Netcat:
 
 ```bash
 nc -nlvp 4444
@@ -98,41 +99,43 @@ Shell como `www-data` en el servidor web de la DMZ. Objetivo cumplido.
 ## Nota sobre el punto de origen del ataque (modelo de amenaza)
 
 Un detalle importante sobre la reverse shell: **el resultado depende de desde
-dónde se lance el ataque.**
+dónde se lanza el ataque.**
 
-- En este caso ejecuté la cadena desde la maquina **RedPi, situada en la LAN interna** (conectada por VPN mediante el tunel de OpenVPN). El
-  firewall segmenta las zonas y bloquea el tráfico DMZ→LAN, así que la conexión
-  de vuelta no llegaba. Para completar el ejercicio añadí una regla puntual
-  permitiendo el puerto 4444 desde la DMZ hacia RedPi. Esto simula el escenario
-  de un **atacante interno** (o de un equipo ya dentro de la red).
-- Un **atacante externo** real —el caso típico de un cibercriminal— lanzaría la
-  reverse shell contra una máquina bajo su control **en Internet (WAN)**, no en
-  la LAN. En ese escenario el tráfico saldría de la DMZ hacia fuera, que es una
-  dirección normalmente permitida, y **no haría falta tocar el firewall**.
+- En este caso, lancé la cadena **desde RedPi, situada en la LAN interna**
+  (conectada por VPN, a través del túnel OpenVPN). El firewall segmenta las zonas
+  y bloquea el tráfico DMZ->LAN, así que la conexión de vuelta no llegaba. Para
+  completar el ejercicio, añadí una regla temporal permitiendo el puerto 4444
+  desde la DMZ hacia RedPi. Esto simula el escenario de un **atacante interno** (o
+  de un equipo ya dentro de la red).
+- Un **atacante externo** real, el caso típico del cibercriminal, apuntaría la
+  reverse shell a una máquina bajo su control **en Internet (WAN)**, no en la LAN.
+  En ese escenario, el tráfico saldría de la DMZ hacia fuera, una dirección que
+  suele estar permitida, y **no haría falta tocar el firewall**.
 
-Es decir, la necesidad de la regla no es una debilidad de la cadena, sino una
-consecuencia de haber atacado desde dentro. La segmentación LAN/DMZ hace *bien*
-su trabajo conteniendo el movimiento hacia la red interna; lo que no frena es la
-salida de la DMZ hacia el exterior, que es justo por donde escaparía un
+Es decir, la necesidad de la regla no es una debilidad de la cadena, sino
+consecuencia de atacar desde dentro. La segmentación LAN/DMZ hace *bien* su
+trabajo, deteniendo el movimiento hacia la red interna; lo que no detiene es el
+tráfico saliente de la DMZ hacia Internet, que es justo por donde escaparía un
 compromiso real.
 
-## Mitigación
+## Medidas (mitigación)
 
 La cadena funcionó por varias configuraciones por defecto, mal puestas o débiles.
 Recomendaciones, de mayor a menor impacto:
 
-- **Contraseñas fuertes + MFA** — `admin:7uj*******` cayó con un diccionario
-  mínimo; es la raíz de todo el compromiso.
-- **Desactivar el editor de plugins/temas** — establecer `DISALLOW_FILE_EDIT` en
+- **Contraseñas fuertes + MFA**, `admin:7ujm8ik,9ol.` cayó con un diccionario
+  minúsculo; es la raíz de todo el compromiso.
+- **Desactivar el editor de plugins/temas**, poner `DISALLOW_FILE_EDIT` en
   `wp-config.php` para que un admin comprometido no pueda inyectar código.
-- **Desactivar o restringir `xmlrpc.php`** — cerró la vía de fuerza bruta sin
-  límite de intentos.
-- **Restringir la enumeración de usuarios en `wp-json`** — no regalar usuarios
-  válidos al atacante.
-- **fail2ban / WAF** para frenar la fuerza bruta, y **mínimo privilegio** para el
-  usuario del servicio web.
-- **Filtrado de salida (egress) en la DMZ** — restringir las conexiones salientes
-  del servidor web corta la reverse shell incluso desde un atacante externo.
+- **Desactivar o restringir `xmlrpc.php`**, permitió la fuerza bruta sin límite
+  de intentos.
+- **Restringir la enumeración de usuarios en `wp-json`**, no regalar nombres de
+  usuario válidos al atacante.
+- **fail2ban / WAF** para frenar la fuerza bruta, y **mínimo privilegio** para la
+  cuenta del servicio web.
+- **Filtrado de salida en la DMZ (egress filtering)**, restringir las conexiones
+  salientes del servidor web mata la reverse shell, incluso desde un atacante
+  externo.
 
 > Auditoría autorizada de mi propio laboratorio. La contraseña débil es
-> intencionada y didáctica.
+> intencionada y con fines didácticos.
