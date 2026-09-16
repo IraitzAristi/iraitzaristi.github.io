@@ -22,6 +22,8 @@ Host: 10.0.0.10
 80. atakan Apache zerbitzari bat, alboan FTP-arekin: 80. atakak WordPress gune
 bat zerbitzatzen du, eta hori bihurtzen da erasorako gainazalik interesgarriena.
 
+![DMZ-ren eskaneoa RedPi-tik: web-zerbitzaria 10.0.0.10-ean](writeups/redpi/img/01-recon-scan.png)
+
 ## Web enumerazioa
 
 Nire web-analisi tresnak ohiko bideak fuzzing bidez aztertzen ditu. Aurkikuntza
@@ -38,11 +40,15 @@ interesgarriak:
 Bik nabarmentzen dute: `wp-json/wp/v2/users` eta `xmlrpc.php`, biak lehenetsita
 agerian WordPress instalazio estandar batean.
 
+![Web fuzzing-a: wp-json eta xmlrpc.php lehenetsita agerian](writeups/redpi/img/02-web-fuzzing.png)
+
 ## Erabiltzaileen enumerazioa
 
 `/wp-json/wp/v2/users`-ek egileen zerrenda filtratzen du — `admin` kontuaren
 izena itzultzen du. WordPress-ek endpoint hau lehenetsita erakusten du, eta
 erasotzaileari baliozko erabiltzaile-izen bat oparitzen dio hasteko.
+
+![wp-json/wp/v2/users admin erabiltzailea filtratzen](writeups/redpi/img/03-wpjson-user-enum.png)
 
 ## XML-RPC indar-gordinezko erasoa
 
@@ -57,6 +63,8 @@ aurka:
 ```
 
 Kredentzialak lortuta.
+
+![XML-RPC indar-gordina admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
 ## Sarbidea eta foothold-a
 
@@ -81,6 +89,12 @@ $ pwd
 ```
 
 Shell-a `www-data` gisa DMZ-ko web zerbitzarian. Helburua beteta.
+
+![wp-admin-en saioa berreskuratutako kredentzialekin](writeups/redpi/img/05-wpadmin-login.png)
+
+![PHP reverse shell-a Hello Dolly plugin-ean itsatsita](writeups/redpi/img/06-plugin-reverse-shell.png)
+
+![Reverse shell-a RedPi-n jasota: www-data shell-a](writeups/redpi/img/07-shell-www-data.png)
 
 ## Erasoaren jatorriari buruzko oharra (mehatxu-eredua)
 
