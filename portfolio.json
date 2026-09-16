@@ -153,9 +153,9 @@
       "docs": [
         {
           "title": {
-            "en": "RedPi Project — virtualized enterprise network + security/pentesting suite",
-            "es": "Proyecto RedPi — red virtualizada + suite de ciberseguridad/pentesting",
-            "eu": "RedPi Proiektua — sare birtualizatua + segurtasun/pentesting suitea"
+            "en": "RedPi Project - virtualized enterprise network + security/pentesting suite",
+            "es": "Proyecto RedPi - red virtualizada + suite de ciberseguridad/pentesting",
+            "eu": "RedPi Proiektua - sare birtualizatua + segurtasun/pentesting suitea"
           },
           "file": "projects/red-empresarial-virtualizada.md",
           "file_i18n": {
@@ -171,9 +171,9 @@
         },
         {
           "title": {
-            "es": "Bezero Kontuen Kudeatzailea — gestor de cuentas en C#",
-            "eu": "Bezero Kontuen Kudeatzailea — kontu-kudeatzailea C#",
-            "en": "Bezero Kontuen Kudeatzailea — account manager C#"
+            "es": "Bezero Kontuen Kudeatzailea - gestor de cuentas en C#",
+            "eu": "Bezero Kontuen Kudeatzailea - kontu-kudeatzailea C#",
+            "en": "Bezero Kontuen Kudeatzailea - account manager C#"
           },
           "file": "projects/bezero-kontuen-kudeatzailea.md",
           "file_i18n": {
