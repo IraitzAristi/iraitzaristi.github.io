@@ -1,10 +1,10 @@
-# RedPi — TechNovaren web zerbitzariaren konpromisoa
+# RedPi - TechNovaren web zerbitzariaren konpromisoa
 
-**Ingurunea:** norberaren laborategia · **Helburua:** DMZ-ko web zerbitzaria (10.0.0.10) · **Xedea:** web zerbitzarian shell bat lortzea, RedPi auditoretza-makinatik abiatuta
+**Ingurunea:** norberaren laborategia · **Helburua:** DMZ-ko web zerbitzaria (10.0.0.10) · **Xedea:** web zerbitzarian shell bat lortzea, RedPi auditoria-makina erabiltzen
 
-**RedPi** proiektuaren parte da — TechNovaren enpresa-sare simulatu bat
+**RedPi** proiektuaren parte da, TechNovaren enpresa sare simulatu bat
 (LAN / DMZ / WAN), Python-eko tresna propioekin auditatua. Writeup honek
-kate ofentsiboa hasieratik amaierara arte erakusten du, RedPi makinatik
+kate ofentsiboa hasieratik amaiera arte erakusten du, RedPi makinatik
 (VPN bidez konektatua) DMZ-ko web zerbitzariko shell bateraino, nire tresnak
 erabiliz.
 
@@ -19,14 +19,14 @@ Host: 10.0.0.10
 80/tcp  open  http  Apache 2.4.41
 ```
 
-80. atakan Apache zerbitzari bat, alboan FTP-arekin: 80. atakak WordPress gune
+80. portuan Apache zerbitzari bat, FTP zerbitzuarekin: 80. portuak WordPress gune
 bat zerbitzatzen du, eta hori bihurtzen da erasorako gainazalik interesgarriena.
 
 ![DMZ-ren eskaneoa RedPi-tik: web-zerbitzaria 10.0.0.10-ean](writeups/redpi/img/01-recon-scan.png)
 
 ## Web enumerazioa
 
-Nire web-analisi tresnak ohiko bideak fuzzing bidez aztertzen ditu. Aurkikuntza
+Nire web-analisi tresnak ohiko rutak fuzzing bidez aztertzen ditu. Aurkitu dudan ruta
 interesgarriak:
 
 ```
@@ -37,24 +37,24 @@ interesgarriak:
 [200] /readme.html
 ```
 
-Bik nabarmentzen dute: `wp-json/wp/v2/users` eta `xmlrpc.php`, biak lehenetsita
-agerian WordPress instalazio estandar batean.
+Bik nabarmentzen dira: `wp-json/wp/v2/users` eta `xmlrpc.php`, biak lehenetsita
+agertzen dira WordPress instalazio estandar batean.
 
 ![Web fuzzing-a: wp-json eta xmlrpc.php lehenetsita agerian](writeups/redpi/img/02-web-fuzzing.png)
 
 ## Erabiltzaileen enumerazioa
 
-`/wp-json/wp/v2/users`-ek egileen zerrenda filtratzen du — `admin` kontuaren
-izena itzultzen du. WordPress-ek endpoint hau lehenetsita erakusten du, eta
-erasotzaileari baliozko erabiltzaile-izen bat oparitzen dio hasteko.
+`/wp-json/wp/v2/users`-ek egileen zerrenda filtratzen du, `admin` kontuaren
+erabiltzaile izena itzultzen du. WordPress-ek endpoint hau lehenetsita erakusten du, eta
+erasotzaileari baliozko erabiltzaile izen bat oparitzen dio hasteko.
 
 ![wp-json/wp/v2/users admin erabiltzailea filtratzen](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## XML-RPC indar-gordinezko erasoa
+## XML-RPC fitxategiari indar basatia
 
 `xmlrpc.php`-k `wp.getUsersBlogs` metodoa onartzen du, eta horrek kredentzialak
 login formularioaz kanpo eta mugarik gabe probatzeko aukera ematen du. Nire
-XML-RPC indar-gordinezko tresnak hiztegi bat probatzen du `admin` erabiltzailearen
+XML-RPC indar basatizko tresnak hiztegi bat probatzen du `admin` erabiltzailearen
 aurka:
 
 ```
@@ -69,10 +69,10 @@ Kredentzialak lortuta.
 ## Sarbidea eta foothold-a
 
 `admin`-en pasahitzarekin `/wp-admin`-en saioa hasi nuen. Plugin-editorea
-paneletik eskuragarri zegoen, beraz, **Hello Dolly** plugin inaktiboaren kodea
-PHP reverse shell batekin ordezkatu nuen, RedPira 4444 atakara apuntatuz.
+paneletik eskuragarri zegoen, orduan **Hello Dolly** plugin inaktiboaren kodea
+PHP reverse shell batekin ordezkatu nuen, RedPi-ra 4444 portura apuntatuz.
 
-Listener bat jarri nuen entzuten:
+Listener bat jarri nuen entzuten RedPi makinan Netcat erabiliz:
 
 ```bash
 nc -nlvp 4444
@@ -88,7 +88,7 @@ $ pwd
 /var/www/html/wordpress/wp-admin
 ```
 
-Shell-a `www-data` gisa DMZ-ko web zerbitzarian. Helburua beteta.
+Shell-a `www-data` erabiltzailean DMZ-ko web zerbitzarian. Helburua beteta.
 
 ![wp-admin-en saioa berreskuratutako kredentzialekin](writeups/redpi/img/05-wpadmin-login.png)
 
@@ -103,11 +103,11 @@ abiarazten den araberakoa da.**
 
 - Kasu honetan, katea **RedPitik abiarazi nuen, barneko LANean kokatua** (VPN
   bidez konektatua, OpenVPN tunelaren bidez). Suebakiak zonak segmentatzen ditu
-  eta DMZ→LAN trafikoa blokeatzen du, beraz, itzulerako konexioa ez zen iristen.
+  eta DMZ->LAN trafikoa blokeatzen du, beraz, itzulerako konexioa ez zen iristen.
   Ariketa osatzeko, aldi baterako arau bat gehitu nuen, 4444 ataka DMZ-tik
   RedPira baimenduz. Honek **barneko erasotzaile** baten agertokia simulatzen du
   (edo sarean dagoeneko sartuta dagoen talde batena).
-- **Kanpoko erasotzaile** erreal batek — zibergaizkile ohikoaren kasua — reverse
+- **Kanpoko erasotzaile** erreal batek, zibergaizkile ohikoaren kasua, reverse
   shell-a bere kontrolpeko makina batera apuntatuko luke **Interneten (WAN)**, ez
   LANean. Agertoki horretan, trafikoa DMZ-tik kanpora aterako litzateke, normalean
   baimenduta dagoen norabidea, eta **ez litzateke suebakia ukitu beharko**.
@@ -122,17 +122,17 @@ trafikoa da, eta hortik ihes egingo luke konpromiso erreal batek.
 Katea hainbat konfigurazio lehenetsi, gaizki ezarri edo ahulengatik funtzionatu
 zuen. Gomendioak, eraginik handienetik txikienera:
 
-- **Pasahitz sendoak + MFA** — `admin:7uj*******` hiztegi txiki batekin erori zen;
+- **Pasahitz sendoak + MFA**, `admin:7uj*******` hiztegi txiki batekin erori zen;
   konpromiso osoaren sustraia da.
-- **Plugin/gai editorea desgaitu** — `DISALLOW_FILE_EDIT` ezarri `wp-config.php`-n,
+- **Plugin/gai editorea desgaitu**, `DISALLOW_FILE_EDIT` ezarri `wp-config.php`-n,
   konprometitutako admin batek kodea injektatu ezin dezan.
-- **`xmlrpc.php` desgaitu edo murriztu** — mugarik gabeko indar-gordinezko erasoa
+- **`xmlrpc.php` desgaitu edo murriztu**, mugarik gabeko indar-gordinezko erasoa
   ahalbidetu zuen.
-- **`wp-json`-eko erabiltzaile-enumerazioa murriztu** — ez oparitu baliozko
+- **`wp-json`-eko erabiltzaile-enumerazioa murriztu**, ez oparitu baliozko
   erabiltzaile-izenak erasotzaileari.
 - **fail2ban / WAF** indar-gordinezko erasoa moteltzeko, eta **pribilegio
   minimoa** web-zerbitzuaren kontuarentzat.
-- **DMZ-ko irteerako iragazketa (egress filtering)** — web zerbitzariaren irteerako
+- **DMZ-ko irteerako iragazketa (egress filtering)**, web zerbitzariaren irteerako
   konexioak murrizteak reverse shell-a hiltzen du, kanpoko erasotzaile batengandik
   ere.
 
