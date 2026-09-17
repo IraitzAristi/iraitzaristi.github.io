@@ -117,35 +117,9 @@
       "tags": [
         "wordpress",
         "xmlrpc",
-        "reverse-shell"
+        "reverse shell"
       ]
     },
-    {
-      "title": "Ejemploooooo",
-      "platform": "HackTheBox",
-      "difficulty": "Easy",
-      "os": "Linux",
-      "date": "2026-01-10",
-      "file": "writeups/htb/example-linux.md",
-      "tags": [
-        "web",
-        "ruby",
-        "yaml-deserialization"
-      ]
-    },
-    {
-      "title": "Ejemploooooooo22222222222",
-      "platform": "HackTheBox",
-      "difficulty": "Medium",
-      "os": "Windows",
-      "date": "2026-01-14",
-      "file": "writeups/htb/example-windows.md",
-      "tags": [
-        "mssql",
-        "active-directory",
-        "adcs"
-      ]
-    }
   ],
   "sections": [
     {
