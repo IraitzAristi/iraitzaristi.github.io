@@ -401,6 +401,7 @@
         platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
         machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
         byDifficulty: 'Makinak zailtasunaren arabera:',
+        diff: { easy:'Erraza', medium:'Ertaina', hard:'Zaila', insane:'Zoroa' },
         empty: 'Ez dago makinarik iragazki honetarako.',
         initializing: 'Hasieratzen…', menu: '☰ menua',
         reading: f => `${f} irakurtzen…`,
@@ -415,6 +416,7 @@
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
+        diff: { easy:'Fácil', medium:'Media', hard:'Difícil', insane:'Insana' },
         empty: 'Sin máquinas para este filtro.',
         initializing: 'Inicializando…', menu: '☰ menu',
         reading: f => `Leyendo ${f}…`,
@@ -429,6 +431,7 @@
         platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
         machineCol: 'Machine', clean: '✕ Clear filters',
         byDifficulty: 'Machines by difficulty:',
+        diff: { easy:'Easy', medium:'Medium', hard:'Hard', insane:'Insane' },
         empty: 'No machines for this filter.',
         initializing: 'Initializing…', menu: '☰ menu',
         reading: f => `Loading ${f}…`,
@@ -451,6 +454,11 @@
       let v = (key in dict) ? dict[key] : I18N[DEFAULT_LANG][key];
       if (v == null) v = key;
       return typeof v === 'function' ? v(...args) : v;
+    }
+    function diffLabel(val) {
+      const k = (val || '').toLowerCase();
+      const map = (I18N[lang] && I18N[lang].diff) || I18N[DEFAULT_LANG].diff || {};
+      return map[k] || val || '';
     }
     function tr(val) {
       if (val == null) return '';
@@ -596,9 +604,9 @@
       const statCells = stats.map(s => `<div class="cell"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join('');
 
       // desglose por dificultad (solo muestra los niveles que existen)
-      const diffOrder = [['easy','Easy'],['medium','Medium'],['hard','Hard'],['insane','Insane']];
-      const diffBreak = diffOrder.filter(([k]) => count(k) > 0)
-        .map(([k,label]) => `<span class="d ${k}"><b>${count(k)}</b> ${label}</span>`).join('');
+      const diffOrder = ['easy','medium','hard','insane'];
+      const diffBreak = diffOrder.filter(k => count(k) > 0)
+        .map(k => `<span class="d ${k}"><b>${count(k)}</b> ${esc(diffLabel(k))}</span>`).join('');
 
       // Featured / novedades: muestra items con featured:true; si no hay ninguno,
       // cae automáticamente a los 3 más recientes por fecha. Crece solo con los datos.
@@ -670,7 +678,7 @@
       };
 
       const platChips = platforms.map(pl => chip(pl, 'platform', pl)).join('');
-      const diffChips = diffs.map(d => chip(d, 'difficulty', d)).join('');
+      const diffChips = diffs.map(d => chip(diffLabel(d), 'difficulty', d)).join('');
 
       const rows = machines.filter(m =>
         (!filters.platform || m.platform === filters.platform) &&
@@ -687,7 +695,7 @@
               <div class="m-tags">${tags}</div>
             </td>
             <td data-label="${esc(t('platform'))}"><span class="badge plat">${esc(m.platform || '—')}</span></td>
-            <td data-label="${esc(t('difficulty'))}"><span class="diff ${dcls}">${esc(m.difficulty || '—')}</span></td>
+            <td data-label="${esc(t('difficulty'))}"><span class="diff ${dcls}">${esc(m.difficulty ? diffLabel(m.difficulty) : '—')}</span></td>
             <td data-label="${esc(t('os'))}"><span class="badge os">${esc(m.os || '—')}</span></td>
             <td data-label="${esc(t('date'))}" style="font-family:var(--mono);color:var(--muted);font-size:12px">${esc(m.date || '')}</td>
           </tr>`;
@@ -756,7 +764,7 @@
           const dcls = (entry.difficulty || '').toLowerCase();
           badges = `<div class="doc-badges">
             <span class="badge plat">${esc(entry.platform || '')}</span>
-            <span class="diff ${dcls}">${esc(entry.difficulty || '')}</span>
+            <span class="diff ${dcls}">${esc(entry.difficulty ? diffLabel(entry.difficulty) : '')}</span>
             <span class="badge os">${esc(entry.os || '')}</span>
             ${(entry.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('')}
           </div>`;
