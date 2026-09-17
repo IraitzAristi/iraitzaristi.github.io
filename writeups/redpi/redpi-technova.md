@@ -48,7 +48,7 @@ username to start from.
 
 ![wp-json/wp/v2/users leaking the admin user](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## XML-RPC file brute force
+## XML-RPC brute force
 
 `xmlrpc.php` accepts the `wp.getUsersBlogs` method, which allows credentials to be
 tested outside the login form and with no rate limiting. My XML-RPC brute-force
