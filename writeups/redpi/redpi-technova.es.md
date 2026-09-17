@@ -66,6 +66,8 @@ Credenciales obtenidas.
 
 ![Fuerza bruta al XML-RPC recuperando las credenciales de admin](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
+Un matiz que vale la pena: el método system.multicall es el vector detrás de los ataques masivos reales contra xmlrpc.php de WordPress, empaqueta cientos de intentos de login en una sola petición HTTP, evitando el rate limiting por petición y dejando una línea de log en lugar de miles. Mi herramienta usa el método simple de un intento por petición, suficiente para una única cuenta, pero una defensa real tiene que contemplar multicall, donde un WAF o fail2ban ve muchos menos eventos que intentos de login reales.
+
 ## Acceso y foothold
 
 Con la contraseña de `admin` inicié sesión en `/wp-admin`. El editor de plugins
