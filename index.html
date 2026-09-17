@@ -108,7 +108,16 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1040px; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1700px; width: 100%; }
+
+    /* ---------- PERFIL EN DOS COLUMNAS ---------- */
+    .profile-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px); gap: 56px; align-items: start; }
+    .profile-aside .featured { margin-top: 0; }
+    .profile-aside .latest { margin-top: 40px; }
+    @media (max-width: 1300px) {
+      .profile-grid { grid-template-columns: 1fr; }
+      .profile-aside { margin-top: 4px; }
+    }
 
     /* ---------- FEATURED / NOVEDADES ---------- */
     .featured { margin-top: 60px; }
@@ -618,7 +627,7 @@
         ? `<section class="latest"><div class="feat-head">${esc(latestLabel)}</div><div class="latest-list">${latestRows}</div></section>`
         : '';
 
-      content.innerHTML = `
+      const heroHtml = `
         <section class="hero">
           <p class="role">${esc(tr(p.role))}</p>
           <h1>${esc(p.name || p.handle || '')}</h1>
@@ -629,9 +638,11 @@
           <div class="skills">${skills}</div>
           <div class="statbar">${statCells}</div>
           ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">${esc(t('byDifficulty'))}</span>${diffBreak}</div>` : ''}
-        </section>
-        ${featSection}
-        ${latestSection}`;
+        </section>`;
+      const aside = featSection + latestSection;
+      content.innerHTML = aside
+        ? `<div class="profile-grid"><div class="profile-main">${heroHtml}</div><aside class="profile-aside">${aside}</aside></div>`
+        : heroHtml;
       document.title = (p.name || p.handle || 'portfolio');
       window.scrollTo(0, 0);
     }
