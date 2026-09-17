@@ -63,7 +63,7 @@ Credentials obtained.
 
 ![XML-RPC brute force recovering admin's credentials](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
-One nuance worth noting: the system.multicall method is the vector behind real-world mass attacks against WordPress xmlrpc.php, it packs hundreds of login attempts into a single HTTP request, sidestepping per-request rate limiting and leaving one log line instead of thousands. My tool uses the simpler one-attempt-per-request method, which is enough for a single account, but a real defense has to account for multicall, where a WAF or fail2ban sees far fewer events than actual login attempts.
+One nuance worth noting: the `system.multicall` method is the vector behind real-world mass attacks against WordPress `xmlrpc.php`, it packs hundreds of login attempts into a single HTTP request, sidestepping per-request rate limiting and leaving one log line instead of thousands. My tool uses the simpler one-attempt-per-request method, which is enough for a single account, but a real defense has to account for multicall, where a WAF or fail2ban sees far fewer events than actual login attempts.
 
 ## Access and foothold
 
@@ -126,12 +126,10 @@ Recommendations, from highest to lowest impact:
   the root of the whole compromise.
 - **Disable the plugin/theme editor**, set `DISALLOW_FILE_EDIT` in
   `wp-config.php` so a compromised admin can't inject code.
-- **Disable or restrict `xmlrpc.php`**, it enabled brute forcing with no rate
-  limiting.
+- **Disable or restrict `xmlrpc.php`**, it allowed brute forcing with no attempt limit (and `system.multicall` multiplies attempts per request).
 - **Restrict user enumeration in `wp-json`**, don't hand valid usernames to the
   attacker.
-- **fail2ban / WAF** to throttle brute force, and **least privilege** for the web
-  service account.
+- **fail2ban / WAF** to stop brute force, also inspecting request bodies, counting requests is not enough against `system.multicall`, and least privilege for the web service account.
 - **Egress filtering on the DMZ**, restricting the web server's outbound
   connections kills the reverse shell, even from an external attacker.
 
