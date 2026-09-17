@@ -63,6 +63,8 @@ Credentials obtained.
 
 ![XML-RPC brute force recovering admin's credentials](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
+One nuance worth noting: the system.multicall method is the vector behind real-world mass attacks against WordPress xmlrpc.php, it packs hundreds of login attempts into a single HTTP request, sidestepping per-request rate limiting and leaving one log line instead of thousands. My tool uses the simpler one-attempt-per-request method, which is enough for a single account, but a real defense has to account for multicall, where a WAF or fail2ban sees far fewer events than actual login attempts.
+
 ## Access and foothold
 
 With `admin`'s password I logged into `/wp-admin`. The plugin editor was reachable
