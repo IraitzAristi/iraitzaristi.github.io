@@ -110,7 +110,7 @@
     /* ---------- CONTENIDO ---------- */
     .content { flex: 1; min-width: 0; padding: 56px 0 120px; max-width: 2200px; width: 100%; }
     /* Home: hero desplazado a la derecha, aside pegado a la derecha (asimétrico) */
-    .content.is-home { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(24px, 3vw, 56px); }
+    .content.is-home { --pl-home: clamp(32px, 9vw, 240px); --pr-home: clamp(24px, 3vw, 56px); padding-left: var(--pl-home); padding-right: var(--pr-home); }
     /* Writeups / proyectos / catálogo: mismos márgenes izquierda y derecha (simétrico) */
     .content.is-doc, .content.is-list { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(32px, 9vw, 240px); }
 
@@ -180,7 +180,8 @@
     }
 
     /* Estadísticas principales (se calculan solas desde los datos) */
-    .stats-block { max-width: 1080px; margin: 76px clamp(24px, 4vw, 90px) 0 auto; }
+    .stats-block { margin: 76px calc(-1 * var(--pr-home, 56px)) 0 calc(-1 * var(--pl-home, 240px)); }
+    .stats-block .statbar { max-width: 1080px; margin-left: auto; margin-right: auto; }
     .statbar {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 1px; margin-top: 0; background: var(--border);
