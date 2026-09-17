@@ -48,7 +48,7 @@ username to start from.
 
 ![wp-json/wp/v2/users leaking the admin user](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## XML-RPC file brute force
+## XML-RPC brute force
 
 `xmlrpc.php` accepts the `wp.getUsersBlogs` method, which allows credentials to be
 tested outside the login form and with no rate limiting. My XML-RPC brute-force
@@ -62,6 +62,8 @@ tool runs a wordlist against the `admin` user:
 Credentials obtained.
 
 ![XML-RPC brute force recovering admin's credentials](writeups/redpi/img/04-xmlrpc-bruteforce.png)
+
+An important detail: the `system.multicall` method is behind the real large-scale attacks against WordPress's `xmlrpc.php` — it can bundle hundreds of login attempts into a single HTTP request, bypassing per-request rate limiting and leaving one log line instead of a thousand. My tool uses the simple one-attempt-per-request method, enough for a single account, but a real defense must account for multicall, since a WAF or fail2ban sees far fewer events than actual attempts.
 
 ## Access and foothold
 
@@ -132,12 +134,10 @@ Recommendations, from highest to lowest impact:
   the root of the whole compromise.
 - **Disable the plugin/theme editor** — set `DISALLOW_FILE_EDIT` in
   `wp-config.php` so a compromised admin can't inject code.
-- **Disable or restrict `xmlrpc.php`** — it enabled brute forcing with no rate
-  limiting.
+- **Disable or restrict `xmlrpc.php`** — it allows brute forcing with no attempt limit (and `system.multicall` multiplies attempts per request).
 - **Restrict user enumeration in `wp-json`** — don't hand valid usernames to the
   attacker.
-- **fail2ban / WAF** to throttle brute force, and **least privilege** for the web
-  service account.
+- **fail2ban / WAF** to stop brute force, inspecting the request body too — counting requests isn't enough against `system.multicall` — and least privilege for the web-service account.
 - **Egress filtering on the DMZ** — restricting the web server's outbound
   connections kills the reverse shell, even from an external attacker.
 
