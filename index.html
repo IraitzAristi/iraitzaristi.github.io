@@ -687,7 +687,7 @@
 
       const body = rows.length ? rows.map(m => {
         const dcls = (m.difficulty || '').toLowerCase();
-        const tags = (m.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('');
+        const tags = (m.tags || []).map(tag => `<span class="minitag">${esc(tr(tag))}</span>`).join('');
         return `
           <tr class="row" data-file="${esc(m.file)}">
             <td class="td-name" data-label="${esc(t('machineCol'))}">
@@ -766,11 +766,11 @@
             <span class="badge plat">${esc(entry.platform || '')}</span>
             <span class="diff ${dcls}">${esc(entry.difficulty ? diffLabel(entry.difficulty) : '')}</span>
             <span class="badge os">${esc(entry.os || '')}</span>
-            ${(entry.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('')}
+            ${(entry.tags || []).map(tag => `<span class="minitag">${esc(tr(tag))}</span>`).join('')}
           </div>`;
         } else {
           crumb = esc(tr(section.name));
-          badges = (entry.tags || []).length ? `<div class="doc-badges">${(entry.tags || []).map(tag => `<span class="minitag">${esc(tag)}</span>`).join('')}</div>` : '';
+          badges = (entry.tags || []).length ? `<div class="doc-badges">${(entry.tags || []).map(tag => `<span class="minitag">${esc(tr(tag))}</span>`).join('')}</div>` : '';
         }
 
         content.innerHTML = `
