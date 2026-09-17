@@ -64,7 +64,7 @@ aurka:
 
 Kredentzialak lortuta.
 
-![XML-RPC-ri indar vasatia admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
+![XML-RPC-ri indar basatia admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
 Datu garrantzitsu bat: `system.multicall` metodoa WordPressen `xmlrpc.php`-ren aurkako eraso masibo errealen atzean dago, ehunka login saiakera HTTP eskaera bakarrean bildu ditzake, eskaerako abiadura-mugaketa saihestuz eta mila log-lerroren ordez bat utziz. Nire tresnak saiakera bat eskaerako metodo sinplea erabiltzen du, kontu bakar baterako aski dena, baina defentsa erreal batek multicall kontuan izan behar du, WAF edo fail2ban-ek saiakera errealak baino askoz ere gertaera gutxiago ikusten baititu.
 
@@ -73,6 +73,12 @@ Datu garrantzitsu bat: `system.multicall` metodoa WordPressen `xmlrpc.php`-ren a
 `admin`-en pasahitzarekin `/wp-admin`-en saioa hasi nuen. Plugin-editorea
 paneletik eskuragarri zegoen, orduan **Hello Dolly** plugin inaktiboaren kodea
 PHP reverse shell batekin ordezkatu nuen, RedPi-ra 4444 portura apuntatuz.
+
+Payload-a pentestmonkey-en PHP reverse shell klasikoa da, aldaketarik gabe — `fsockopen()` RedPi-ren listenerrekin konektatzen da (172.16.1.200:4444), eta `sh -i` `proc_open()` bidez abiarazten da stdin/stdout/stderr pipe-etan:
+
+```php
+// Itsatsi hemen zure PHP reverse shell-a (reverse_shellPHP.txt) — script osoa, aldaketarik gabe
+```
 
 Listener bat jarri nuen entzuten RedPi makinan Netcat erabiliz:
 
@@ -97,6 +103,8 @@ Shell-a `www-data` erabiltzailean DMZ-ko web zerbitzarian. Helburua beteta.
 ![PHP reverse shell-a Hello Dolly plugin-ean itsatsita](writeups/redpi/img/06-plugin-reverse-shell.png)
 
 ![Reverse shell-a RedPi-n jasota: www-data shell-a](writeups/redpi/img/07-shell-www-data.png)
+
+Hemendik aurrera, kontratazio erreal batek pribilegio-igoerara joko luke: `sudo -l`, SUID bitarrak, gaitasunak eta kernelaren bertsioa aztertuz `www-data` shell-etik. Horrek lab honen helburutik kanpo geratzen da — baina hurrengo fase naturala da.
 
 ## Erasoaren jatorriari buruzko oharra (mehatxu-eredua)
 
