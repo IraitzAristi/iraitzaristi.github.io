@@ -128,12 +128,10 @@ zuen. Gomendioak, eraginik handienetik txikienera:
   konpromiso osoaren sustraia da.
 - **Plugin/gai editorea desgaitu**, `DISALLOW_FILE_EDIT` ezarri `wp-config.php`-n,
   konprometitutako admin batek kodea injektatu ezin dezan.
-- **`xmlrpc.php` desgaitu edo murriztu**, mugarik gabeko indar-gordinezko erasoa
-  ahalbidetu zuen.
+- **`xmlrpc.php` desgaitu edo mugatu**, saiakera-mugarik gabeko indar basatirik onartzen du (eta `system.multicall`-ek saiakerak biderkatzen ditu eskaerako).
 - **`wp-json`-eko erabiltzaile-enumerazioa murriztu**, ez oparitu baliozko
   erabiltzaile-izenak erasotzaileari.
-- **fail2ban / WAF** indar-gordinezko erasoa moteltzeko, eta **pribilegio
-  minimoa** web-zerbitzuaren kontuarentzat.
+- **fail2ban / WAF** indar basatia gelditzeko, eskaeren gorputza ere aztertuz, eskaerak zenbatzea ez da aski `system.multicall`-en aurrean, eta web-zerbitzuaren konturako gutxieneko pribilegioa.
 - **DMZ-ko irteerako iragazketa (egress filtering)**, web zerbitzariaren irteerako
   konexioak murrizteak reverse shell-a hiltzen du, kanpoko erasotzaile batengandik
   ere.
