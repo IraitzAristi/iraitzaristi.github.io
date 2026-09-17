@@ -51,7 +51,7 @@ regala al atacante un nombre de usuario válido para empezar.
 
 ![wp-json/wp/v2/users filtrando el usuario admin](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## Fuerza bruta al archivo XML-RPC
+## Fuerza bruta al XML-RPC
 
 `xmlrpc.php` acepta el método `wp.getUsersBlogs`, que permite probar credenciales
 fuera del formulario de login y sin límite de intentos. Mi herramienta de fuerza
@@ -65,6 +65,8 @@ bruta al XML-RPC prueba un diccionario contra el usuario `admin`:
 Credenciales obtenidas.
 
 ![Fuerza bruta al XML-RPC recuperando las credenciales de admin](writeups/redpi/img/04-xmlrpc-bruteforce.png)
+
+Un dato importante: el método `system.multicall` está detrás de los ataques masivos reales contra el `xmlrpc.php` de WordPress — permite agrupar cientos de intentos de login en una sola petición HTTP, saltándose el rate limiting por petición y dejando una línea de log en vez de mil. Mi herramienta usa el método simple de un intento por petición, suficiente para una sola cuenta, pero una defensa real debe tener en cuenta multicall, ya que un WAF o fail2ban ve muchos menos eventos que intentos reales.
 
 ## Acceso y foothold
 
@@ -135,12 +137,10 @@ Recomendaciones, de mayor a menor impacto:
   minúsculo; es la raíz de todo el compromiso.
 - **Desactivar el editor de plugins/temas** — poner `DISALLOW_FILE_EDIT` en
   `wp-config.php` para que un admin comprometido no pueda inyectar código.
-- **Desactivar o restringir `xmlrpc.php`** — permitió la fuerza bruta sin límite
-  de intentos.
+- **Desactivar o restringir `xmlrpc.php`** — permite fuerza bruta sin límite de intentos (y `system.multicall` multiplica los intentos por petición).
 - **Restringir la enumeración de usuarios en `wp-json`** — no regalar nombres de
   usuario válidos al atacante.
-- **fail2ban / WAF** para frenar la fuerza bruta, y **mínimo privilegio** para la
-  cuenta del servicio web.
+- **fail2ban / WAF** para frenar la fuerza bruta, inspeccionando también el cuerpo de las peticiones — contar peticiones no basta frente a `system.multicall` —, y mínimo privilegio para la cuenta del servicio web.
 - **Filtrado de salida en la DMZ (egress filtering)** — restringir las conexiones
   salientes del servidor web mata la reverse shell, incluso desde un atacante
   externo.
