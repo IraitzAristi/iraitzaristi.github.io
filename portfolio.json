@@ -57,11 +57,11 @@
         "Redes TCP/IP",
         "MikroTik / OpenVPN",
         "Python",
+        "Bash",
+        "PowerShell",
         "Tor",
         "I2P",
-        "APTs",
-        "Análisis del adversario / Threat Intelligence",
-        "TTPs"
+        "Análisis del adversario / Threat Intelligence"
       ],
       "eu": [
         "Pentesting",
