@@ -13,7 +13,7 @@ lo más interesante es el salto entre ambas.
 guardados en arrays y código procedural. Funcionaba, pero todo estaba en un solo
 archivo.
 
-**v2** es una reescritura completa, aplicando **programación orientada a objetos**
+**v2** es una reescritura completa, aplicando **Programación Orientada a Objetos**
 y dividiendo el código en módulos.
 
 - **`Kontua`** (Cuenta): la clase Cuenta, con campos privados, getters/setters y un
@@ -27,7 +27,7 @@ y dividiendo el código en módulos.
 
 ## Qué demuestra
 
-- Diseño **OOP**: encapsulación y modularidad.
+- Diseño **POO**: encapsulación y modularidad.
 - Estructuras de datos de C#: arrays, `List<>` y `Dictionary<>`.
 - **Persistencia en archivos**: (importar/exportar) y análisis de datos.
 - **Mentalidad de seguridad**: el módulo de auditoría de contraseñas surgió de
@@ -37,7 +37,7 @@ y dividiendo el código en módulos.
 
 ## Tecnologías
 
-C# · .NET · OOP (clases, getters/setters, modularidad) · `List` · `Dictionary` ·
+C# · .NET · POO (clases, getters/setters, modularidad) · `List` · `Dictionary` ·
 gestión de archivos · interfaz de consola.
 
 ## Código
