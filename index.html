@@ -115,9 +115,9 @@
     .content.is-doc, .content.is-list { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(32px, 9vw, 240px); }
 
     /* ---------- PERFIL EN DOS COLUMNAS ---------- */
-    .profile-grid { display: grid; grid-template-columns: minmax(0, 860px) minmax(400px, 540px); gap: clamp(48px, 6vw, 130px); align-items: start; }
+    .profile-grid { display: grid; grid-template-columns: minmax(0, 860px) minmax(400px, 540px); gap: clamp(64px, 8vw, 200px); align-items: start; }
     .profile-aside .featured { margin-top: 0; }
-    .profile-aside .latest { margin-top: 68px; }
+    .profile-aside .latest { margin-top: 96px; }
     @media (max-width: 1450px) {
       .profile-grid { grid-template-columns: 1fr; }
       .profile-aside { margin-top: 4px; }
@@ -173,16 +173,17 @@
     .cert { font-family: var(--mono); font-size: 12px; padding: 4px 11px; border: 1px solid var(--accent-dim); color: var(--accent); background: var(--surface); }
     .cert .issuer { color: var(--muted); }
 
-    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 46px; }
     .skill {
       font-family: var(--mono); font-size: 12px; padding: 4px 11px;
       background: var(--surface); border: 1px solid var(--border); color: var(--muted);
     }
 
     /* Estadísticas principales (se calculan solas desde los datos) */
+    .stats-block { max-width: 1080px; margin: 76px clamp(24px, 4vw, 90px) 0 auto; }
     .statbar {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1px; margin-top: 72px; background: var(--border);
+      gap: 1px; margin-top: 0; background: var(--border);
       border: 1px solid var(--border);
     }
     .statbar .cell { background: var(--bg); padding: 34px 20px; text-align: center; }
@@ -191,8 +192,6 @@
 
     /* Desglose por dificultad (fila secundaria, con puntos de color) */
     .diffbar { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 22px; font-family: var(--mono); font-size: 13px; }
-    /* Bloque de estadísticas desplazado a la izquierda respecto al hero */
-    .hero .statbar, .hero .diffbar { margin-left: clamp(-150px, -6vw, 0px); }
     .diffbar .d { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
     .diffbar .d::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); }
     .diffbar .d.easy { --dot: var(--easy); } .diffbar .d.medium { --dot: var(--medium); }
@@ -642,14 +641,17 @@
           <div class="links">${links}</div>
           ${certChips ? `<div class="certs"><span class="clabel">${esc(t('certifications'))}</span>${certChips}</div>` : ''}
           <div class="skills">${skills}</div>
+        </section>`;
+      const statsHtml = `
+        <section class="stats-block">
           <div class="statbar">${statCells}</div>
           ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">${esc(t('byDifficulty'))}</span>${diffBreak}</div>` : ''}
         </section>`;
       const aside = featSection + latestSection;
       content.className = 'content is-home';
       content.innerHTML = aside
-        ? `<div class="profile-grid"><div class="profile-main">${heroHtml}</div><aside class="profile-aside">${aside}</aside></div>`
-        : heroHtml;
+        ? `<div class="profile-grid"><div class="profile-main">${heroHtml}</div><aside class="profile-aside">${aside}</aside></div>${statsHtml}`
+        : `${heroHtml}${statsHtml}`;
       document.title = (p.name || p.handle || 'portfolio');
       window.scrollTo(0, 0);
     }
