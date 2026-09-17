@@ -66,7 +66,7 @@ Credenciales obtenidas.
 
 ![Fuerza bruta al XML-RPC recuperando las credenciales de admin](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
-Un matiz que vale la pena: el método system.multicall es el vector detrás de los ataques masivos reales contra xmlrpc.php de WordPress, empaqueta cientos de intentos de login en una sola petición HTTP, evitando el rate limiting por petición y dejando una línea de log en lugar de miles. Mi herramienta usa el método simple de un intento por petición, suficiente para una única cuenta, pero una defensa real tiene que contemplar multicall, donde un WAF o fail2ban ve muchos menos eventos que intentos de login reales.
+Un matiz que vale la pena: el método `system.multicall` es el vector detrás de los ataques masivos reales contra `xmlrpc.php` de WordPress, empaqueta cientos de intentos de login en una sola petición HTTP, evitando el rate limiting por petición y dejando una línea de log en lugar de miles. Mi herramienta usa el método simple de un intento por petición, suficiente para una única cuenta, pero una defensa real tiene que contemplar multicall, donde un WAF o fail2ban ve muchos menos eventos que intentos de login reales.
 
 ## Acceso y foothold
 
@@ -129,12 +129,10 @@ Recomendaciones, de mayor a menor impacto:
   minúsculo; es la raíz de todo el compromiso.
 - **Desactivar el editor de plugins/temas**, poner `DISALLOW_FILE_EDIT` en
   `wp-config.php` para que un admin comprometido no pueda inyectar código.
-- **Desactivar o restringir `xmlrpc.php`**, permitió la fuerza bruta sin límite
-  de intentos.
+- **Desactivar o restringir `xmlrpc.php`**, permitió la fuerza bruta sin límite de intentos (y `system.multicall` multiplica los intentos por petición).
 - **Restringir la enumeración de usuarios en `wp-json`**, no regalar nombres de
   usuario válidos al atacante.
-- **fail2ban / WAF** para frenar la fuerza bruta, y **mínimo privilegio** para la
-  cuenta del servicio web.
+- **fail2ban / WAF** para frenar la fuerza bruta, inspeccionando también el cuerpo de las peticiones, contar requests no basta frente a `system.multicall`, y mínimo privilegio para la cuenta del servicio web.
 - **Filtrado de salida en la DMZ (egress filtering)**, restringir las conexiones
   salientes del servidor web mata la reverse shell, incluso desde un atacante
   externo.
