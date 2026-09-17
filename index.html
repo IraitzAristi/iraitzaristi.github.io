@@ -108,12 +108,12 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1820px; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 3vw, 56px) 120px clamp(28px, 5vw, 104px); max-width: 1920px; width: 100%; }
 
     /* ---------- PERFIL EN DOS COLUMNAS ---------- */
-    .profile-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px); gap: clamp(56px, 8vw, 130px); align-items: start; }
+    .profile-grid { display: grid; grid-template-columns: minmax(0, 900px) minmax(340px, 400px); justify-content: space-between; gap: clamp(48px, 7vw, 150px); align-items: start; }
     .profile-aside .featured { margin-top: 0; }
-    .profile-aside .latest { margin-top: 40px; }
+    .profile-aside .latest { margin-top: 68px; }
     @media (max-width: 1300px) {
       .profile-grid { grid-template-columns: 1fr; }
       .profile-aside { margin-top: 4px; }
