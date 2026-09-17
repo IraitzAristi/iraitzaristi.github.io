@@ -108,7 +108,11 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 3vw, 56px) 120px clamp(32px, 9vw, 240px); max-width: 2200px; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px 0 120px; max-width: 2200px; width: 100%; }
+    /* Home: hero desplazado a la derecha, aside pegado a la derecha (asimétrico) */
+    .content.is-home { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(24px, 3vw, 56px); }
+    /* Writeups / proyectos / catálogo: mismos márgenes izquierda y derecha (simétrico) */
+    .content.is-doc, .content.is-list { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(32px, 9vw, 240px); }
 
     /* ---------- PERFIL EN DOS COLUMNAS ---------- */
     .profile-grid { display: grid; grid-template-columns: minmax(0, 900px) minmax(340px, 400px); justify-content: space-between; gap: clamp(48px, 7vw, 150px); align-items: start; }
@@ -187,6 +191,8 @@
 
     /* Desglose por dificultad (fila secundaria, con puntos de color) */
     .diffbar { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 22px; font-family: var(--mono); font-size: 13px; }
+    /* Bloque de estadísticas desplazado a la izquierda respecto al hero */
+    .hero .statbar, .hero .diffbar { margin-left: clamp(-150px, -6vw, 0px); }
     .diffbar .d { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
     .diffbar .d::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); }
     .diffbar .d.easy { --dot: var(--easy); } .diffbar .d.medium { --dot: var(--medium); }
@@ -259,7 +265,7 @@
     .doc-header h1 { font-family: var(--mono); font-size: clamp(26px, 4vw, 38px); letter-spacing: -0.02em; margin: 14px 0 0; }
     .doc-badges { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
 
-    .markdown { font-size: 16px; }
+    .markdown { font-size: 15px; }
     .markdown h1, .markdown h2, .markdown h3, .markdown h4 { font-family: var(--mono); letter-spacing: -0.02em; line-height: 1.25; margin: 2em 0 0.6em; }
     .markdown h1 { font-size: 26px; } .markdown h2 { font-size: 21px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
     .markdown h3 { font-size: 18px; color: var(--accent); }
@@ -640,6 +646,7 @@
           ${diffBreak ? `<div class="diffbar"><span style="color:var(--muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;align-self:center">${esc(t('byDifficulty'))}</span>${diffBreak}</div>` : ''}
         </section>`;
       const aside = featSection + latestSection;
+      content.className = 'content is-home';
       content.innerHTML = aside
         ? `<div class="profile-grid"><div class="profile-main">${heroHtml}</div><aside class="profile-aside">${aside}</aside></div>`
         : heroHtml;
@@ -683,6 +690,7 @@
           </tr>`;
       }).join('') : '';
 
+      content.className = 'content is-list';
       content.innerHTML = `
         <div class="view-head">
           <p class="kicker">${esc(t('catalog'))}</p>
@@ -726,6 +734,7 @@
     async function renderDoc(file) {
       const { entry, kind, section } = byFile.get(file);
       const { path, fallback } = resolveDoc(entry);
+      content.className = 'content is-doc';
       content.innerHTML = '<p class="status">' + esc(t('reading', path)) + '</p>';
       try {
         const res = await fetch(path, { cache: 'no-cache' });
