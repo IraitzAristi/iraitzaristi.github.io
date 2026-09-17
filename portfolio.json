@@ -23,9 +23,10 @@
     ],
     "certs": [
       { "name": "eJPTv2", "issuer": "INE Security", "date": "2025-08" },
-      { "name": "CVE (in proccess) - HIGH: OS Command Injection in a widely-used open source file archiver",
-        "issuer": "Responsible disclosure via Secur0",
-         "date": "2026-09"}
+      { "name": "OS Command Injection (CWE-78) — PeaZip 11.2.0 — HIGH (CVSS 7.1), CVE pending",
+        "issuer": "Secur0 — CERT-4095, responsible disclosure (lead collaborator, 70%)",
+        "date": "2026-08-26",
+        "url": "https://app.secur0.com/certificate/ys3yqg-avrwaq-5ybnwl" }
     ],
     "skills": {
       "es": ["Pentesting","Explotación web","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Virtualización","Redes TCP/IP","MikroTik / OpenVPN","Python","Bash","PowerShell","Tor","I2P","Análisis del adversario / Threat Intelligence"],
