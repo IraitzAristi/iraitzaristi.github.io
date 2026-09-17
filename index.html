@@ -108,10 +108,10 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1700px; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 56px clamp(24px, 6vw, 88px) 120px; max-width: 1820px; width: 100%; }
 
     /* ---------- PERFIL EN DOS COLUMNAS ---------- */
-    .profile-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px); gap: 56px; align-items: start; }
+    .profile-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px); gap: clamp(56px, 8vw, 130px); align-items: start; }
     .profile-aside .featured { margin-top: 0; }
     .profile-aside .latest { margin-top: 40px; }
     @media (max-width: 1300px) {
@@ -155,8 +155,8 @@
     .hero .handle-line { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0 0 20px; }
     .hero .handle-line .at { color: var(--accent-dim); }
     .hero .handle-line .dot { margin: 0 8px; color: var(--accent-dim); }
-    .hero .pitch { font-size: 18px; color: var(--muted); max-width: 62ch; }
-    .hero .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .hero .pitch { font-size: 18px; color: var(--muted); max-width: 62ch; line-height: 1.7; }
+    .hero .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
     .hero .links a {
       font-family: var(--mono); font-size: 13px; padding: 7px 14px;
       border: 1px solid var(--border); color: var(--text);
@@ -164,12 +164,12 @@
     .hero .links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
     /* Certificaciones: destacadas con borde ámbar */
-    .certs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 22px; }
+    .certs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 40px; }
     .certs .clabel { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-right: 4px; }
     .cert { font-family: var(--mono); font-size: 12px; padding: 4px 11px; border: 1px solid var(--accent-dim); color: var(--accent); background: var(--surface); }
     .cert .issuer { color: var(--muted); }
 
-    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
     .skill {
       font-family: var(--mono); font-size: 12px; padding: 4px 11px;
       background: var(--surface); border: 1px solid var(--border); color: var(--muted);
