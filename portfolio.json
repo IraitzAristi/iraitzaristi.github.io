@@ -23,7 +23,7 @@
     ],
     "certs": [
       { "name": "eJPTv2", "issuer": "INE Security", "date": "2025-08" },
-      { "name": "CVE (in progress) - HIGH: OS Command Injection, PeaZip 11.2.0",
+      { "name": "CVE (in proccess) - HIGH: OS Command Injection in a widely-used open source file archiver",
         "issuer": "Responsible disclosure via Secur0",
          "date": "2026-09"}
     ],
