@@ -51,7 +51,7 @@ regala al atacante un nombre de usuario válido para empezar.
 
 ![wp-json/wp/v2/users filtrando el usuario admin](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## Fuerza bruta al archivo XML-RPC
+## Fuerza bruta XML-RPC
 
 `xmlrpc.php` acepta el método `wp.getUsersBlogs`, que permite probar credenciales
 fuera del formulario de login y sin límite de intentos. Mi herramienta de fuerza
