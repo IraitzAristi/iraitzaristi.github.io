@@ -108,9 +108,9 @@
     .entry .entry-meta { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 2px; }
 
     /* ---------- CONTENIDO ---------- */
-    .content { flex: 1; min-width: 0; padding: 56px 0 120px; max-width: 2200px; width: 100%; }
+    .content { flex: 1; min-width: 0; padding: 64px 0; max-width: 2200px; width: 100%; display: flex; flex-direction: column; }
     /* Home: hero desplazado a la derecha, aside pegado a la derecha (asimétrico) */
-    .content.is-home { --pl-home: clamp(32px, 9vw, 240px); --pr-home: clamp(24px, 3vw, 56px); padding-left: var(--pl-home); padding-right: var(--pr-home); }
+    .content.is-home { --pl-home: clamp(32px, 9vw, 240px); --pr-home: clamp(24px, 3vw, 56px); padding-left: var(--pl-home); padding-right: var(--pr-home); justify-content: safe center; }
     /* Writeups / proyectos / catálogo: mismos márgenes izquierda y derecha (simétrico) */
     .content.is-doc, .content.is-list { padding-left: clamp(32px, 9vw, 240px); padding-right: clamp(32px, 9vw, 240px); }
 
