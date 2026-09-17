@@ -66,7 +66,7 @@ Kredentzialak lortuta.
 
 ![XML-RPC-ri indar vasatia admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
-Matiz garrantzitsu bat: `system.multicall` metodoa WordPressen `xmlrpc.php`-ren aurkako eraso masibo errealen atzean dago, ehunka login saiakera HTTP eskaera bakarrean bildu ditzake, eskaerako abiadura-mugaketa saihestuz eta mila log-lerroren ordez bat utziz. Nire tresnak saiakera bat eskaerako metodo sinplea erabiltzen du, kontu bakar baterako aski dena, baina defentsa erreal batek multicall kontuan izan behar du, WAF edo fail2ban-ek saiakera errealak baino askoz ere gertaera gutxiago ikusten baititu.
+Datu garrantzitsu bat: `system.multicall` metodoa WordPressen `xmlrpc.php`-ren aurkako eraso masibo errealen atzean dago, ehunka login saiakera HTTP eskaera bakarrean bildu ditzake, eskaerako abiadura-mugaketa saihestuz eta mila log-lerroren ordez bat utziz. Nire tresnak saiakera bat eskaerako metodo sinplea erabiltzen du, kontu bakar baterako aski dena, baina defentsa erreal batek multicall kontuan izan behar du, WAF edo fail2ban-ek saiakera errealak baino askoz ere gertaera gutxiago ikusten baititu.
 
 ## Sarbidea eta foothold-a
 
