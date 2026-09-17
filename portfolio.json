@@ -26,8 +26,8 @@
     ],
     "skills": {
       "es": ["Pentesting","Explotación web","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Virtualización","Redes TCP/IP","MikroTik / OpenVPN","Python","Bash","PowerShell","Tor","I2P","Análisis del adversario / Threat Intelligence"],
-      "eu": ["Pentesting","Web ustiapena","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Birtualizazioa","TCP/IP sareak","MikroTik / OpenVPN","Python","Tor","I2P","APT","Adbersarioaren analisia / Threat Intelligence","TTP"],
-      "en": ["Pentesting","Web exploitation","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Virtualization","TCP/IP networking","MikroTik / OpenVPN","Python","Tor","I2P","APT","Adversary analysis / Threat Intelligence","TTP"]
+      "eu": ["Pentesting","Web ustiapena","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Birtualizazioa","TCP/IP sareak","MikroTik / OpenVPN","Python","Bash","PowerShell","Tor","I2P","Adbersarioaren analisia / Threat Intelligence"],
+      "en": ["Pentesting","Web exploitation","Active Directory","Bug Bounty / VDP","Hardening","Burp Suite","Linux","Windows Server","Virtualization","TCP/IP networking","MikroTik / OpenVPN","Python","Bash","PowerShell","Tor","I2P","Adversary analysis / Threat Intelligence"]
     }
   },
   "machines": [
@@ -69,7 +69,7 @@
         {
           "title": {
             "es": "Bezero Kontuen Kudeatzailea - gestor de cuentas en C#",
-            "eu": "Bezero Kontuen Kudeatzailea - kontu-kudeatzailea C#",
+            "eu": "Bezero Kontuen Kudeatzailea - kontu kudeatzailea C#",
             "en": "Bezero Kontuen Kudeatzailea - account manager C#"
           },
           "file": "projects/bezero-kontuen-kudeatzailea.md",
