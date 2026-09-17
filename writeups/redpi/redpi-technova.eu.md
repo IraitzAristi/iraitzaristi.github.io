@@ -50,7 +50,7 @@ erasotzaileari baliozko erabiltzaile izen bat oparitzen dio hasteko.
 
 ![wp-json/wp/v2/users admin erabiltzailea filtratzen](writeups/redpi/img/03-wpjson-user-enum.png)
 
-## XML-RPC fitxategiari indar basatia
+## XML-RPC-ri indar basatia
 
 `xmlrpc.php`-k `wp.getUsersBlogs` metodoa onartzen du, eta horrek kredentzialak
 login formularioaz kanpo eta mugarik gabe probatzeko aukera ematen du. Nire
@@ -64,7 +64,7 @@ aurka:
 
 Kredentzialak lortuta.
 
-![XML-RPC indar-gordina admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
+![XML-RPC-ri indar vasatia admin-en kredentzialak berreskuratzen](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
 ## Sarbidea eta foothold-a
 
