@@ -74,7 +74,7 @@ Con la contraseña de `admin` inicié sesión en `/wp-admin`. El editor de plugi
 estaba accesible desde el panel, así que reemplacé el código del plugin inactivo
 **Hello Dolly** con una reverse shell en PHP apuntando a RedPi en el puerto 4444.
 
-El payload es la reverse shell clásica de pentestmonkey en PHP, sin cambios — `fsockopen()` conecta de vuelta al listener de RedPi (172.16.1.200:4444), y `sh -i` se lanza mediante `proc_open()` con stdin/stdout/stderr en pipes:
+El payload es la reverse shell clásica de pentestmonkey en PHP, sin cambios, `fsockopen()` conecta de vuelta al listener de RedPi (172.16.1.200:4444), y `sh -i` se lanza mediante `proc_open()` con stdin/stdout/stderr en pipes:
 
 ```php
 <?php
@@ -219,7 +219,7 @@ Shell como `www-data` en el servidor web de la DMZ. Objetivo cumplido.
 
 ![Reverse shell recibida en RedPi: shell como www-data](writeups/redpi/img/07-shell-www-data.png)
 
-Desde aquí, un engagement real pasaría a la escalada de privilegios: revisar `sudo -l`, binarios SUID, capabilities y la versión de kernel desde la shell de `www-data`. Eso queda fuera del objetivo de este lab — pero es la fase natural siguiente.
+Desde aquí, un engagement real pasaría a la escalada de privilegios: revisar `sudo -l`, binarios SUID, capabilities y la versión de kernel desde la shell de `www-data`. Eso queda fuera del objetivo de este lab, pero es la fase natural siguiente.
 
 ## Nota sobre el punto de origen del ataque (modelo de amenaza)
 
@@ -248,15 +248,15 @@ compromiso real.
 La cadena funcionó por varias configuraciones por defecto, mal puestas o débiles.
 Recomendaciones, de mayor a menor impacto:
 
-- **Contraseñas fuertes + MFA** — `admin:7ujm8ik,9ol.` cayó con un diccionario
+- **Contraseñas fuertes + MFA**, `admin:7ujm8ik,9ol.` cayó con un diccionario
   minúsculo; es la raíz de todo el compromiso.
-- **Desactivar el editor de plugins/temas** — poner `DISALLOW_FILE_EDIT` en
+- **Desactivar el editor de plugins/temas**, poner `DISALLOW_FILE_EDIT` en
   `wp-config.php` para que un admin comprometido no pueda inyectar código.
-- **Desactivar o restringir `xmlrpc.php`** — permite fuerza bruta sin límite de intentos (y `system.multicall` multiplica los intentos por petición).
-- **Restringir la enumeración de usuarios en `wp-json`** — no regalar nombres de
+- **Desactivar o restringir `xmlrpc.php`**, permite fuerza bruta sin límite de intentos (y `system.multicall` multiplica los intentos por petición).
+- **Restringir la enumeración de usuarios en `wp-json`**, no regalar nombres de
   usuario válidos al atacante.
-- **fail2ban / WAF** para frenar la fuerza bruta, inspeccionando también el cuerpo de las peticiones — contar peticiones no basta frente a `system.multicall` —, y mínimo privilegio para la cuenta del servicio web.
-- **Filtrado de salida en la DMZ (egress filtering)** — restringir las conexiones
+- **fail2ban / WAF** para frenar la fuerza bruta, inspeccionando también el cuerpo de las peticiones, contar peticiones no basta frente a `system.multicall`, y mínimo privilegio para la cuenta del servicio web.
+- **Filtrado de salida en la DMZ (egress filtering)**, restringir las conexiones
   salientes del servidor web mata la reverse shell, incluso desde un atacante
   externo.
 
