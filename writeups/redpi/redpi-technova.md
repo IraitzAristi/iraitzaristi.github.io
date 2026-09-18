@@ -2,7 +2,7 @@
 
 **Environment:** personal lab · **Target:** DMZ web server (10.0.0.10) · **Goal:** get a shell on the web server using the RedPi auditing machine
 
-Part of the **RedPi** project — a simulated TechNova enterprise network
+Part of the **RedPi** project, a simulated TechNova enterprise network
 (LAN / DMZ / WAN), audited with custom Python tools. This writeup shows the
 offensive chain from start to finish, from the RedPi machine (connected over VPN)
 to a shell on the DMZ web server, using my own tools.
@@ -63,7 +63,7 @@ Credentials obtained.
 
 ![XML-RPC brute force recovering admin's credentials](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
-An important detail: the `system.multicall` method is behind the real large-scale attacks against WordPress's `xmlrpc.php` — it can bundle hundreds of login attempts into a single HTTP request, bypassing per-request rate limiting and leaving one log line instead of a thousand. My tool uses the simple one-attempt-per-request method, enough for a single account, but a real defense must account for multicall, since a WAF or fail2ban sees far fewer events than actual attempts.
+An important detail: the `system.multicall` method is behind the real large-scale attacks against WordPress's `xmlrpc.php`, it can bundle hundreds of login attempts into a single HTTP request, bypassing per-request rate limiting and leaving one log line instead of a thousand. My tool uses the simple one-attempt-per-request method, enough for a single account, but a real defense must account for multicall, since a WAF or fail2ban sees far fewer events than actual attempts.
 
 ## Access and foothold
 
@@ -71,7 +71,7 @@ With `admin`'s password I logged into `/wp-admin`. The plugin editor was reachab
 from the dashboard, so I replaced the code of the inactive **Hello Dolly** plugin
 with a PHP reverse shell pointing back to RedPi on port 4444.
 
-The payload is the classic pentestmonkey PHP reverse shell, unchanged — `fsockopen()` connects back to RedPi's listener (172.16.1.200:4444), and `sh -i` is spawned through `proc_open()` with piped stdin/stdout/stderr:
+The payload is the classic pentestmonkey PHP reverse shell, unchanged, `fsockopen()` connects back to RedPi's listener (172.16.1.200:4444), and `sh -i` is spawned through `proc_open()` with piped stdin/stdout/stderr:
 
 ```php
 <?php
@@ -216,7 +216,7 @@ Shell as `www-data` on the DMZ web server. Goal achieved.
 
 ![Reverse shell caught on RedPi: www-data shell](writeups/redpi/img/07-shell-www-data.png)
 
-From here, a real engagement would move into privilege escalation: checking `sudo -l`, SUID binaries, capabilities and the kernel version from the `www-data` shell. That's outside this lab's goal — but it's the natural next phase.
+From here, a real engagement would move into privilege escalation: checking `sudo -l`, SUID binaries, capabilities and the kernel version from the `www-data` shell. That's outside this lab's goal, but it's the natural next phase.
 
 ## A note on the attack's origin point (threat model)
 
@@ -229,7 +229,7 @@ attack is launched from.**
   complete the exercise, I added a temporary rule allowing port 4444 from the DMZ
   to RedPi. This simulates the scenario of an **internal attacker** (or of a team
   already inside the network).
-- A real **external attacker** — the typical cybercriminal case — would point the
+- A real **external attacker**, the typical cybercriminal case, would point the
   reverse shell at a machine under their control **on the Internet (WAN)**, not on
   the LAN. In that scenario, the traffic would leave the DMZ outbound, a direction
   that is usually allowed, and **the firewall would not need to be touched**.
@@ -245,15 +245,15 @@ compromise would escape.
 The chain worked because of several default, misconfigured or weak settings.
 Recommendations, from highest to lowest impact:
 
-- **Strong passwords + MFA** — `admin:7ujm8ik,9ol.` fell to a tiny wordlist; it's
+- **Strong passwords + MFA**, `admin:7ujm8ik,9ol.` fell to a tiny wordlist; it's
   the root of the whole compromise.
-- **Disable the plugin/theme editor** — set `DISALLOW_FILE_EDIT` in
+- **Disable the plugin/theme editor**, set `DISALLOW_FILE_EDIT` in
   `wp-config.php` so a compromised admin can't inject code.
-- **Disable or restrict `xmlrpc.php`** — it allows brute forcing with no attempt limit (and `system.multicall` multiplies attempts per request).
-- **Restrict user enumeration in `wp-json`** — don't hand valid usernames to the
+- **Disable or restrict `xmlrpc.php`**, it allows brute forcing with no attempt limit (and `system.multicall` multiplies attempts per request).
+- **Restrict user enumeration in `wp-json`**, don't hand valid usernames to the
   attacker.
-- **fail2ban / WAF** to stop brute force, inspecting the request body too — counting requests isn't enough against `system.multicall` — and least privilege for the web-service account.
-- **Egress filtering on the DMZ** — restricting the web server's outbound
+- **fail2ban / WAF** to stop brute force, inspecting the request body too — counting requests isn't enough against `system.multicall`, and least privilege for the web-service account.
+- **Egress filtering on the DMZ**, restricting the web server's outbound
   connections kills the reverse shell, even from an external attacker.
 
 > Authorized audit of my own lab. The weak password is intentional and for
