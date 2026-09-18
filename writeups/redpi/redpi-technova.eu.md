@@ -74,7 +74,7 @@ Datu garrantzitsu bat: `system.multicall` metodoa WordPressen `xmlrpc.php`-ren a
 paneletik eskuragarri zegoen, orduan **Hello Dolly** plugin inaktiboaren kodea
 PHP reverse shell batekin ordezkatu nuen, RedPi-ra 4444 portura apuntatuz.
 
-Payload-a pentestmonkey-en PHP reverse shell klasikoa da, aldaketarik gabe — `fsockopen()` RedPi-ren listenerrekin konektatzen da (172.16.1.200:4444), eta `sh -i` `proc_open()` bidez abiarazten da stdin/stdout/stderr pipe-etan:
+Payload-a pentestmonkey-en PHP reverse shell klasikoa da, aldaketarik gabe, `fsockopen()` RedPi-ren listenerrekin konektatzen da (172.16.1.200:4444), eta `sh -i` `proc_open()` bidez abiarazten da stdin/stdout/stderr pipe-etan:
 
 ```php
 <?php
@@ -219,7 +219,7 @@ Shell-a `www-data` erabiltzailean DMZ-ko web zerbitzarian. Helburua beteta.
 
 ![Reverse shell-a RedPi-n jasota: www-data shell-a](writeups/redpi/img/07-shell-www-data.png)
 
-Hemendik aurrera, kontratazio erreal batek pribilegio-igoerara joko luke: `sudo -l`, SUID bitarrak, gaitasunak eta kernelaren bertsioa aztertuz `www-data` shell-etik. Horrek lab honen helburutik kanpo geratzen da — baina hurrengo fase naturala da.
+Hemendik aurrera, kontratazio erreal batek pribilegio-igoerara joko luke: `sudo -l`, SUID bitarrak, gaitasunak eta kernelaren bertsioa aztertuz `www-data` shell-etik. Horrek lab honen helburutik kanpo geratzen da, baina hurrengo fase naturala da.
 
 ## Erasoaren jatorriari buruzko oharra (mehatxu-eredua)
 
