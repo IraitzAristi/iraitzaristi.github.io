@@ -232,15 +232,15 @@ abiarazten den araberakoa da.**
   Ariketa osatzeko, aldi baterako arau bat gehitu nuen, 4444 ataka DMZ-tik
   RedPira baimenduz. Honek **barneko erasotzaile** baten agertokia simulatzen du
   (edo sarean dagoeneko sartuta dagoen talde batena).
-- **Kanpoko erasotzaile** erreal batek, zibergaizkile ohikoaren kasua, reverse
+- **Kanpoko erasotzaile** erreal batek, ziberkriminal ohikoaren kasua, reverse
   shell-a bere kontrolpeko makina batera apuntatuko luke **Interneten (WAN)**, ez
-  LANean. Agertoki horretan, trafikoa DMZ-tik kanpora aterako litzateke, normalean
+  empresaren LANean. Kasu horretan, trafikoa DMZ-tik kanpora aterako litzateke, normalean
   baimenduta dagoen norabidea, eta **ez litzateke suebakia ukitu beharko**.
 
-Hau da, arauaren beharra ez da katearen ahulezia bat, barnetik erasotzearen
-ondorioa baizik. LAN/DMZ segmentazioak *ondo* egiten du bere lana, barne-sarerako
-mugimendua geldituz; geldiarazten ez duena DMZ-tik Internetera doan irteerako
-trafikoa da, eta hortik ihes egingo luke konpromiso erreal batek.
+Hau da, arauaren beharra ez da eraso katearen ahulezia bat, barnetik erasotzearen
+ondorio bat da. LAN/DMZ segmentazioak *ondo* egiten du bere lana, barne sarerako
+mugimendua geldituz, geldiarazten ez duena DMZ-tik Internetera doan irteerako
+trafikoa da, eta hortik joan egingo luke zibereraso erreal batek.
 
 ## Neurriak (mitigazioa)
 
