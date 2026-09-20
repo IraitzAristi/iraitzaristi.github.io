@@ -239,7 +239,7 @@ dónde se lanza el ataque.**
 
 Es decir, la necesidad de la regla no es una debilidad de la cadena, sino
 consecuencia de atacar desde dentro. La segmentación LAN/DMZ hace *bien* su
-trabajo, deteniendo el movimiento hacia la red interna; lo que no detiene es el
+trabajo, deteniendo el movimiento hacia la red interna, lo que no detiene es el
 tráfico saliente de la DMZ hacia Internet, que es justo por donde escaparía un
 compromiso real.
 
