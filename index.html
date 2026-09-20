@@ -629,14 +629,17 @@
       // cae automáticamente a los 3 más recientes por fecha. Crece solo con los datos.
       const allItems = [
         ...machines.map(m => ({ kind:'machine', title: tr(m.title || m.name || ''), file: m.file, date: m.date || '', featured: !!m.featured, meta: [m.platform, m.difficulty].filter(Boolean).join(' · ') })),
-        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name) })))
+        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name) }))),
+        ...findings.map(f => ({ kind:'finding', title: tr(f.title), file: f.url, external: true, date: f.date || '', featured: !!f.featured, meta: tr(f.meta || '') }))
       ];
-      let feat = allItems.filter(i => i.featured);
-      if (!feat.length) feat = allItems.filter(i => i.date).sort((a,b) => (a.date < b.date ? 1 : -1)).slice(0, 3);
-      const kindWord = { machine: { es:'writeup', eu:'writeup', en:'writeup' }, doc: { es:'proyecto', eu:'proiektua', en:'project' } };
+      const byDate = (a,b) => (a.date < b.date ? 1 : -1);
+      let feat = allItems.filter(i => i.featured).sort(byDate);
+      feat = feat.concat(allItems.filter(i => i.date && !i.featured).sort(byDate)).slice(0, 3);
+      const kindWord = { machine: { es:'writeup', eu:'writeup', en:'writeup' }, doc: { es:'proyecto', eu:'proiektua', en:'project' }, finding: { es:'hallazgo', eu:'aurkikuntza', en:'finding' } };
+      const hrefOf = i => i.external ? `href="${esc(i.file)}" target="_blank" rel="noopener"` : `href="#${esc(i.file)}"`;
       const featLabel = { es:'// destacado', eu:'// nabarmendua', en:'// featured' }[lang] || '// featured';
       const featCards = feat.map(i => `
-        <a class="feat-card" href="#${esc(i.file)}">
+        <a class="feat-card" ${hrefOf(i)}>
           <span class="feat-kind">${esc(kindWord[i.kind][lang] || kindWord[i.kind].en)}</span>
           <span class="feat-title">${esc(i.title)}</span>
           ${i.meta ? `<span class="feat-meta">${esc(i.meta)}</span>` : ''}
@@ -649,7 +652,7 @@
       const latest = allItems.filter(i => i.date).sort((a,b) => (a.date < b.date ? 1 : -1)).slice(0, 6);
       const latestLabel = { es:'// novedades', eu:'// azkenak', en:'// latest' }[lang] || '// latest';
       const latestRows = latest.map(i => `
-        <a class="latest-row" href="#${esc(i.file)}">
+        <a class="latest-row" ${hrefOf(i)}>
           <span class="latest-date">${esc(i.date)}</span>
           <span class="latest-title">${esc(i.title)}</span>
           <span class="latest-kind">${esc(kindWord[i.kind][lang] || kindWord[i.kind].en)}</span>
