@@ -230,8 +230,8 @@ abiarazten den araberakoa da.**
   bidez konektatua, OpenVPN tunelaren bidez). Suebakiak zonak segmentatzen ditu
   eta DMZ->LAN trafikoa blokeatzen du, beraz, itzulerako konexioa ez zen iristen.
   Ariketa osatzeko, aldi baterako arau bat gehitu nuen, 4444 ataka DMZ-tik
-  RedPira baimenduz. Honek **barneko erasotzaile** baten agertokia simulatzen du
-  (edo sarean dagoeneko sartuta dagoen talde batena).
+  RedPira baimenduz. Honek **barneko erasotzaile** baten kasua simulatzen du
+  (edo sarean sartuta dagoen ziberkiminal talde batena).
 - **Kanpoko erasotzaile** erreal batek, ziberkriminal ohikoaren kasua, reverse
   shell-a bere kontrolpeko makina batera apuntatuko luke **Interneten (WAN)**, ez
   empresaren LANean. Kasu horretan, trafikoa DMZ-tik kanpora aterako litzateke, normalean
