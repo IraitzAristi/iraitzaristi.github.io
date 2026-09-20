@@ -106,7 +106,9 @@
       {
         "title": "OS Command Injection (CWE-78)",
         "meta": "PeaZip 11.2.0 · High (CVSS 7.1) · Secur0 VDP (CERT-4095) · joint disclosure (lead)",
-        "url": "https://app.secur0.com/certificate/ys3yqg-avrwaq-5ybnwl"
+        "url": "https://app.secur0.com/certificate/ys3yqg-avrwaq-5ybnwl",
+        "date": "2026-08-26",
+        "featured": true
       }
     ]
   },
