@@ -227,7 +227,7 @@ attack is launched from.**
   (connected over VPN, through the OpenVPN tunnel). The firewall segments the
   zones and blocks DMZ->LAN traffic, so the callback wasn't getting through. To
   complete the exercise, I added a temporary rule allowing port 4444 from the DMZ
-  to RedPi. This simulates the scenario of an **internal attacker** (or of a team
+  to RedPi. This simulates the scenario of an **internal attacker** (or of a criminal group
   already inside the network).
 - A real **external attacker**, the typical cybercriminal case, would point the
   reverse shell at a machine under their control **on the Internet (WAN)**, not on
