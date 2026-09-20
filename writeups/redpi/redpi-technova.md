@@ -236,7 +236,7 @@ attack is launched from.**
 
 In other words, the need for the rule is not a weakness in the chain, but a
 consequence of attacking from the inside. The LAN/DMZ segmentation does its job
-*well*, stopping movement toward the internal network; what it doesn't stop is
+*well*, stopping movement toward the internal network, what it doesn't stop is
 outbound traffic from the DMZ to the Internet, which is exactly where a real
 compromise would escape.
 
@@ -252,7 +252,7 @@ Recommendations, from highest to lowest impact:
 - **Disable or restrict `xmlrpc.php`**, it allows brute forcing with no attempt limit (and `system.multicall` multiplies attempts per request).
 - **Restrict user enumeration in `wp-json`**, don't hand valid usernames to the
   attacker.
-- **fail2ban / WAF** to stop brute force, inspecting the request body too — counting requests isn't enough against `system.multicall`, and least privilege for the web-service account.
+- **fail2ban / WAF** to stop brute force, inspecting the request body too, counting requests isn't enough against `system.multicall`, and least privilege for the web-service account.
 - **Egress filtering on the DMZ**, restricting the web server's outbound
   connections kills the reverse shell, even from an external attacker.
 
