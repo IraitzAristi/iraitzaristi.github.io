@@ -231,7 +231,7 @@ dónde se lanza el ataque.**
   y bloquea el tráfico DMZ->LAN, así que la conexión de vuelta no llegaba. Para
   completar el ejercicio, añadí una regla temporal permitiendo el puerto 4444
   desde la DMZ hacia RedPi. Esto simula el escenario de un **atacante interno** (o
-  de un equipo ya dentro de la red).
+  de un grupo de cibercriminales ya dentro de la red).
 - Un **atacante externo** real, el caso típico del cibercriminal, apuntaría la
   reverse shell a una máquina bajo su control **en Internet (WAN)**, no en la LAN.
   En ese escenario, el tráfico saldría de la DMZ hacia fuera, una dirección que
