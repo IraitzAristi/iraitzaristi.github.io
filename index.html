@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>~/IraitzAristi</title>
+  <title>~/portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -170,6 +170,15 @@
     /* Certificaciones: destacadas con borde ámbar */
     .certs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 40px; }
     .certs .clabel { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-right: 4px; }
+
+    /* ---------- SECURITY RESEARCH / FINDINGS ---------- */
+    .findings { margin-top: 34px; }
+    .findings .clabel { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 12px; }
+    .finding-list { display: flex; flex-direction: column; gap: 10px; }
+    .finding { display: block; border: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 12px 16px; background: var(--surface); }
+    .finding:hover { background: var(--surface-2); text-decoration: none; }
+    .finding-title { display: block; font-family: var(--mono); font-size: 14px; color: var(--accent); }
+    .finding-meta { display: block; font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 4px; }
     .cert { font-family: var(--mono); font-size: 12px; padding: 4px 11px; border: 1px solid var(--accent-dim); color: var(--accent); background: var(--surface); }
     .cert .issuer { color: var(--muted); }
 
@@ -313,7 +322,7 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">IraitzAristi</span><span class="cursor"></span></div>
+        <div class="prompt"><span class="sigil">~/</span><span id="brandHandle">portfolio</span><span class="cursor"></span></div>
         <div class="tagline" id="tagline">loading…</div>
         <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
           <button class="lang-btn" data-lang="eu" aria-label="Euskara">
@@ -398,6 +407,7 @@
       eu: {
         profile: 'profila', machines: 'makinak', machinesTitle: 'Makinak',
         projects: 'Proiektuak', certifications: 'Ziurtagiriak', catalog: 'katalogoa',
+        research: 'Segurtasun ikerketa', findings: 'Aurkikuntzak',
         platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
         machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
         byDifficulty: 'Makinak zailtasunaren arabera:',
@@ -413,6 +423,7 @@
       es: {
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
+        research: 'Investigación de seguridad', findings: 'Hallazgos',
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
@@ -428,6 +439,7 @@
       en: {
         profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
         projects: 'Projects', certifications: 'Certifications', catalog: 'catalog',
+        research: 'Security research', findings: 'Findings',
         platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
         machineCol: 'Machine', clean: '✕ Clear filters',
         byDifficulty: 'Machines by difficulty:',
@@ -593,6 +605,10 @@
       const skills = trArr(p.skills).map(s => `<span class="skill">${esc(s)}</span>`).join('');
       const certChips = certs.map(c =>
         `<span class="cert">${esc(c.name)}${c.issuer ? ` <span class="issuer">· ${esc(c.issuer)}</span>` : ''}</span>`).join('');
+      const findings = p.findings || [];
+      const findItems = findings.map(f =>
+        `<a class="finding" href="${esc(f.url || '#')}" target="_blank" rel="noopener"><span class="finding-title">${esc(tr(f.title))}</span><span class="finding-meta">${esc(tr(f.meta || ''))}</span></a>`).join('');
+      const findSection = findItems ? `<div class="findings"><span class="clabel">${esc(t('research'))}</span><div class="finding-list">${findItems}</div></div>` : '';
 
       // barra de estadísticas principal: se define aquí y se pinta en bucle,
       // así añadir una métrica nueva en el futuro es agregar una línea.
@@ -601,6 +617,7 @@
         { n: projectsCount,   l: t('projects') },
         { n: certs.length,    l: t('certifications') }
       ];
+      if (findings.length) stats.push({ n: findings.length, l: t('findings') });
       const statCells = stats.map(s => `<div class="cell"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join('');
 
       // desglose por dificultad (solo muestra los niveles que existen)
@@ -649,6 +666,7 @@
           <p class="pitch">${esc(tr(p.pitch))}</p>
           <div class="links">${links}</div>
           ${certChips ? `<div class="certs"><span class="clabel">${esc(t('certifications'))}</span>${certChips}</div>` : ''}
+          ${findSection}
           <div class="skills">${skills}</div>
         </section>`;
       const statsHtml = `
