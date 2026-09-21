@@ -249,7 +249,7 @@ La cadena funcionó por varias configuraciones por defecto, mal puestas o débil
 Recomendaciones, de mayor a menor impacto:
 
 - **Contraseñas fuertes + MFA**, `admin:7ujm8ik,9ol.` cayó con un diccionario
-  minúsculo; es la raíz de todo el compromiso.
+  minúsculo, es la raíz de todo el compromiso.
 - **Desactivar el editor de plugins/temas**, poner `DISALLOW_FILE_EDIT` en
   `wp-config.php` para que un admin comprometido no pueda inyectar código.
 - **Desactivar o restringir `xmlrpc.php`**, permite fuerza bruta sin límite de intentos (y `system.multicall` multiplica los intentos por petición).
