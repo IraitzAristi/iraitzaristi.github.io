@@ -247,7 +247,7 @@ trafikoa da, eta hortik joan egingo luke zibereraso erreal batek.
 Katea hainbat konfigurazio lehenetsi, gaizki ezarri edo ahulengatik funtzionatu
 zuen. Gomendioak, eraginik handienetik txikienera:
 
-- **Pasahitz sendoak + MFA**, `admin:7ujm8ik,9ol.` hiztegi txiki batekin erori zen;
+- **Pasahitz sendoak + MFA**, `admin:7ujm8ik,9ol.` hiztegi txiki batekin erori zen,
   konpromiso osoaren sustraia da.
 - **Plugin/gai editorea desgaitu**, `DISALLOW_FILE_EDIT` ezarri `wp-config.php`-n,
   konprometitutako admin batek kodea injektatu ezin dezan.
