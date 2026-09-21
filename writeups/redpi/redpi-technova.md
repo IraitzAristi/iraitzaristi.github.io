@@ -245,7 +245,7 @@ compromise would escape.
 The chain worked because of several default, misconfigured or weak settings.
 Recommendations, from highest to lowest impact:
 
-- **Strong passwords + MFA**, `admin:7ujm8ik,9ol.` fell to a tiny wordlist; it's
+- **Strong passwords + MFA**, `admin:7ujm8ik,9ol.` fell to a tiny wordlist, it's
   the root of the whole compromise.
 - **Disable the plugin/theme editor**, set `DISALLOW_FILE_EDIT` in
   `wp-config.php` so a compromised admin can't inject code.
