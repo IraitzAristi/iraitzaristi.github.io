@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>~/portfolio</title>
+  <title>~/IraitzAristi</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -629,7 +629,7 @@
       // cae automáticamente a los 3 más recientes por fecha. Crece solo con los datos.
       const allItems = [
         ...machines.map(m => ({ kind:'machine', title: tr(m.title || m.name || ''), file: m.file, date: m.date || '', featured: !!m.featured, meta: [m.platform, m.difficulty].filter(Boolean).join(' · ') })),
-        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name) }))),
+        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name), kindLabel: dd.kindLabel || null }))),
         ...findings.map(f => ({ kind:'finding', title: tr(f.title), file: f.url, external: true, date: f.date || '', featured: !!f.featured, meta: tr(f.meta || '') }))
       ];
       const byDate = (a,b) => (a.date < b.date ? 1 : -1);
@@ -640,7 +640,7 @@
       const featLabel = { es:'// destacado', eu:'// nabarmendua', en:'// featured' }[lang] || '// featured';
       const featCards = feat.map(i => `
         <a class="feat-card" ${hrefOf(i)}>
-          <span class="feat-kind">${esc(kindWord[i.kind][lang] || kindWord[i.kind].en)}</span>
+          <span class="feat-kind">${esc(i.kindLabel ? tr(i.kindLabel) : (kindWord[i.kind][lang] || kindWord[i.kind].en))}</span>
           <span class="feat-title">${esc(i.title)}</span>
           ${i.meta ? `<span class="feat-meta">${esc(i.meta)}</span>` : ''}
         </a>`).join('');
@@ -655,7 +655,7 @@
         <a class="latest-row" ${hrefOf(i)}>
           <span class="latest-date">${esc(i.date)}</span>
           <span class="latest-title">${esc(i.title)}</span>
-          <span class="latest-kind">${esc(kindWord[i.kind][lang] || kindWord[i.kind].en)}</span>
+          <span class="latest-kind">${esc(i.kindLabel ? tr(i.kindLabel) : (kindWord[i.kind][lang] || kindWord[i.kind].en))}</span>
         </a>`).join('');
       const latestSection = latest.length
         ? `<section class="latest"><div class="feat-head">${esc(latestLabel)}</div><div class="latest-list">${latestRows}</div></section>`
