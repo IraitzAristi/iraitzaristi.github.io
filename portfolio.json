@@ -186,8 +186,8 @@
     },
     {
       "name": {
-        "es": "Inteligencia de amenazas",
-        "eu": "Mehatxu-adimena",
+        "es": "Threat Intelligence",
+        "eu": "Threat Intelligence",
         "en": "Threat Intelligence"
       },
       "docs": [
@@ -195,7 +195,7 @@
           "title": {
             "en": "NoName057(16) / DDoSia - threat actor profile (OSINT)",
             "es": "NoName057(16) / DDoSia - perfil de actor (OSINT)",
-            "eu": "NoName057(16) / DDoSia - aktore-profila (OSINT)"
+            "eu": "NoName057(16) / DDoSia - aktore profila (OSINT)"
           },
           "file": "intel/noname057-ddosia.md",
           "date": "2026-09-21",
