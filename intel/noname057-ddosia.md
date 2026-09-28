@@ -1,6 +1,6 @@
 # NoName057(16), Threat Actor Profile
 
-> **TLP:CLEAR**·**Report date:** 2026-09-21·**Analyst:** Iraitz Aristi·**Version:** 1.0
+> **TLP:CLEAR** · **Report date:** 2026-09-21 · **Analyst:** Iraitz Aristi · **Version:** 1.0
 > **Data cutoff (snapshot):** 2026-09-20·**Collection window:** documented C2 & management infrastructure, 2022 to 2026
 
 **Aliases:** DDoSia, Dosia (ThreatFox family label) · **First seen:** March 2022 · **Origin / attribution:** pro Russia hacktivist collective, management infrastructure hosted in Russia · **Motivation:** hacktivism (pro Russia ideological / geopolitical)
