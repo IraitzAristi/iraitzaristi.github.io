@@ -122,7 +122,7 @@ The core capability is **DDoSia**, a purpose built DDoS client distributed to pa
 
 ## Current status & assessment
 
-NoName057(16) is assessed as **active but disrupted**. Operation Eastwood degraded the operation and established individual liability, yet fresh C2 indicators in 2026 show it is very likely still functioning and reconstituting its short lived control layer (*confidence: high*). Notably, the 2026 sightings sit on Western hosting (AS9009 / M247) rather than the Russian/Bulgarian networks of the 2022 to 2023 back end, which is consistent with post takedown reconstitution on new providers (*confidence: moderate*). The specific 2022 to 2023 C2 documented here is very likely dormant: the NoIP DDNS fronts now resolve to placeholder addresses (`0.0.0.0` / a public resolver), the behaviour NoIP shows when a dynamic host is offline (*confidence: moderate*). The operation's dependence on a concentrated set of Western hosting netblocks remains its most exploitable weakness (*confidence: moderate*).
+As an analytic judgment, NoName057(16) remains active but disrupted after Operation Eastwood (July 2025). The two 2026 C2 sightings are datable, ThreatFox records first_seen of 2026-07-14 and 2026-07-27 (reporter: Deepfield), roughly twelve months after the takedown, which supports continued activity (*confidence: high*) and is consistent with reconstitution (*confidence: moderate*). These sightings sit on AS9009 (M247), Western hosting, versus the Russian and Bulgarian infrastructure documented in 2022 to 2023. The shift to Western hosting is offered as a hypothesis, not a conclusion (*confidence: low to moderate*), for two reasons: (1) M247 is among the most common autonomous systems in European abuse infrastructure, so presence on M247 has a high base rate and discriminates weakly on its own, and (2) ThreatFox first_seen is the feed submission date, not the operational start date, so it dates public visibility rather than the move itself. Evidence that would raise it: dated passive DNS placing these hosts on M247 only after July 2025, or independent corroboration of the same westward pattern. The specific 2022 to 2023 C2 documented here is very likely dormant: the NoIP DDNS fronts now resolve to placeholder addresses (`0.0.0.0` / a public resolver), the behaviour NoIP shows when a dynamic host is offline (*confidence: moderate*). The operation's dependence on a concentrated set of Western hosting netblocks remains its most exploitable weakness (*confidence: moderate*).
 
 ### Intelligence gaps & analytic caveats
 
@@ -157,7 +157,7 @@ IOCs are defanged for safe reading. Confidence is per indicator, treat "context"
 | zig35m48zur14nel40.myftp.org | Domain | DDNS C2 front (NoIP) | high |
 | 185.122.187.217 | IPv4 | 2026 C2 sighting (ThreatFox, "Dosia") | high |
 | 185.76.78.136 | IPv4 | 2026 C2 sighting (ThreatFox, "Dosia") | high |
-| 5.182.39.0/24, 94.131.109[.]0/24, 94.131.102.0/24, … | Netblocks | Attack infrastructure (Stark/MIRhosting), see full table | high |
+| 5.182.39.0/24, 94.131.109.0/24, 94.131.102.0/24, … | Netblocks | Attack infrastructure (Stark/MIRhosting), see full table | high |
 | api.telegram.org | Domain | Legitimate Telegram API (bot channel), do NOT block | context |
 
 > Machine readable bundles (STIX 2.1 and MISP) and the passive pivoting tool are available in the project repository.
