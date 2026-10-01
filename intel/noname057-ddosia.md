@@ -22,7 +22,7 @@ NoName057(16) is a pro Russia hacktivist operation that has run sustained distri
 - **The operation is very likely operator run rather than genuinely crowd driven at the infrastructure layer.** A large majority of attack traffic has originated from a handful of netblocks at two interlinked providers (Stark Industries, MIRhosting), which is inconsistent with a broad, organically distributed volunteer base. *(confidence: moderate)*
 - **The group is resilient to law enforcement disruption.** Despite Operation Eastwood (July 2025), fresh C2 indicators attributed to DDoSia appear in public feeds in 2026, indicating reconstitution rather than dismantlement. *(confidence: high)*
 - **The concentration of attack infrastructure is a genuine defensive opportunity.** Because so much traffic originates from a limited, identifiable set of /24s, targeted blocking materially reduces attack impact. *(confidence: moderate)*
-- **Automated passive pivoting did not reveal confirmed new actor infrastructure beyond what is already documented.** The reconstruction rests on published reporting, the single candidate the pipeline surfaced (`flotaero[.]info`) was rejected on temporal grounds (see Pivot rationale). *(confidence: high, as a statement about this collection)*
+- **Automated passive pivoting did not reveal confirmed new actor infrastructure beyond what is already documented.** The reconstruction rests on published reporting, the single candidate the pipeline surfaced (`flotaero.info`) was rejected on temporal grounds (see Pivot rationale). *(confidence: high, as a statement about this collection)*
 
 ## Attribution & origin
 
@@ -49,7 +49,7 @@ No dedicated ATT&CK group entry existed for NoName057(16) as of the data cutoff,
 | Resource Development | Acquire Infrastructure: Server | T1583.004 | Control/management servers on VPS at NETERRA (BG) and CLOUDASSETS (RU), attack capacity on Stark/MIRhosting VPS (Team Cymru). |
 | Resource Development | Acquire Infrastructure: Dynamic DNS | T1583.001 | NoIP dynamic DNS domains (`*.myftp.org`) used as C2 front for target distribution (Team Cymru). |
 | Command and Control | Application Layer Protocol: Web | T1071.001 | DDoSia client fetches target lists from `/client/get_targets` over HTTP/80 (Team Cymru). |
-| Command and Control | Web Service: Bidirectional | T1102.002 | Telegram channels/bot (`@noname05716`, `@nn05716chat`) for tasking, recruitment and payments, server side traffic to `api.telegram[.]org` (Team Cymru). |
+| Command and Control | Web Service: Bidirectional | T1102.002 | Telegram channels/bot (`@noname05716`, `@nn05716chat`) for tasking, recruitment and payments, server side traffic to `api.telegram.org` (Team Cymru). |
 | Impact | Network Denial of Service | T1498 | Sustained volumetric DDoS against victim web services (multiple vendors, Europol). |
 | Impact | Endpoint Denial of Service | T1499 | Application layer floods (HTTP/TCP) targeting specific hosts/subdomains per C2 tasking (Team Cymru). |
 
