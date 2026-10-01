@@ -102,7 +102,7 @@ The single candidate the automated pivot surfaced was `flotaero.info`, from a pa
 
 ### Relationship graph
 
-Documented C2/management topology (core of the reconstructed graph). The interactive graph, the passive pivoting tool and the machine readable IOC bundles are available in the project repository.
+Documented C2/management topology (core of the reconstructed graph). The interactive graph, the passive pivoting tool and the machine readable IOC bundles are available in the project repository: [osint-actor-profile](https://github.com/IraitzAristi/osint-actor-profile).
 
 ![Documented C2/management topology](intel/figures/topology.png)
 
@@ -166,7 +166,7 @@ IOCs are defanged for safe reading. Confidence is per indicator, treat "context"
 | 5.182.39.0/24, 94.131.109[.]0/24, 94.131.102.0/24, … | Netblocks | Attack infrastructure (Stark/MIRhosting), see full table | high |
 | api.telegram.org | Domain | Legitimate Telegram API (bot channel), do NOT block | context |
 
-> Machine readable bundles (STIX 2.1 and MISP) and the passive pivoting tool are available in the project repository.
+> Machine readable bundles (STIX 2.1 and MISP) and the passive pivoting tool are available in the project repository: [osint-actor-profile](https://github.com/IraitzAristi/osint-actor-profile).
 
 ## Analytic conventions
 
