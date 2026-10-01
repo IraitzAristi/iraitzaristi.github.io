@@ -66,7 +66,7 @@ Credenciales obtenidas.
 
 ![Fuerza bruta al XML-RPC recuperando las credenciales de admin](writeups/redpi/img/04-xmlrpc-bruteforce.png)
 
-Un dato importante: el método `system.multicall` está detrás de los ataques masivos reales contra el `xmlrpc.php` de WordPress — permite agrupar cientos de intentos de login en una sola petición HTTP, saltándose el rate limiting por petición y dejando una línea de log en vez de mil. Mi herramienta usa el método simple de un intento por petición, suficiente para una sola cuenta, pero una defensa real debe tener en cuenta multicall, ya que un WAF o fail2ban ve muchos menos eventos que intentos reales.
+Un dato importante: el método `system.multicall` está detrás de los ataques masivos reales contra el `xmlrpc.php` de WordPress, permite agrupar cientos de intentos de login en una sola petición HTTP, saltándose el rate limiting por petición y dejando una línea de log en vez de mil. Mi herramienta usa el método simple de un intento por petición, suficiente para una sola cuenta, pero una defensa real debe tener en cuenta multicall, ya que un WAF o fail2ban ve muchos menos eventos que intentos reales.
 
 ## Acceso y foothold
 
@@ -220,6 +220,20 @@ Shell como `www-data` en el servidor web de la DMZ. Objetivo cumplido.
 ![Reverse shell recibida en RedPi: shell como www-data](writeups/redpi/img/07-shell-www-data.png)
 
 Desde aquí, un engagement real pasaría a la escalada de privilegios: revisar `sudo -l`, binarios SUID, capabilities y la versión de kernel desde la shell de `www-data`. Eso queda fuera del objetivo de este lab, pero es la fase natural siguiente.
+
+## MITRE ATT&CK
+
+La cadena mapeada a MITRE ATT&CK, una técnica por paso:
+
+| Táctica | Técnica | ID | Paso de la cadena |
+| --- | --- | --- | --- |
+| Discovery | Network Service Discovery | T1046 | Escaneo del servidor web de la DMZ desde RedPi |
+| Reconnaissance | Active Scanning: Wordlist Scanning | T1595.003 | Fuzzing web de rutas comunes |
+| Reconnaissance | Gather Victim Identity Information | T1589 | Enumeración de usuarios vía `wp-json/wp/v2/users` |
+| Credential Access | Brute Force: Password Guessing | T1110.001 | Ataque de diccionario contra `xmlrpc.php` |
+| Initial Access | Valid Accounts | T1078 | Acceso a `wp-admin` con las credenciales recuperadas |
+| Persistence | Server Software Component: Web Shell | T1505.003 | Reverse shell en PHP implantada vía el plugin Hello Dolly |
+| Execution | Command and Scripting Interpreter: Unix Shell | T1059.004 | Shell interactiva `sh` como `www-data` |
 
 ## Nota sobre el punto de origen del ataque (modelo de amenaza)
 
