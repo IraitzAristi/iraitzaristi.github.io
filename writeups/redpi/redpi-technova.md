@@ -218,6 +218,20 @@ Shell as `www-data` on the DMZ web server. Goal achieved.
 
 From here, a real engagement would move into privilege escalation: checking `sudo -l`, SUID binaries, capabilities and the kernel version from the `www-data` shell. That's outside this lab's goal, but it's the natural next phase.
 
+## MITRE ATT&CK
+
+The chain mapped to MITRE ATT&CK, one technique per step:
+
+| Tactic | Technique | ID | Step in the chain |
+| --- | --- | --- | --- |
+| Discovery | Network Service Discovery | T1046 | Scanning the DMZ web server from RedPi |
+| Reconnaissance | Active Scanning: Wordlist Scanning | T1595.003 | Web fuzzing of common paths |
+| Reconnaissance | Gather Victim Identity Information | T1589 | Username enumeration via `wp-json/wp/v2/users` |
+| Credential Access | Brute Force: Password Guessing | T1110.001 | Dictionary attack against `xmlrpc.php` |
+| Initial Access | Valid Accounts | T1078 | Login to `wp-admin` with the recovered credentials |
+| Persistence | Server Software Component: Web Shell | T1505.003 | PHP reverse shell planted via the Hello Dolly plugin |
+| Execution | Command and Scripting Interpreter: Unix Shell | T1059.004 | Interactive `sh` shell as `www-data` |
+
 ## A note on the attack's origin point (threat model)
 
 An important detail about the reverse shell: **the outcome depends on where the
