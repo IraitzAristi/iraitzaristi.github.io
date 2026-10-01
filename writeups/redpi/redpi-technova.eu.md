@@ -221,6 +221,20 @@ Shell-a `www-data` erabiltzailean DMZ-ko web zerbitzarian. Helburua beteta.
 
 Hemendik aurrera, kontratazio erreal batek pribilegio-igoerara joko luke: `sudo -l`, SUID bitarrak, gaitasunak eta kernelaren bertsioa aztertuz `www-data` shell-etik. Horrek lab honen helburutik kanpo geratzen da, baina hurrengo fase naturala da.
 
+## MITRE ATT&CK
+
+Katea MITRE ATT&CK-era mapeatua, teknika bat urratseko:
+
+| Taktika | Teknika | ID | Kateko urratsa |
+| --- | --- | --- | --- |
+| Discovery | Network Service Discovery | T1046 | DMZ-ko web zerbitzariaren eskaneoa RedPi-tik |
+| Reconnaissance | Active Scanning: Wordlist Scanning | T1595.003 | Ohiko ruten web fuzzing-a |
+| Reconnaissance | Gather Victim Identity Information | T1589 | Erabiltzaileen enumerazioa `wp-json/wp/v2/users` bidez |
+| Credential Access | Brute Force: Password Guessing | T1110.001 | Hiztegi-erasoa `xmlrpc.php`-ren aurka |
+| Initial Access | Valid Accounts | T1078 | `wp-admin`-en sarbidea berreskuratutako kredentzialekin |
+| Persistence | Server Software Component: Web Shell | T1505.003 | PHP reverse shell-a Hello Dolly plugin bidez landatua |
+| Execution | Command and Scripting Interpreter: Unix Shell | T1059.004 | `sh` shell interaktiboa `www-data` gisa |
+
 ## Erasoaren jatorriari buruzko oharra (mehatxu-eredua)
 
 Reverse shell-ari buruzko xehetasun garrantzitsu bat: **emaitza erasoa nondik
