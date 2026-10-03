@@ -43,7 +43,7 @@
       eu: {
         profile: 'profila', machines: 'makinak', machinesTitle: 'Makinak',
         projects: 'Proiektuak', certifications: 'Ziurtagiriak', catalog: 'katalogoa',
-        research: 'Segurtasun ikerketa', findings: 'Aurkikuntzak',
+        research: 'Security research', findings: 'Aurkikuntzak',
         platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
         machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
         byDifficulty: 'Makinak zailtasunaren arabera:',
@@ -59,7 +59,7 @@
       es: {
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
-        research: 'Investigación de seguridad', findings: 'Hallazgos',
+        research: 'Security research', findings: 'Hallazgos',
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
