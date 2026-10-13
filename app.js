@@ -86,7 +86,8 @@
         loadErr: f => `Couldn't load "${f}"`,
         jsonErr: "Couldn't load portfolio.json",
         servedNote: 'fetch() only works when serving the folder (GitHub Pages or a local server).',
-        notTranslated: dl => `This content isn't translated yet, showing ${dl}.`
+        notTranslated: dl => `This content isn't translated yet, showing ${dl}.`,
+        translatedNote: 'English version translated from the Spanish original.'
       }
     };
 
@@ -148,6 +149,8 @@
     function updateChrome() {
       brandHandle.textContent = data.profile.handle || 'portfolio';
       tagline.textContent = tr(data.profile.role) || '';
+      const ln = document.getElementById('langNote');
+      if (ln) { ln.textContent = lang === 'en' ? I18N.en.translatedNote : ''; ln.hidden = lang !== 'en'; }
       document.getElementById('menuBtn').textContent = t('menu');
       langSwitch.querySelectorAll('.lang-btn').forEach(b =>
         b.classList.toggle('active', b.dataset.lang === lang));
@@ -413,7 +416,7 @@
         // aviso si se muestra un idioma distinto al activo
         const banner = fallback
           ? `<div class="doc-banner">${esc(t('notTranslated', LANG_NAME[lang][fallback]))}</div>`
-          : '';
+          : (lang === 'en' ? `<div class="doc-banner">${esc(t('translatedNote'))}</div>` : '');
 
         let crumb, badges = '';
         if (kind === 'machine') {
