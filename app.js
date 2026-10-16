@@ -109,7 +109,7 @@
       if (lang !== 'en') return '';
       const d = I18N.en;
       return `<div class="tr-banner" role="note">
-        <div class="tr-text"><strong>🌐 ${esc(d.trTitle)}.</strong> ${esc(d.trBody)}</div>
+        <div class="tr-text"><strong> ${esc(d.trTitle)}.</strong> ${esc(d.trBody)}</div>
         <button class="tr-btn" type="button" data-goto-lang="es">${esc(d.trButton)} →</button>
       </div>`;
     }
