@@ -136,11 +136,15 @@
       if (val && typeof val === 'object') return val[lang] || val[DEFAULT_LANG] || [];
       return [];
     }
-    // resuelve el .md a cargar según el idioma; si no hay traducción, cae al base
+    // resuelve el .md a cargar según el idioma.
+    // "file" es la versión en inglés (file_lang la cambia); file_i18n tiene las demás.
+    // Si falta el idioma activo, cae al idioma por defecto (castellano) y lo avisa.
     function resolveDoc(entry) {
-      const map = entry.file_i18n || {};
-      if (map[lang]) return { path: map[lang], fallback: null };
-      return { path: entry.file, fallback: (lang !== DEFAULT_LANG) ? DEFAULT_LANG : null };
+      const baseLang = entry.file_lang || 'en';
+      const files = Object.assign({ [baseLang]: entry.file }, entry.file_i18n || {});
+      if (files[lang]) return { path: files[lang], fallback: null };
+      const fb = files[DEFAULT_LANG] ? DEFAULT_LANG : baseLang;
+      return { path: files[fb], fallback: fb };
     }
 
     function initLang() {
