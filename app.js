@@ -54,7 +54,8 @@
         loadErr: f => `Ezin izan da «${f}» kargatu`,
         jsonErr: 'Ezin izan da portfolio.json kargatu',
         servedNote: 'fetch()-ek karpeta zerbitzatzean bakarrik funtzionatzen du (GitHub Pages edo tokiko zerbitzaria).',
-        notTranslated: dl => `Eduki hau ez dago oraindik itzulita, ${dl} ikusten da.`
+        notTranslated: dl => `Eduki hau ez dago oraindik itzulita, ${dl} ikusten da.`,
+        siteNote: 'Webgunea IAren laguntzarekin egina · edukia nirea da.'
       },
       es: {
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
@@ -70,7 +71,8 @@
         loadErr: f => `No pude cargar «${f}»`,
         jsonErr: 'No pude cargar portfolio.json',
         servedNote: 'fetch() solo funciona sirviendo la carpeta (GitHub Pages o servidor local).',
-        notTranslated: dl => `Este contenido aún no está traducido, se ve en ${dl}.`
+        notTranslated: dl => `Este contenido aún no está traducido, se ve en ${dl}.`,
+        siteNote: 'Web desarrollada con ayuda de IA · el contenido es propio.'
       },
       en: {
         profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
@@ -87,7 +89,11 @@
         jsonErr: "Couldn't load portfolio.json",
         servedNote: 'fetch() only works when serving the folder (GitHub Pages or a local server).',
         notTranslated: dl => `This content isn't translated yet, showing ${dl}.`,
-        translatedNote: 'English version translated from the Spanish original.'
+        translatedNote: 'English version translated from the Spanish original.',
+        trTitle: 'Translated version',
+        trBody: 'This portfolio is written in Spanish. The English text is a translation, not my own writing in English.',
+        trButton: 'Read the original in Spanish',
+        siteNote: 'Site built with AI assistance · the content is my own (written in Spanish).'
       }
     };
 
@@ -97,6 +103,16 @@
       es: { eu: 'euskera', es: 'castellano', en: 'inglés' },
       en: { eu: 'Basque', es: 'Spanish', en: 'English' }
     };
+
+    // aviso de traducción, visible en todas las páginas cuando el idioma es inglés
+    function trBanner() {
+      if (lang !== 'en') return '';
+      const d = I18N.en;
+      return `<div class="tr-banner" role="note">
+        <div class="tr-text"><strong>🌐 ${esc(d.trTitle)}.</strong> ${esc(d.trBody)}</div>
+        <button class="tr-btn" type="button" data-goto-lang="es">${esc(d.trButton)} →</button>
+      </div>`;
+    }
 
     function t(key, ...args) {
       const dict = I18N[lang] || I18N[DEFAULT_LANG];
@@ -149,8 +165,8 @@
     function updateChrome() {
       brandHandle.textContent = data.profile.handle || 'portfolio';
       tagline.textContent = tr(data.profile.role) || '';
-      const ln = document.getElementById('langNote');
-      if (ln) { ln.textContent = lang === 'en' ? I18N.en.translatedNote : ''; ln.hidden = lang !== 'en'; }
+      const sn = document.getElementById('siteNote');
+      if (sn) sn.textContent = t('siteNote');
       document.getElementById('menuBtn').textContent = t('menu');
       langSwitch.querySelectorAll('.lang-btn').forEach(b =>
         b.classList.toggle('active', b.dataset.lang === lang));
@@ -179,6 +195,12 @@
       // indexar máquinas y docs para búsquedas O(1)
       (data.machines || []).forEach(m => byFile.set(m.file, { entry: m, kind: 'machine' }));
       (data.sections || []).forEach(s => (s.docs || []).forEach(d => byFile.set(d.file, { entry: d, kind: 'doc', section: s })));
+
+      // botón «leer el original» dentro del aviso de traducción
+      content.addEventListener('click', e => {
+        const b = e.target.closest('[data-goto-lang]');
+        if (b) setLang(b.dataset.gotoLang);
+      });
 
       // cablear el selector de idioma
       langSwitch.querySelectorAll('.lang-btn').forEach(b =>
@@ -318,9 +340,9 @@
         </section>`;
       const aside = featSection + latestSection;
       content.className = 'content is-home';
-      content.innerHTML = aside
+      content.innerHTML = trBanner() + (aside
         ? `<div class="profile-grid"><div class="profile-main">${heroHtml}</div><aside class="profile-aside">${aside}</aside></div>${statsHtml}`
-        : `${heroHtml}${statsHtml}`;
+        : `${heroHtml}${statsHtml}`);
       document.title = (p.name || p.handle || 'portfolio');
       window.scrollTo(0, 0);
     }
@@ -362,7 +384,7 @@
       }).join('') : '';
 
       content.className = 'content is-list';
-      content.innerHTML = `
+      content.innerHTML = trBanner() + `
         <div class="view-head">
           <p class="kicker">${esc(t('catalog'))}</p>
           <h2>${esc(t('machinesTitle'))}</h2>
@@ -416,7 +438,7 @@
         // aviso si se muestra un idioma distinto al activo
         const banner = fallback
           ? `<div class="doc-banner">${esc(t('notTranslated', LANG_NAME[lang][fallback]))}</div>`
-          : (lang === 'en' ? `<div class="doc-banner">${esc(t('translatedNote'))}</div>` : '');
+          : trBanner();
 
         let crumb, badges = '';
         if (kind === 'machine') {
