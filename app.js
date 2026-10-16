@@ -55,7 +55,7 @@
         jsonErr: 'Ezin izan da portfolio.json kargatu',
         servedNote: 'fetch()-ek karpeta zerbitzatzean bakarrik funtzionatzen du (GitHub Pages edo tokiko zerbitzaria).',
         notTranslated: dl => `Eduki hau ez dago oraindik itzulita, ${dl} ikusten da.`,
-        siteNote: 'Webgunea IAren laguntzarekin egina · edukia nirea da.'
+        siteNote: 'Webgunea IAren laguntzarekin egina · eduki guztia nire lan propioa da.'
       },
       es: {
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
@@ -72,7 +72,7 @@
         jsonErr: 'No pude cargar portfolio.json',
         servedNote: 'fetch() solo funciona sirviendo la carpeta (GitHub Pages o servidor local).',
         notTranslated: dl => `Este contenido aún no está traducido, se ve en ${dl}.`,
-        siteNote: 'Web desarrollada con ayuda de IA · el contenido es propio.'
+        siteNote: 'Web desarrollada con ayuda de IA · todo el contenido es trabajo original mío.'
       },
       en: {
         profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
@@ -93,7 +93,7 @@
         trTitle: 'Translated version',
         trBody: 'This portfolio is written in Spanish. The English text is a translation, not my own writing in English.',
         trButton: 'Read the original in Spanish',
-        siteNote: 'Site built with AI assistance · the content is my own (written in Spanish).'
+        siteNote: 'Site built with AI assistance · all content is my original work (written in Spanish).'
       }
     };
 
