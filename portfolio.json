@@ -208,6 +208,377 @@
           }
         }
       ]
+    },
+    {
+      "name": {
+        "es": "eJPTv2",
+        "eu": "eJPTv2",
+        "en": "eJPTv2"
+      },
+      "index": "ejpt/index.md",
+      "docs": [
+        {
+          "title": {
+            "es": "Apuntes eJPTv2",
+            "eu": "eJPTv2 apunteak",
+            "en": "eJPTv2 notes"
+          },
+          "file": "ejpt/index.md",
+          "file_lang": "es",
+          "date": "2025-08",
+          "kindLabel": {
+            "es": "apuntes",
+            "eu": "apunteak",
+            "en": "notes"
+          },
+          "tags": [
+            "eJPTv2",
+            "pentesting"
+          ]
+        },
+        {
+          "title": "Linux",
+          "file": "ejpt/post-explotacion/linux.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Windows",
+          "file": "ejpt/post-explotacion/windows.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Como usar ARP-SCAN",
+          "file": "ejpt/reconocimiento/como-usar-arp-scan.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Detectar sistema operativo mediante TTL (comando ping)",
+          "file": "ejpt/reconocimiento/detectar-sistema-operativo-mediante-ttl-comando-ping.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Como usar NETDISCOVER",
+          "file": "ejpt/reconocimiento/como-usar-netdiscover.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Enumeración de HotFixes Windows",
+          "file": "ejpt/post-explotacion/enumeracion-de-hotfixes-windows.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Fuerza Bruta contra SSH y FTP (HYDRA)",
+          "file": "ejpt/fuerza-bruta/fuerza-bruta-contra-ssh-y-ftp-hydra.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Fuerza bruta"
+          ]
+        },
+        {
+          "title": "Fuerza Bruta contra bases de datos",
+          "file": "ejpt/fuerza-bruta/fuerza-bruta-contra-bases-de-datos.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Fuerza bruta"
+          ]
+        },
+        {
+          "title": "Fuerza Bruta contra paneles de Login Web (Maquina Blog)",
+          "file": "ejpt/fuerza-bruta/fuerza-bruta-contra-paneles-de-login-web-maquina-blog.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Fuerza bruta"
+          ]
+        },
+        {
+          "title": "Fuerza Bruta en local",
+          "file": "ejpt/fuerza-bruta/fuerza-bruta-en-local.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Fuerza bruta"
+          ]
+        },
+        {
+          "title": "Hacking Wordpress",
+          "file": "ejpt/hacking-web/hacking-wordpress.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Ataque de Transferencia en Zona DNS",
+          "file": "ejpt/hacking-web/ataque-de-transferencia-en-zona-dns.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Vulnerabilidad de File Upload",
+          "file": "ejpt/hacking-web/vulnerabilidad-de-file-upload.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Dirb",
+          "file": "ejpt/hacking-web/dirb.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Gobuster",
+          "file": "ejpt/hacking-web/gobuster.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Otras Herramientas De Fuzzing Web",
+          "file": "ejpt/hacking-web/otras-herramientas-de-fuzzing-web.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Hacking en Servidores Tomcat",
+          "file": "ejpt/hacking-web/hacking-en-servidores-tomcat.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Intrusión a Servidor Mediante una WebShell",
+          "file": "ejpt/hacking-web/intrusion-a-servidor-mediante-una-webshell.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Uso de SQLMAP",
+          "file": "ejpt/hacking-web/uso-de-sqlmap.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Vulnerabilidad Local File Inclusion",
+          "file": "ejpt/hacking-web/vulnerabilidad-local-file-inclusion.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Wfuzz (enumerar subdominios) y Virtual Hosting (Maquina Logan)",
+          "file": "ejpt/hacking-web/wfuzz-enumerar-subdominios-y-virtual-hosting-maquina-logan.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Hacking web"
+          ]
+        },
+        {
+          "title": "Explotación VSFTPD 2.3.4 (Metasploitable2)",
+          "file": "ejpt/metasploit/explotacion-vsftpd-2-3-4-metasploitable2.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Metasploit"
+          ]
+        },
+        {
+          "title": "Fuerza Bruta contra SSH y FTP (METASPLOIT)",
+          "file": "ejpt/metasploit/fuerza-bruta-contra-ssh-y-ftp-metasploit.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Metasploit"
+          ]
+        },
+        {
+          "title": "Teoría Metasploit",
+          "file": "ejpt/metasploit/teoria-metasploit.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Metasploit"
+          ]
+        },
+        {
+          "title": "Teoría msfvenom",
+          "file": "ejpt/metasploit/teoria-msfvenom.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Metasploit"
+          ]
+        },
+        {
+          "title": "msfvenom",
+          "file": "ejpt/metasploit/msfvenom.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Metasploit"
+          ]
+        },
+        {
+          "title": "Cuando usar netcat",
+          "file": "ejpt/post-explotacion/cuando-usar-netcat.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Uso basico de netcat",
+          "file": "ejpt/post-explotacion/uso-basico-de-netcat.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Descubrir hosts con Nmap",
+          "file": "ejpt/reconocimiento/descubrir-hosts-con-nmap.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Escaneo al protocolo UDP",
+          "file": "ejpt/reconocimiento/escaneo-al-protocolo-udp.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Uso básico de Nmap",
+          "file": "ejpt/reconocimiento/uso-basico-de-nmap.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Reconocimiento"
+          ]
+        },
+        {
+          "title": "Hacking al Protocolo RDP",
+          "file": "ejpt/servicios-y-protocolos/hacking-al-protocolo-rdp.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Servicios y protocolos"
+          ]
+        },
+        {
+          "title": "Hacking al Protocolo SAMBA",
+          "file": "ejpt/servicios-y-protocolos/hacking-al-protocolo-samba.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Servicios y protocolos"
+          ]
+        },
+        {
+          "title": "Hacking al Protocolo SMB con Metasploit",
+          "file": "ejpt/servicios-y-protocolos/hacking-al-protocolo-smb-con-metasploit.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Servicios y protocolos"
+          ]
+        },
+        {
+          "title": "Hacking al Protocolo SMB",
+          "file": "ejpt/servicios-y-protocolos/hacking-al-protocolo-smb.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Servicios y protocolos"
+          ]
+        },
+        {
+          "title": "Hacking al Protocolo SNMP",
+          "file": "ejpt/servicios-y-protocolos/hacking-al-protocolo-snmp.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Servicios y protocolos"
+          ]
+        },
+        {
+          "title": "Reverse Shell en Bash",
+          "file": "ejpt/post-explotacion/reverse-shell-en-bash.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        },
+        {
+          "title": "Tratamiento de la TTY",
+          "file": "ejpt/post-explotacion/tratamiento-de-la-tty.md",
+          "file_lang": "es",
+          "nav": false,
+          "tags": [
+            "Post-explotación"
+          ]
+        }
+      ]
     }
   ]
 }
