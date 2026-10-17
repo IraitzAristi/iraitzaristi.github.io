@@ -44,6 +44,7 @@
         profile: 'profila', machines: 'makinak', machinesTitle: 'Makinak',
         projects: 'Proiektuak', certifications: 'Ziurtagiriak', catalog: 'katalogoa',
         research: 'Security research', findings: 'Aurkikuntzak',
+        wip: 'Egiten ari naizena: DockerLabs, TryHackMe eta Hack The Box makinen writeup-ak.',
         platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
         machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
         byDifficulty: 'Makinak zailtasunaren arabera:',
@@ -61,6 +62,7 @@
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
         research: 'Security research', findings: 'Hallazgos',
+        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box.',
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
@@ -78,6 +80,7 @@
         profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
         projects: 'Projects', certifications: 'Certifications', catalog: 'catalog',
         research: 'Security research', findings: 'Findings',
+        wip: 'In progress: writeups of DockerLabs, TryHackMe and Hack The Box machines.',
         platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
         machineCol: 'Machine', clean: '✕ Clear filters',
         byDifficulty: 'Machines by difficulty:',
@@ -393,6 +396,7 @@
           <p class="kicker">${esc(t('catalog'))}</p>
           <h2>${esc(t('machinesTitle'))}</h2>
         </div>
+        <p class="wip-note">${esc(t('wip'))}</p>
         <div class="filters">
           <div class="filter-row">
             <span class="filter-label">${esc(t('platform'))}</span>
