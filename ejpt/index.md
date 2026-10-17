@@ -1,8 +1,8 @@
-Apuntes que tomé mientras preparaba la certificación **eJPTv2** (INE Security) con el curso de [El Rincón del Hacker](https://rincondelhacker.es), la academia de El Pingüino de Mario. Están escritos por mí y organizados por temas, y recogen las técnicas y herramientas que practiqué antes del examen, que aprobé en agosto de 2025.
+Apuntes que tomé mientras preparaba la certificación **eJPTv2** (INE Security) con el curso de [El Rincón del Hacker](https://rincondelhacker.es), la academia de El Pingüino de Mario. Están escritos por mí y organizados por temas.
 
-> **Apuntes incompletos.** Falta la parte de **pivoting**, una de las más importantes del temario, y algunos temas menores. Los iré añadiendo.
+> **Apuntes incompletos.** Falta la parte de **pivoting**, una de las más importantes del temario, y algunos temas menores. Los iré añadiendo practicando sobre laboratorios publicos.
 >
-> Además, he dejado fuera los apuntes hechos sobre un laboratorio propio del curso, porque no quiero compartir su contenido sin autorización. Estoy valorando recrear esas partes con laboratorios públicos para poder publicarlas.
+> Además, he dejado fuera los apuntes hechos sobre un laboratorio propio del curso (que incluía buena parte de la sección de pivoting y más contenido del examen), porque no quiero compartir su contenido sin autorización. Estoy valorando recrear esas partes con laboratorios públicos para poder publicarlas.
 
 ## Reconocimiento
 
