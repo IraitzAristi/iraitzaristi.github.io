@@ -62,7 +62,7 @@
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
         research: 'Security research', findings: 'Hallazgos',
-        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo mucho tiempo practicando en estas plataformas (sobre todo dockerlabs.es), pero sin documentarlas, actualmente empiezo a hacer writeups estructurados de cada maquina que resuelva de ahora en adelante. Los writeups estarán disponibles lo antes posible, al igual que el writeup con ataque simulado punto a punto del CVE-2026-105050',
+        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo mucho tiempo practicando en estas plataformas (sobre todo dockerlabs.es), pero sin documentarlas, actualmente empiezo a hacer writeups estructurados de cada maquina que resuelva de ahora en adelante. Los writeups estarán disponibles lo antes posible, al igual que el writeup con ataque simulado punto a punto del CVE-2026-105050.',
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
