@@ -4,9 +4,9 @@
     "name": "Iraitz Aristi Lucambio",
     "handle": "IraitzAristi",
     "role": {
-      "es": "Pentesting · Threat Intelligence · eJPTv2 · CVE-2026-105050",
-      "eu": "Pentesting · Threat Intelligence · eJPTv2 · CVE-2026-105050",
-      "en": "Pentesting · Threat Intelligence · eJPTv2 · CVE-2026-105050"
+      "es": "Pentesting · Threat Intelligence · CVE-2026-105050",
+      "eu": "Pentesting · Threat Intelligence · CVE-2026-105050",
+      "en": "Pentesting · Threat Intelligence · CVE-2026-105050"
     },
     "pitch": {
       "es": "Técnico orientado a la seguridad ofensiva. Diseño, virtualizo y protejo infraestructuras de red completas, y me muevo en seguridad ofensiva y defensiva: pentesting, explotación web y Active Directory, con práctica continua en Hack The Box, CTFs y programas de Bug Bounty/VDP. Complemento lo técnico con el análisis del adversario, cómo operan los actores de amenazas (incluidos APTs con sus TTPs) y qué tecnologías de anonimato (Tor, I2P, VPN, proxychains) emplean, una perspectiva que refuerza mi trabajo ofensivo. Actualmente curso ASIR.",
