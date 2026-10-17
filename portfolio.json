@@ -105,7 +105,7 @@
     "findings": [
       {
         "title": "CVE-2026-105050 · OS Command Injection (PeaZip)",
-        "meta": "PeaZip < 11.3.0 · CVSS 3.1: 7.1 (self-assessed, NVD pending) · CWE-180 · MITRE · coordinated disclosure (lead)",
+        "meta": "PeaZip < 11.3.0 · CVSS 4.0: 7.1 · CWE-180 · MITRE · coordinated disclosure (lead)",
         "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105050",
         "date": "2026-10-02",
         "featured": true
