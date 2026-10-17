@@ -1,62 +1,62 @@
-**English** · [Castellano](README.es.md) · [Euskara](README.eu.md)
+[English](README.md) · **Castellano** · [Euskara](README.eu.md)
 
 # iraitzaristi.github.io
 
-My portfolio. Here I show what I actually know how to do: machines I've rooted, projects I've built and tools.
+Mi portfolio. Aquí muestro lo que de verdad sé hacer: máquinas que he rooteado, proyectos que he construido y herramientas.
 
 **Portfolio:** https://iraitzaristi.github.io
 
-## Features
+## Funciones
 
-- **Profile / landing**: role, pitch, skills, certifications and stats (machines, projects, certifications).
-- **Machines catalog**: each machine with its platform, difficulty and OS, in a filterable table (filter by platform and difficulty).
-- **Writeups & projects**: Markdown rendered in-page.
-- **In 3 languages**: English/Spanish/Basque, switchable with one click and remembered across visits. English is the default, the browser language is detected on first load.
+- **Perfil / portada**: rol, presentación, skills, certificaciones y estadísticas (máquinas, proyectos, certificaciones).
+- **Catálogo de máquinas**: cada máquina con su plataforma, dificultad y SO, en una tabla filtrable (por plataforma y dificultad).
+- **Writeups y proyectos**: Markdown renderizado en la página.
+- **En 3 idiomas**: inglés/castellano/euskera, conmutable con un clic y recordado entre visitas. El inglés es el idioma por defecto, el del navegador se detecta en la primera carga.
 
-## Technology
+## Tecnología
 
-Deployed on GitHub Pages.
+Sitio estático (HTML/CSS/JS vanilla) desplegado en GitHub Pages, construido **con ayuda de IA** como asistente de programación para el frontend. No soy desarrollador front-end profesional, pero el sitio está **dirigido por datos**: todo el contenido (perfil, máquinas, proyectos, secciones) se gestiona desde `portfolio.json`, así que lo mantengo y lo escalo yo mismo editando ese archivo, sin tocar el código. El contenido (writeups, proyectos, análisis) es íntegramente mío.
 
-## Structure
+## Estructura
 
 ```
 .
-├── index.html          # the whole app
-├── portfolio.json      # all the data: profile, machines, sections
-├── writeups/           # machine writeups (Markdown)
+├── index.html          # toda la app
+├── portfolio.json      # todos los datos: perfil, máquinas, secciones
+├── writeups/           # writeups de máquinas (Markdown)
 │   └── htb/
-└── projects/           # project cards (Markdown, with per-language versions)
+└── projects/           # fichas de proyecto (Markdown, con versiones por idioma)
 ```
 
-## Data model
+## Modelo de datos
 
-Everything the site shows comes from `portfolio.json`.
+Todo lo que muestra el sitio viene de `portfolio.json`.
 
-**Add a machine**: write the `.md` under `writeups/<platform>/`, then add an entry to `machines`:
+**Añadir una máquina**: escribe el `.md` en `writeups/<plataforma>/` y añade una entrada a `machines`:
 
 ```json
 {
-  "title": "Machine name",
+  "title": "Nombre de la máquina",
   "platform": "HackTheBox",
   "difficulty": "Medium",
   "os": "Linux",
   "date": "2026-02-01",
-  "file": "writeups/htb/name.md",
+  "file": "writeups/htb/nombre.md",
   "tags": ["web", "sqli"]
 }
 ```
 
-`difficulty` accepts `Easy`, `Medium`, `Hard`, `Insane`, each gets its own colour, and the platform/difficulty filters build themselves from the data.
+`difficulty` acepta `Easy`, `Medium`, `Hard`, `Insane`, cada uno con su color, y los filtros de plataforma/dificultad se generan solos a partir de los datos.
 
-## Run locally
+## Ejecutar en local
 
 ```bash
 python3 -m http.server 8000
 # http://localhost:8000
 ```
 
-## Contact
+## Contacto
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)
 - LinkedIn: [Iraitz Aristi](https://www.linkedin.com/in/iraitz-a-897731297)
-- HackTheBox: [profile](https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08)
+- HackTheBox: [perfil](https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08)
