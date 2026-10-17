@@ -20,7 +20,7 @@ tresnak.
 
 ## Teknologia
 
-GitHub Pages-en hedatua.
+Gune estatikoa (HTML/CSS/JS vanilla) GitHub Pages-en hedatua, frontend-erako **IAren laguntzarekin** eraikia programazio-laguntzaile gisa. Ez naiz front-end garatzaile profesionala, baina gunea **datuek gidatua** dago: eduki guztia (profila, makinak, proiektuak, atalak) `portfolio.json`-etik kudeatzen da, beraz nik neuk mantentzen eta eskalatzen dut fitxategi hori editatuz, kodea ukitu gabe. Edukia (writeup-ak, proiektuak, analisia) erabat nirea da.
 
 ## Egitura
 
