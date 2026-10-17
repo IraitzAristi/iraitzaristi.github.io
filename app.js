@@ -62,7 +62,7 @@
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
         research: 'Security research', findings: 'Hallazgos',
-        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo mucho tiempo practicando en estas plataformas (sobre todo dockerlabs.es), pero sin documentarlas, actualmente empiezo a hacer writeups estructurados de cada maquina que resuelva de ahora en adelante. Los writeups estarán disponibles lo antes posible, al igual que el writeup con ataque simulado punto a punto del CVE-2026-105050.',
+        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo mucho tiempo practicando en estas plataformas (sobre todo dockerlabs.es), pero sin documentarlas, actualmente empiezo a hacer writeups estructurados de cada maquina que resuelva de ahora en adelante. Los writeups estarán disponibles lo antes posible, al igual que el writeup con ataque simulado punto a punto del CVE-2026-105050',
         platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
@@ -230,7 +230,7 @@
         h.className = 'section-title';
         h.textContent = tr(section.name);
         nav.appendChild(h);
-        (section.docs || []).forEach(d => {
+        (section.docs || []).filter(d => d.nav !== false).forEach(d => {
           const a = document.createElement('a');
           a.className = 'entry'; a.href = '#' + d.file; a.dataset.file = d.file;
           a.innerHTML = esc(tr(d.title)) + '<span class="entry-meta">' + esc(d.date || '') + '</span>';
@@ -248,7 +248,9 @@
       const hash = decodeURIComponent(location.hash.slice(1));
       // marcar activo
       nav.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.route === hash));
-      nav.querySelectorAll('.entry').forEach(e => e.classList.toggle('active', e.dataset.file === hash));
+      const hit = byFile.get(hash);
+      const navTarget = (hit && hit.entry.nav === false && hit.section && hit.section.index) ? hit.section.index : hash;
+      nav.querySelectorAll('.entry').forEach(e => e.classList.toggle('active', e.dataset.file === navTarget));
 
       if (hash === '/machines') return renderMachines();
       if (hash && byFile.has(hash)) return renderDoc(hash);
@@ -297,7 +299,7 @@
       // cae automáticamente a los 3 más recientes por fecha. Crece solo con los datos.
       const allItems = [
         ...machines.map(m => ({ kind:'machine', title: tr(m.title || m.name || ''), file: m.file, date: m.date || '', featured: !!m.featured, meta: [m.platform, m.difficulty].filter(Boolean).join(' · ') })),
-        ...sections.flatMap(s => (s.docs || []).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name), kindLabel: dd.kindLabel || null }))),
+        ...sections.flatMap(s => (s.docs || []).filter(dd => dd.nav !== false).map(dd => ({ kind:'doc', title: tr(dd.title), file: dd.file, date: dd.date || '', featured: !!dd.featured, meta: tr(s.name), kindLabel: dd.kindLabel || null }))),
         ...findings.map(f => ({ kind:'finding', title: tr(f.title), file: f.url, external: true, date: f.date || '', featured: !!f.featured, meta: tr(f.meta || '') }))
       ];
       const byDate = (a,b) => (a.date < b.date ? 1 : -1);
@@ -459,7 +461,10 @@
             ${(entry.tags || []).map(tag => `<span class="minitag">${esc(tr(tag))}</span>`).join('')}
           </div>`;
         } else {
-          crumb = esc(tr(section.name));
+          // si la sección tiene índice (p. ej. apuntes eJPTv2), la miga enlaza a él
+          crumb = (section.index && section.index !== file)
+            ? `<a href="#${esc(section.index)}">${esc(tr(section.name))}</a>`
+            : esc(tr(section.name));
           badges = (entry.tags || []).length ? `<div class="doc-badges">${(entry.tags || []).map(tag => `<span class="minitag">${esc(tr(tag))}</span>`).join('')}</div>` : '';
         }
 
