@@ -1,0 +1,1 @@
+Cuando descubres una vulnerabilidad de ejecución remota de comandos a una victima, si ejecutas el comando generado por https://revshells.com y pones el puerto 443 en escucha como en el anterior ejemplo ganaras una reverse shell de la victima desde tu maquina atacante

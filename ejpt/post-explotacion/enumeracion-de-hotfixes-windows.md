@@ -1,0 +1,4 @@
+- **HotFix**: Un tipo de actualización que sirve para poder resolver un problema en especifico que ha ocurrido en el pasado, por ejemplo, dentro de Windows hay un error critico, entonces Microsoft lanza un parche de actualización muy rápido para poder solucionar ese problema.
+
+1. Cuando accedemos a un sistema Windows podemos acceder a una **cmd**, para ver los **HotFix** que el sistema tiene instalados tenemos que escribir el comando **PowerShell** para acceder a la sesión de **Powershell**, una vez ahí ponemos el comando **(Get-HotFix).Count** y nos saldrá el numero de **HotFix** que hay instalados en ese sistema Windows:
+![Enumeración de HotFixes Windows](ejpt/img/enumeracion-de-hotfixes-windows.png)
