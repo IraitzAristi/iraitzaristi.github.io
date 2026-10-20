@@ -64,6 +64,13 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
+## Commit historialaren buruzko oharra
+
+2026ko urrian nire GitHub-eko repositorioen commit-historia garbitu nuen. Testu- eta estilo-aldaketa txikiko ehunka commit zituzten, GitHub-eko webetik eginak, eta ez zuten ezer gehitzen historia irakurtzean. Garbiketa hutsa izan zen: edukia ez zen aldatu.
+
+- **Repositorio hau (portfolioa) eta nire profileko README-aren repositorioa:** historia berrabiarazi nuen, eta commit bakarra geratu zen.
+- **[osint-actor-profile](https://github.com/IraitzAristi/osint-actor-profile) eta [RedPi-Tools](https://github.com/IraitzAristi/RedPi-Tools):** README-ak aldatzen zituzten commitak bakarrik garbitu nituen, aurrekoekin bateratuz; beraz, haien aldaketak mantentzen dira. Kode-commitak oso-osorik gordetzen dira, jatorrizko datekin.
+
 ## Kontaktua
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)

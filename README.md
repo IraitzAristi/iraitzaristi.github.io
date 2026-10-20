@@ -55,6 +55,13 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
+## Nota sobre el historial
+
+En octubre de 2026 limpié el historial de commits de mis repositorios de GitHub. Tenían cientos de commits pequeños de ajustes de texto y estilo, hechos desde la web de GitHub, que no aportaban nada al leer el historial. Fue solo limpieza: el contenido no cambió.
+
+- **Este repositorio (portfolio) y el del README de mi perfil:** reinicié el historial, que quedó en un solo commit.
+- **[osint-actor-profile](https://github.com/IraitzAristi/osint-actor-profile) y [RedPi-Tools](https://github.com/IraitzAristi/RedPi-Tools):** solo limpié los commits que modificaban los README, fusionándolos con los anteriores, así que sus cambios se mantienen. Los commits de código se conservan intactos, con sus fechas originales.
+
 ## Contacto
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)

@@ -57,6 +57,13 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
+## Note on the commit history
+
+In October 2026 I cleaned up the commit history of my GitHub repositories. They had hundreds of small text and style commits, made from the GitHub web interface, that added nothing when reading the history. It was purely a cleanup: the content did not change.
+
+- **This repository (portfolio) and my profile README repository:** I reset the history, which now has a single commit.
+- **[osint-actor-profile](https://github.com/IraitzAristi/osint-actor-profile) and [RedPi-Tools](https://github.com/IraitzAristi/RedPi-Tools):** I only cleaned up the commits that changed the README files, merging them into the previous ones, so their changes are kept. The code commits are intact, with their original dates.
+
 ## Contact
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)
