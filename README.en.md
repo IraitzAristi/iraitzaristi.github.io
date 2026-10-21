@@ -67,5 +67,3 @@ In October 2026 I cleaned up the commit history of my GitHub repositories. They 
 ## Contact
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)
-- LinkedIn: [Iraitz Aristi](https://www.linkedin.com/in/iraitz-a-897731297)
-- HackTheBox: [profile](https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08)

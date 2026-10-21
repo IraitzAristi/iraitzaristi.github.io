@@ -65,5 +65,3 @@ En octubre de 2026 limpié el historial de commits de mis repositorios de GitHub
 ## Contacto
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)
-- LinkedIn: [Iraitz Aristi](https://www.linkedin.com/in/iraitz-a-897731297)
-- HackTheBox: [perfil](https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08)

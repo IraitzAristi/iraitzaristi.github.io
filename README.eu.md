@@ -74,5 +74,3 @@ python3 -m http.server 8000
 ## Kontaktua
 
 - GitHub: [@IraitzAristi](https://github.com/IraitzAristi)
-- LinkedIn: [Iraitz Aristi](https://www.linkedin.com/in/iraitz-a-897731297)
-- HackTheBox: [profila](https://profile.hackthebox.com/profile/019ff283-2707-724f-babf-ca805a383f08)
