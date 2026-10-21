@@ -44,8 +44,8 @@
         profile: 'profila', machines: 'makinak', machinesTitle: 'Makinak',
         projects: 'Proiektuak', certifications: 'Ziurtagiriak', catalog: 'katalogoa',
         research: 'Security research', findings: 'Aurkikuntzak',
-        wip: 'Egiten ari naizena: DockerLabs, TryHackMe eta Hack The Box makinen writeup-ak.',
-        platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
+        wip: 'Egiten ari naizena: DockerLabs, TryHackMe eta Hack The Box makinen writeup-ak. Denbora daramat plataforma hauetan praktikatzen (batez ere dockerlabs.es-en), baina dokumentatu gabe. Hemendik aurrera, ebazten dudan makina bakoitzaren writeup egituratu bat egingo dut. Ahalik eta lasterren argitaratuko ditut, CVE-2026-105050-en hasieratik amaierarako writeup-arekin batera, eraso simulatu batekin.',
+           platform: 'Plataforma', difficulty: 'Zailtasuna', os: 'SE', date: 'Data',
         machineCol: 'Makina', clean: '✕ Iragazkiak garbitu',
         byDifficulty: 'Makinak zailtasunaren arabera:',
         diff: { easy:'Erraza', medium:'Ertaina', hard:'Zaila', insane:'Zoroa' },
@@ -62,8 +62,8 @@
         profile: 'perfil', machines: 'máquinas', machinesTitle: 'Máquinas',
         projects: 'Proyectos', certifications: 'Certificaciones', catalog: 'catálogo',
         research: 'Security research', findings: 'Hallazgos',
-        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo mucho tiempo practicando en estas plataformas (sobre todo dockerlabs.es), pero sin documentarlas, actualmente empiezo a hacer writeups estructurados de cada maquina que resuelva de ahora en adelante. Los writeups estarán disponibles lo antes posible, al igual que el writeup con ataque simulado punto a punto del CVE-2026-105050',
-        platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
+        wip: 'En curso: writeups de máquinas de DockerLabs, TryHackMe y Hack The Box. Llevo tiempo practicando en estas plataformas (sobre todo en dockerlabs.es), pero sin documentarlo. A partir de ahora haré un writeup estructurado de cada máquina que resuelva. Los publicaré lo antes posible, junto con el writeup de principio a fin del CVE-2026-105050 con un ataque simulado.',
+           platform: 'Plataforma', difficulty: 'Dificultad', os: 'SO', date: 'Fecha',
         machineCol: 'Máquina', clean: '✕ Limpiar filtros',
         byDifficulty: 'Máquinas por dificultad:',
         diff: { easy:'Fácil', medium:'Media', hard:'Difícil', insane:'Insana' },
@@ -80,8 +80,8 @@
         profile: 'profile', machines: 'machines', machinesTitle: 'Machines',
         projects: 'Projects', certifications: 'Certifications', catalog: 'catalog',
         research: 'Security research', findings: 'Findings',
-        wip: 'In progress: writeups of DockerLabs, TryHackMe and Hack The Box machines.',
-        platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
+        wip: 'In progress: writeups of DockerLabs, TryHackMe and Hack The Box machines. I have been practicing on these platforms for a while (mostly dockerlabs.es) without documenting it. From now on I will write a structured writeup for every machine I solve. I will publish them as soon as possible, together with an end-to-end writeup of CVE-2026-105050 with a simulated attack.',
+           platform: 'Platform', difficulty: 'Difficulty', os: 'OS', date: 'Date',
         machineCol: 'Machine', clean: '✕ Clear filters',
         byDifficulty: 'Machines by difficulty:',
         diff: { easy:'Easy', medium:'Medium', hard:'Hard', insane:'Insane' },
@@ -284,9 +284,9 @@
       // así añadir una métrica nueva en el futuro es agregar una línea.
       const stats = [
         { n: machines.length, l: t('machines') },
-        { n: projectsCount,   l: t('projects') },
-        { n: certs.length,    l: t('certifications') }
+        { n: projectsCount,   l: t('projects') }
       ];
+      if (certs.length) stats.push({ n: certs.length, l: t('certifications') });
       if (findings.length) stats.push({ n: findings.length, l: t('findings') });
       const statCells = stats.map(s => `<div class="cell"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join('');
 
