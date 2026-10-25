@@ -64,4 +64,4 @@ En octubre de 2026 limpié el historial de commits de mis repositorios de GitHub
 
 ## Contacto
 
-- Gmail: [@IraitzAristi](mailto:iraitzaristi@gmail.com])
+- Gmail: [@IraitzAristi](mailto:iraitzaristi@gmail.com]
