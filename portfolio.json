@@ -103,6 +103,21 @@
   },
   "machines": [
     {
+      "title": "Orion",
+      "platform": "HackTheBox",
+      "difficulty": "Easy",
+      "os": "Linux",
+      "date": "2026-11-02",
+      "file": "writeups/htb/orion.md",
+      "tags": [
+        "craftcms",
+        "rce",
+        "bcrypt",
+        "telnet",
+        "cve"
+      ]
+    },
+    {
       "title": "RedPi - TechNova",
       "platform": "Home lab",
       "os": "Linux",
